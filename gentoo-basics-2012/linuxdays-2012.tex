@@ -1,0 +1,181 @@
+\documentclass{beamer}
+
+\batchmode
+
+\usepackage{amsmath,amssymb,enumerate,epsfig,bbm,calc,color,ifthen,capt-of}
+
+\usetheme{Berlin}
+\usecolortheme{mit}
+
+%% <language_settings> %%
+\usepackage[utf8x]{inputenc}
+\usepackage[czech]{babel}
+%% </language_settings> %%
+
+%% Source code insertions
+\usepackage{verbatim}
+
+%% <change me> %%
+\title{Pokud se to hýbe, zkompiluj to!}
+\author[Tomáš Chvátal]{Tomáš Chvátal $<$scarabeus@gentoo.org$>$}
+\date{2012/10/20}
+%% </change me> %%
+
+%% <logo> %%
+\usepackage[absolute,overlay]{textpos}
+\setlength{\TPHorizModule}{1mm}
+\setlength{\TPVertModule}{1mm}
+\newcommand{\MyLogo}{
+	\begin{textblock}{14}(110,7)
+		\includegraphics[width=14mm,height=14mm]{gentoo-logo.png}
+	\end{textblock}
+}
+
+\newcommand*\oldmacro{}
+\let\oldmacro\insertshorttitle
+\renewcommand*\insertshorttitle{
+	\MyLogo
+	\oldmacro\hfill
+}
+%% </logo> %%
+
+%% <bgimage> %%
+\usebackgroundtemplate{
+	\includegraphics[width=\paperwidth,height=\paperheight]{gentoo-background-1.png}
+}
+%% </bgimage> %%
+
+%% <ToC Before each section> %%
+%\AtBeginSection[]{
+%	\begin{frame}<beamer>
+%		\frametitle{Přehled}
+%		\tableofcontents[currentsection]
+%	\end{frame}
+%}
+%% </ToC Before each section> %%
+
+%% <each bullet on one slide> %%
+%% better to use \pause on points where we really want to stop :)
+%\beamerdefaultoverlayspecification{<+->}
+%% </each bullet on one slide> %%
+% -----------------------------------------------------------------------------
+\begin{document}
+% -----------------------------------------------------------------------------
+\frame{\titlepage}
+%\section[Přehled]{}
+%\begin{frame}{Přehled}
+%	\tableofcontents
+%\end{frame}
+% -----------------------------------------------------------------------------
+\section{Představení}
+\begin{frame}{Kdo jsem?}
+	\begin{center}Tomáš Chvátal\end{center}
+	\begin{itemize}
+		\item Vývojářem Gentoo od podzima 2008
+		\item Členem Gentoo Council od ledna 2010
+		\item V současnosti správce libreoffice a člen KDE týmu
+		\item Dříve členem QA, X11, Overlays, Clustering, ...
+	\end{itemize}
+\end{frame}
+% -----------------------------------------------------------------------------
+\section{Co je gentoo?}
+
+\begin{frame}{Základní údaje}
+	\begin{itemize}
+		\item Zahájena Danielem Robbinsem v roce 1999.
+		\item Metadistribuce skládaná ze zdrojových kódů
+		\item Podporuje mnoho architektur: amd64, arm, x86, ppc64, ...
+		\item Demokraticky řízená distribuce s Koncilem jako rozhodčím orgánem
+		\item V portage je neco kolem 20 000 balíčků se 30 tisíci verzemi, další bordel je v overlays
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Co to sakra znamená Metadistribuce?}
+	V podstatě se jedná o to, že většina distribucí vychází z Gentoo jako základu a uživatelé používají tyto verze místo přímého používání Gentoo.
+	Distribuce, které vycházejí z Gentoo:
+	\begin{itemize}
+		\item Sabayon
+		\item Funtoo
+		\item Calculate linux
+		\item Exherbo (nepoužívá portage pouze použilo Gentoo jako inspiraci)
+	\end{itemize}
+	Další podobnou distribucí je Debian/Ubuntu, kdy si každej \uv{blbec} bastlí svojí vlastní verzi (viz Greenie linux).
+\end{frame}
+
+\begin{frame}{Výhody proti binárním distribucím}
+	\begin{itemize}
+		\item Rolling-updates: distribuce nemá nová vydání, aktualizace dostáváte každých 30 minut pokud chcete. Nemusíte přeinstalovávat a migrovat na nová vydání, Váš počítač je stále aktuální
+		\item Ze zdrojových kódů: můžete použít optimalizace přímo pro Váš stroj; 20\% rychlejší opengl vůči debianu na stejném PC atp. ; Nejvíce je to vidět na pomalejších strojích (zacate, atom, ...)
+	\end{itemize}
+\end{frame}
+\begin{frame}{Výhody proti binárním distribucím 2}
+	\begin{itemize}
+		\item Možnost volby: nemáte rádi syslog-ng? Super nainstalujte si rsyslog. Nechcete v aplikacích podporu tisku? Jasně proste se vše překompiluje s vypnutým přepínačem cups...
+		\item Téměř žádné distribuční patche: dostává se Vám vždy balíček tak jak si ho představoval vývojář při vydání.
+		\item Život na hraně: podpora živých balíků a experimentálních vlastností v testovací větvi.
+		\item Hardened projekt: zabezpečení Vašeho stroje o jakém se ostatním distribucím většinou nezdá ani v mokrých snech.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Nevýhody proti binárním distribucím}
+	\begin{itemize}
+		\item Složitá instalace: next next next finish... Opravdu ne :-)
+		\item Rolling-updates: Počkat tohle bylo u výhod ne? Ano, ale neustálé změny verzí nemusí vyhovovat všem, když máte super vývojáře co si apikaci odladí pro php-5.2 tak nebudou rádi, když distribuční server aktualizuje na 5.4
+		\item Pomalá instalace aplikací: pokud se nepoužijí binární balíčky (To jde? Jasně že jo!) tak kompilace ze zdrojových kódů chvíli trvá
+		\item Testing strom je \uv{o hubu}: I když jej spousta lidí používá pro běžné účely je bezpečnější používat stabilní strom (i já ho používám)
+	\end{itemize}
+\end{frame}
+
+\section{Je Gentoo pro mě?}
+\begin{frame}{Kdy bych měl bych uvažovat o nasazení Gentoo?}
+	\begin{itemize}
+		\item Chci se pořádně naučit jak linux vlastně funguje
+		\item Nevadí mi vyhledávat odpovědi na moje otázky na internetu
+		\item Čtu si oznámení a jednám na základě jejich doporučení
+	\end{itemize}
+	Ve většině případů Gentoo lze velice dobře nasadit téměř do jakékoliv situace, pouze zvláštní rozhodnutí správce z toho časem udělají noční můru.
+\end{frame}
+
+\section{Jak se gentoo používá}
+\begin{frame}{Pár tipů}
+	\begin{itemize}
+		\item Používat ladící údaje přidáním -g do C/CXXFLAGS a použitím splitdebug (viz man make.conf). Ladící informace pro celý můj bežící systém zabírají 3GB
+		\item Kamarádit se s eix a používat jej na synchronizaci s eix-sync
+		\item Aktualizovat alespoň jednou za měsíc strom portage a set @system \uv{emerge -NDu @system}
+	\end{itemize}
+\end{frame}
+
+\section{Přispíváme}
+\begin{frame}{Jak mohu přispívat?}
+	\begin{itemize}
+		\item Hlášením chyb na http://bugs.gentoo.org/
+		\item Přispíváním kódů do repozitářů (stát se vývojářem, nebo přispívat jako proxy-maintainer)
+		\item Financemi (donate čudl na http://www.gentoo.org/)
+		\item Více informací zítra v podvečír na Gentoo miniconf na přednášce \uv{Getting involved more}
+	\end{itemize}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+\section{Závěr}
+
+\subsection{Další zdroje}
+\begin{frame}{Další zdroje}
+	\begin{itemize}
+		\item Gentoo miniconf, která probíhá souběžně s touto konferencí o pár přednáškových sálů vedle
+		\item http://www.gentoo.org/
+		\item http://forums.gentoo.org/
+		\item http://wiki.gentoo.org/
+	\end{itemize}
+\end{frame}
+
+\subsection{Otázky}
+\begin{frame}{Otázky a odpovědi}
+	\begin{center}Otázky?\end{center}
+\end{frame}
+
+\subsection{Poděkování}
+\begin{frame}{}
+	\begin{center}Děkuji za pozornost\end{center}
+\end{frame}
+% -----------------------------------------------------------------------------
+\end{document}
