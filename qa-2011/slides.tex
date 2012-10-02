@@ -1,0 +1,166 @@
+\documentclass{beamer}
+
+\batchmode
+
+\usepackage{amsmath,amssymb,enumerate,epsfig,bbm,calc,color,ifthen,capt-of}
+
+\usetheme{Berlin}
+\usecolortheme{mit}
+
+%% <language_settings> %%
+\usepackage[utf8x]{inputenc}
+\usepackage[czech]{babel}
+%% </language_settings> %%
+
+%% Source code insertions
+\usepackage{verbatim}
+
+%% <change me> %%
+\title{QA v Gentoo}
+\author[Tomáš Chvátal]{Tomáš Chvátal $<$scarabeus@gentoo.org$>$}
+\date{2011/04/19}
+%% </change me> %%
+
+%% <logo> %%
+\usepackage[absolute,overlay]{textpos}
+\setlength{\TPHorizModule}{1mm}
+\setlength{\TPVertModule}{1mm}
+\newcommand{\MyLogo}{
+	\begin{textblock}{14}(110,7)
+		\includegraphics[width=14mm,height=14mm]{gentoo-logo.png}
+	\end{textblock}
+}
+
+\newcommand*\oldmacro{}
+\let\oldmacro\insertshorttitle
+\renewcommand*\insertshorttitle{
+	\MyLogo
+	\oldmacro\hfill
+}
+%% </logo> %%
+
+%% <bgimage> %%
+\usebackgroundtemplate{
+	\includegraphics[width=\paperwidth,height=\paperheight]{gentoo-background-1.png}
+}
+%% </bgimage> %%
+
+%% <ToC Before each section> %%
+%\AtBeginSection[]{
+%	\begin{frame}<beamer>
+%		\frametitle{Přehled}
+%		\tableofcontents[currentsection]
+%	\end{frame}
+%}
+%% </ToC Before each section> %%
+
+%% <each bullet on one slide> %%
+%% better to use \pause on points where we really want to stop :)
+%\beamerdefaultoverlayspecification{<+->}
+%% </each bullet on one slide> %%
+% -----------------------------------------------------------------------------
+\begin{document}
+% -----------------------------------------------------------------------------
+\frame{\titlepage}
+%\section[Přehled]{}
+%\begin{frame}{Přehled}
+%	\tableofcontents
+%\end{frame}
+% -----------------------------------------------------------------------------
+\section{Představení}
+\begin{frame}{About}
+	\begin{center}Tomáš Chvátal\end{center}
+	\begin{itemize}
+		\item Vývojářem Gentoo od podzima 2008
+		\item Členem Gentoo Council od ledna 2010
+		\item Pracuje v týmech KDE, X11, QA, Sci-geosciences a Cluster
+		\item V QA teamu pracuje na správném používání builscriptů a používání
+tzv. ebuild-helpers
+	\end{itemize}
+\end{frame}
+% -----------------------------------------------------------------------------
+\section{Gentoo balíček}
+
+\subsection{Ebuild}
+\begin{frame}{Ebuild}
+\verbatiminput{kwrite-4.6.2.ebuild}
+\end{frame}
+\begin{frame}{Global Local scope}
+	\begin{center}Global\end{center}
+	\begin{itemize}
+		\item Globální proměnné
+		\item Přístupné v metadatech
+	\end{itemize}
+	\begin{center}Local\end{center}
+	\begin{itemize}
+		\item Všechny proměnné by měli být pouze lokální
+		\item spouštěna až při zavolání dané fáze
+	\end{itemize}
+\end{frame}
+\begin{frame}{Ebuild fáze}
+	\begin{itemize}
+		\item pkg\_setup / pkg\_pretend
+		\item src\_unpack / src\_prepare
+		\item src\_configure / src\_compile
+		\item src\_install
+	\end{itemize}
+\end{frame}
+
+\subsection{Eclass}
+\begin{frame}{Eclass}
+Eclass je build script načítaný ebuildy pomocí příkazu inherit (podobný jako
+příkaz source).
+Vlastnosti těchto skriptů:
+\begin{itemize}
+	\item Neverzované (zatím)
+	\item Změna eclass ovlivňuje sestavování všech balíků jí používajících
+	\item Jsou bash skripty, které využívají vlastností dostupných k verzi 3.2
+\end{itemize}
+\end{frame}
+
+\subsection{Ukázka}
+\begin{frame}{Ukázka}
+	\begin{center}Ukázka libav-9999.ebuild a git-2.eclass\end{center}
+\end{frame}
+% -----------------------------------------------------------------------------
+\section{QA}
+
+\subsection{Rozdělení QA v Gentoo}
+\begin{frame}{Rozdělení QA v Gentoo}
+	\begin{itemize}
+	\item Interní QA pracující na:
+		\begin{itemize}
+			\item kvalitě buildscriptů (ebuild a eclass)
+			\item kvalitě oprav (patchů), které přidáváme v Gentoo ({\it As close to upstream as possible})
+		\end{itemize}
+	\item Externí QA která se zaměřuje na:
+		\begin{itemize}
+			\item Správné používání buildscriptů (autotools, cmake,...)
+			\item Nepoužívaní \uv{bundled} knihoven
+			\item Kompilační testy a varování
+			\item Testování reverzních závislostí
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+\section{Závěr}
+\subsection{Další zdroje}
+\begin{frame}{Další zdroje}
+	\begin{itemize}
+		\item http://devmanual.gentoo.org/
+		\item http://www.gentoo.org/proj/en/qa/
+	\end{itemize}
+\end{frame}
+\subsection{Otázky}
+\begin{frame}{Otázky a odpovědi}
+	\begin{center}Otázky?\end{center}
+	\begin{center}(Možná je i odpovím :P)\end{center}
+\end{frame}
+
+\subsection{Poděkování}
+\begin{frame}{}
+	\begin{center}Děkuji za pozornost\end{center}
+\end{frame}
+% -----------------------------------------------------------------------------
+\end{document}

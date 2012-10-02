@@ -1,0 +1,8 @@
+ * QA Notice: Package has poor programming practices which may compile
+ *            fine but exhibit random runtime failures.
+ * sbar.c:447:7: warning: the address of ‘t’ will always evaluate as ‘true’ [-Waddress]
+ * cmdlib.c:102:6: warning: the address of ‘qdir’ will always evaluate as ‘true’ [-Waddress]
+
+ * QA Notice: Package has poor programming practices which may compile
+ *            fine but exhibit random runtime failures.
+ * /usr/include/bits/string3.h:107:3: warning: call to __builtin___strcpy_chk will always overflow destination buffer

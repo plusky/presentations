@@ -1,0 +1,29 @@
+About -1 slide - popsat co delam v gentoo
+Jak vypada gentoo balicek
+	- Ukazka ebuildu nejaky snippet na vice slidech
+	- popsat eapi - ze ted mame 4 a co nam konecne umoznuje REQUIRED_USE, automaticke die, plne usedeps
+	- co je to eclass
+QA obecne - 1 slide - co to vubec QA je v gentoo, popsat politiku "closest upstream as possible"
+Interni QA - kontrola ebuildu a zajistovani jejich kvality
+	- graf poslednich doteku na balicku (kdy byl jakej naposledy upravovan v cvs)
+	- vynucovani nebo vypinani statickych knihoven
+	- zpracovani patchsetu a podobne - zasadni je ze kazdy patch by mel byt pokudmozno nahlasen upstream a byt pro ne kompatibilni
+	- skenovani vyslednych binarek proti stromu pro vyhledavani spatnych deps
+	- paralelni kompilace - kompilace na jednom jadru je udesna smrt a nici i distcc
+	- treecleaning - ackoliv stve spoustu lidi tak je dulezitej lepsi zadnej nezli rozbitej balicek
+Externi QA - kontrola upstream balicku a jejich zlepsovani pro vsechny
+	- gcc testy (warningy + errory) - vysvetlit false positives
+	- buildsystem upravy - cesty/automagicnes/cross
+	- nove knihovny (vice info u tinderboxingu)
+	- hlaseni chyb v unittestech
+Tinderboxing - popsat jak funguje rekurzivni kompilace buildsetu a kcemu to vlastne je
+	- poloautomaticke vyplnovani bugu v bugzille
+	- zminit proc nejsou otevrene bugy spatna vec
+	- graf kde otevrenych bugu
+Buildsystemy - vysvetlit proc je fajn cmake/autotools a co je spatnyho na self written / waf
+	- nabidka psani buildsystemu pokud se lidi ozvou
+Zaver - znovu zduraznit silne stranky: tinderboxing, zavislosti, citelne buildy - porovnejte si to s spec
+	- kdo ma vetsi tinderbox Diego nebo sabayon lidicky?
+	- nejsme tak daleko od edgy fedory: odstranovani .la souboru, staticke knihovny, libjpeg-turbo
+	- rict co sme zkazili (python je neco co fakt nesnasim)
+Otazky a odpovedi - 5 minutek
