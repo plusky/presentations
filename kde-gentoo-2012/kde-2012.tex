@@ -1,0 +1,101 @@
+\documentclass{beamer}
+
+\batchmode
+
+\usepackage{amsmath,amssymb,enumerate,epsfig,bbm,calc,color,ifthen,capt-of}
+
+\usetheme{Berlin}
+\usecolortheme{mit}
+
+%% <language_settings> %%
+\usepackage[utf8x]{inputenc}
+\usepackage[czech]{babel}
+%% </language_settings> %%
+
+%% Source code insertions
+\usepackage{verbatim}
+
+%% <change me> %%
+\title{Gentoo KDE: stable, fresh, and bleeding edge!}
+\author[Tomáš Chvátal]{Tomáš Chvátal $<$scarabeus@gentoo.org$>$}
+\date{2012/10/20}
+%% </change me> %%
+
+%% <logo> %%
+\usepackage[absolute,overlay]{textpos}
+\setlength{\TPHorizModule}{1mm}
+\setlength{\TPVertModule}{1mm}
+\newcommand{\MyLogo}{
+	\begin{textblock}{14}(110,7)
+		\includegraphics[width=14mm,height=14mm]{gentoo-logo.png}
+	\end{textblock}
+}
+
+\newcommand*\oldmacro{}
+\let\oldmacro\insertshorttitle
+\renewcommand*\insertshorttitle{
+	\MyLogo
+	\oldmacro\hfill
+}
+%% </logo> %%
+
+%% <bgimage> %%
+\usebackgroundtemplate{
+	\includegraphics[width=\paperwidth,height=\paperheight]{gentoo-background-1.png}
+}
+%% </bgimage> %%
+
+%% <ToC Before each section> %%
+%\AtBeginSection[]{
+%	\begin{frame}<beamer>
+%		\frametitle{Přehled}
+%		\tableofcontents[currentsection]
+%	\end{frame}
+%}
+%% </ToC Before each section> %%
+
+%% <each bullet on one slide> %%
+%% better to use \pause on points where we really want to stop :)
+%\beamerdefaultoverlayspecification{<+->}
+%% </each bullet on one slide> %%
+% -----------------------------------------------------------------------------
+\begin{document}
+% -----------------------------------------------------------------------------
+\frame{\titlepage}
+%\section[Přehled]{}
+%\begin{frame}{Přehled}
+%	\tableofcontents
+%\end{frame}
+% -----------------------------------------------------------------------------
+\section{Introduction}
+
+\begin{frame}{Who the hell is Tomáš Chvátal}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+\section{Basics}
+
+% -----------------------------------------------------------------------------
+\section{Wrap-up}
+
+\subsection{More resources}
+\begin{frame}{Additional links to learn from}
+	\begin{itemize}
+		\item Gentoo miniconf, která probíhá souběžně s touto konferencí o pár přednáškových sálů vedle
+		\item http://www.gentoo.org/
+		\item http://forums.gentoo.org/
+		\item http://wiki.gentoo.org/
+	\end{itemize}
+\end{frame}
+
+\subsection{Questions}
+\begin{frame}{Q\&A session}
+	\begin{center}Nobody wants to ask anything. Right?\end{center}
+\end{frame}
+
+\subsection{Thanks}
+\begin{frame}{Thank you}
+	\begin{center}Thank you for your attention!\end{center}
+\end{frame}
+% -----------------------------------------------------------------------------
+\end{document}
