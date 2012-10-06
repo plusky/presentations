@@ -70,10 +70,99 @@
 \section{Introduction}
 
 \begin{frame}{Who the hell is Tomáš Chvátal}
+	\begin{itemize}
+		\item Council member (currently second term)
+		\item KDE team member (former lead)
+		\item Libreoffice maintainer
+	\end{itemize}
 \end{frame}
 
 % -----------------------------------------------------------------------------
-\section{Basics}
+\section{What is KDE?}
+
+\begin{frame}
+	\begin{itemize}
+		\item Fancy desktop environment with many features.
+		\item Bloated thing wrt database usage.
+	\end{itemize}
+\end{frame}
+
+\subsection{So how to make it less pain and actually usable}
+\begin{frame}
+	\begin{itemize}
+		\item Make the nepomuk (aka semantic-desktop) optional for those who preffer to use their system rather than cache its content all the time.
+		\item Make akonadi also optional and allow installation of pre-akonadi versions to have something really usable :-)
+		\item Make all this fun run on hardened and so make it bit safer.
+	\end{itemize}
+\end{frame}
+
+\section{Running KDE on gentoo}
+\begin{frame}
+	\begin{itemize}
+		\item Use desktop or desktop/kde profile
+		\item Enable devicekit and consolekit useflag
+		\item Select the packages that are actually needed
+	\end{itemize}
+\end{frame}
+
+\subsection{What packages would I need}
+\begin{frame}
+	\begin{itemize}
+		\item kde-base/kde-meta: Not really, this is metapackage that includes all of them.
+		\item kde-base/kdebase-meta and kde-base/kdebase-runtime-meta: Basic subset on which one can install additional packates.
+		\item kde-base/*-meta: These are jont packages per various category.
+	\end{itemize}
+\end{frame}
+
+\subsection{Interesting useflags}
+\begin{frame}
+	\begin{itemize}
+		\item semantic-desktop: useflag removing all akonadi, virtuoso and nepomuk dependencies.
+		\item udisks/upower: enable or disable dependency over these tools, it is runtime detected tho.
+	\end{itemize}
+\end{frame}
+
+\subsection{Bleedingness}
+\begin{frame}
+	\begin{center}Stable\end{center}
+	\begin{itemize}
+		\item Bit older than latest released stable version from upstream, but tested a lot to ensure its stability.
+		\item Usually new stable version is done every other month.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\begin{center}Testing\end{center}
+	\begin{itemize}
+		\item Always 0 day version bump with latest upstream released stuff.
+		\item Usually contains a lots of issues that upstream didnt care enough to fix.
+		\item This stuff is taken from overlay by fancy update script in bash i wrote 4 years ago.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Overlay - aka snapshots / live stuff ; let me break your boxen TM
+	\begin{itemize}
+		\item Usually live versions of master branch and currently produced branch (eg 4.8 when 4.9 is in development).
+		\item The overlay is the place where all the development is done.
+		\item The branch ebuilds are usually just the bugfixes to next release.
+		\item Live ebuilds is where magic happens, and you will usually cry for help when stuff breaks.
+	\end{itemize}
+\end{frame}
+
+\section{What can I do for KDE in Gentoo}
+\begin{frame}
+	\begin{itemize}
+		\item Join #gentoo-kde on freenode.net and chat with us about your secret plans.
+		\item Clone up the git repository and help ohers by using live ebuilds and fix the issues.
+		\item Fire up bugzilla and help us closing issues (we like to have just few bugs, something around 100 is perfect).
+	\end{itemize}
+\end{frame}
+
+\section{KDE SC 5}
+\begin{frame}
+	\begin{center}Bit of discussion about KDE future.\end{center}
+\end{frame}
 
 % -----------------------------------------------------------------------------
 \section{Wrap-up}
@@ -81,10 +170,8 @@
 \subsection{More resources}
 \begin{frame}{Additional links to learn from}
 	\begin{itemize}
-		\item Gentoo miniconf, která probíhá souběžně s touto konferencí o pár přednáškových sálů vedle
-		\item http://www.gentoo.org/
-		\item http://forums.gentoo.org/
-		\item http://wiki.gentoo.org/
+		\item http://wiki.gentoo.org/wiki/KDE
+		\item http://www.gentoo.org/proj/en/desktop/kde/
 	\end{itemize}
 \end{frame}
 
