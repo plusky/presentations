@@ -1,0 +1,5 @@
+Eclass - eclassdoc ; api stability ; ...
+Ebuild - eapi ; phases overriding ; inherit order ; eclass variables ; best practices
+QA work - qa.gentoo.org ; removing cruft ; 
+bugzilla - wrangling
+
