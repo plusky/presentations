@@ -1,0 +1,109 @@
+\documentclass{beamer}
+
+\batchmode
+
+\usepackage{amsmath,amssymb,enumerate,epsfig,bbm,calc,color,ifthen,capt-of}
+
+\usetheme{Berlin}
+\usecolortheme{mit}
+
+%% <language_settings> %%
+\usepackage[utf8x]{inputenc}
+\usepackage[czech]{babel}
+%% </language_settings> %%
+
+%% Source code insertions
+\usepackage{verbatim}
+
+%% <change me> %%
+\title{Installing or migrating to Hardened Gentoo}
+\author[Tomáš Chvátal]{Tomáš Chvátal $<$scarabeus@gentoo.org$>$}
+\date{2012/10/20}
+%% </change me> %%
+
+%% <logo> %%
+\usepackage[absolute,overlay]{textpos}
+\setlength{\TPHorizModule}{1mm}
+\setlength{\TPVertModule}{1mm}
+\newcommand{\MyLogo}{
+	\begin{textblock}{14}(110,7)
+		\includegraphics[width=14mm,height=14mm]{gentoo-logo.png}
+	\end{textblock}
+}
+
+\newcommand*\oldmacro{}
+\let\oldmacro\insertshorttitle
+\renewcommand*\insertshorttitle{
+	\MyLogo
+	\oldmacro\hfill
+}
+%% </logo> %%
+
+%% <bgimage> %%
+\usebackgroundtemplate{
+	\includegraphics[width=\paperwidth,height=\paperheight]{gentoo-background-1.png}
+}
+%% </bgimage> %%
+
+%% <ToC Before each section> %%
+%\AtBeginSection[]{
+%	\begin{frame}<beamer>
+%		\frametitle{Přehled}
+%		\tableofcontents[currentsection]
+%	\end{frame}
+%}
+%% </ToC Before each section> %%
+
+%% <each bullet on one slide> %%
+%% better to use \pause on points where we really want to stop :)
+%\beamerdefaultoverlayspecification{<+->}
+%% </each bullet on one slide> %%
+% -----------------------------------------------------------------------------
+\begin{document}
+% -----------------------------------------------------------------------------
+\frame{\titlepage}
+%\section[Přehled]{}
+%\begin{frame}{Přehled}
+%	\tableofcontents
+%\end{frame}
+% -----------------------------------------------------------------------------
+\section{Introduction}
+\begin{frame}{Who the hell is Tomáš Chvátal}
+	\begin{itemize}
+		\item Gentoo developer since fall 2k8
+		\item Council member since Jan 2010
+		\item KDE team member (former lead)
+		\item Libreoffice maintainer and also upstream developer
+		\item Formely also working on X11, Overlays, Clustering, QA, ...
+	\end{itemize}
+\end{frame}
+% -----------------------------------------------------------------------------
+\section{What is gentoo hardened}
+
+\begin{frame}{Basic informations}
+	\begin{itemize}
+		\item bla
+	\end{itemize}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+\section{Wrap-up}
+
+\subsection{Wrap-up}
+
+\begin{frame}{Links to insteresting stuff about hardened}
+	\begin{itemize}
+		\item Project page - http://www.gentoo.org/proj/en/hardened/
+		\item Svens blog - http://blog.siphos.be/
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Questions}
+	\begin{center}Nobody wants to ask anything. Right?\end{center}
+\end{frame}
+
+\begin{frame}{Thank you}
+	\begin{center}Thank you for your attention!\end{center}
+\end{frame}
+% -----------------------------------------------------------------------------
+\end{document}
