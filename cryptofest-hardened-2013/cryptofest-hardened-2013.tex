@@ -127,6 +127,61 @@
 
 \subsection{Integrity}
 
+\begin{frame}{Advanced Intrusion Detection Environment}
+	\begin{itemize}
+		\item Jedná se o metodu detekce průniku (AIDE).
+		\item V Gentoo je balíček dostupný jako app-forensics/aide.
+		\item Je důležité si správně nastavit co vše sledovat (ani málo ani moc)
+		\item Nastavení musí být read-only pokudmožno externě (nfs?)
+		\item Skenování by se mělo provádět offline z livecd/memory-sticku
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{AID - ukázkový výstup}
+	\begin{tiny}
+	\begin{verbatim}
+AIDE found differences between database and filesystem!!
+Start timestamp: 2013-05-30 16:41:02
+
+Summary:
+  Total number of files:        625
+  Added files:                  0
+  Removed files:                0
+  Changed files:                2
+
+
+---------------------------------------------------
+Changed files:
+---------------------------------------------------
+
+changed: /etc/pam.d/
+changed: /etc/pam.d/sudo
+	\end{verbatim}
+	\end{tiny}
+\end{frame}
+
+
+\begin{frame}[fragile]{AID - ukázkový výstup - page 2}
+	\begin{tiny}
+	\begin{verbatim}
+---------------------------------------------------
+Detailed information about changes:
+---------------------------------------------------
+
+Directory: /etc/pam.d
+  Mtime    : 2013-05-11 21:09:20              , 2013-05-30 16:01:02
+  Ctime    : 2013-05-11 21:09:20              , 2013-05-30 16:01:02
+
+File: /etc/pam.d/sudo
+  Size     : 135                              , 80
+  Mtime    : 2013-05-11 21:09:20              , 2013-05-30 16:01:02
+  Ctime    : 2013-05-11 21:09:20              , 2013-05-30 16:01:02
+  Inode    : 328303                           , 464053
+  MD5      : 239be3ac285c0860e5e81a==         , eLUrP2BKw43eExAZX+dlBA==
+  SHA1     : e7d7393f0768ed2dbebdBne5V6E=     , KwQ42poukMiqEjKQ7e9xkBNZB8=
+	\end{verbatim}
+	\end{tiny}
+\end{frame}
 
 \section{Menší zamyšlení závěrem}
 
