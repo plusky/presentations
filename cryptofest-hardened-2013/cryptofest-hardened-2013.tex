@@ -16,7 +16,7 @@
 \usepackage{verbatim}
 
 %% <change me> %%
-\title{Vlastnosti hardened kernelu pro kazdeho paranoika}
+\title{Vlastnosti hardened kernelu pro každého paranoika}
 \author[Tomáš Chvátal]{Tomáš Chvátal $<$scarabeus@gentoo.org$>$}
 \date{2013/06/01}
 %% </change me> %%
@@ -67,201 +67,102 @@
 %	\tableofcontents
 %\end{frame}
 % -----------------------------------------------------------------------------
-\section{Introduction}
-\begin{frame}{Who the hell is Tomáš Chvátal}
+\section{Představení}
+
+\subsection{Kdo je Tomáš Chvátal}
+
+\begin{frame}{Kdo je Tomáš Chvátal}
 	\begin{itemize}
-		\item Gentoo developer since fall 2k8
-		\item Council member since Jan 2010
-		\item KDE team member (former lead)
-		\item Libreoffice maintainer and also upstream developer
-		\item Formely also working on X11, Overlays, Clustering, QA, ...
+		\item Vývojář Gentoo od podzima 2008
+		\item Člen councilu od ledna 2010
+		\item Člen KDE týmu (chvíli jim i šéfoval než se objevilo akonadi)
+		\item Správce/vývojář LibreOffice
+		\item Dříve také v Gentoo pracoval na X11, Overlays, Clustering, QA, ...
+		\item Pracuje v SUSE jako L3/QA Maintenance
 	\end{itemize}
+	\begin{center}To byl nápad tu prezentaci dělat česky. Složitější odborné termíny budou v angličtině jinak bysme se z toho zbláznili.\end{center}
 \end{frame}
 % -----------------------------------------------------------------------------
-\section{What is gentoo hardened}
+\section{O co se jedná v Hardened Gentoo}
 
-\begin{frame}{Basic informations}
+\subsection{Základ Hardened Gentoo}
+
+\begin{frame}{Základní informace}
 	\begin{itemize}
-		\item Gentoo project focusing on providing latest security measures.
-		\item Most of the features are accepted to the main project
-		\item The reason for separate project is that security can have speed inpact and make maintenance bit harder
+		\item Projekt pro zvýšení zabezpečení počítače pomocí různých patchů (viz další slide)
+		\item Snahou je co nejvíce těchto vlastností integrovat přímo do hlavniho profilu Gentoo
+		\item Z důvodu snížení výkonu některých aplikací a zamezení fuknčnosti některých funkcí pro desktop je to stále oddělený projekt
 	\end{itemize}
-	\begin{center}More to be described later in the presentation.\end{center}
+	\begin{center}http://www.gentoo.org/proj/en/hardened/\end{center}
 \end{frame}
 
-\section{Install and migration}
-
-\begin{frame}{Install from scratch}
-	\begin{center}At first the plan was just to show up the instalation process but during the at home tryout i found out that it takes 5 hours from scratch.\end{center}
-		The difference is only in one step of the normal guide http://www.gentoo.org/doc/en/handbook/index.xml \\
-		You have to use stage3 at: http://distfiles.gentoo.org/releases/amd64/autobuilds/current-stage3/hardened/ \\
-		And when prompted for setting the profile by eselect, you just use hardened one.
-\end{frame}
-
-\begin{frame}{Migration}
-	\begin{center}I expected this to be bit complex, but the results are contrary my assesments, behold these are the only needed steps:\end{center}
+\begin{frame}{Dostupné funkce}
 	\begin{itemize}
-		\item eselect profile list
-		\item eselect profile set [number of hardened profile]
-		\item emerge -1v binutils gcc virtual/libc
-		\item gcc-config -l
-		\item gcc-config [the gcc from hardened profile]
-		\item emerge -1v gcc virtual/libc
-		\item source /etc/profile
-		\item emerge -1evD @world
+		\item Nastavení toolchainu (kompiler, linker, .. ) jako vynucení PIE, kontrola bufferů při kompilaci, nebo ochrana proti stack-smashingu
+		\item Rozšíření jádra PaX, poskytující non-executable memory, address space layout randomization, \ldots
+		\item Rozšíření jádra grSecurity, umožňující restrikce chrootu, dodatečný audit, omezení procesů, \ldots
+		\item Rozšíření jádra SELinux, MAC (Mandatory Access Control) rozšiřující běžná omezení linuxových práv
+		\item Technologie komem Integrity, jako Integrity Measurement Architecture, která chrání systém proti nevítaným změnám
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Desktop troubles}
-	There are two issues when migrating your desktop:
+\section{Lehčí detaily jednotivých funkcí}
+
+\subsection{Toolchain}
+
+\subsection{PaX}
+
+\subsection{grSec}
+
+\subsection{SELinux}
+
+\begin{frame}{SELinux}
 	\begin{itemize}
-		\item Usage of binary drivers where nvidia does not work at all and fglrx only with crazy hacks.
-		\item Some PAX options does not allow running X at all, broken features are: CONFIG\_PAX\_KERNEXEC, CONFIG\_GRKERNSEC\_IO.
+		\item O SELinuxu nevím téměř níc a zvládl jsem to nastavit pouze jednou
+		\item Doporučuji přečíst si dokumentaci a Svenův blog
 	\end{itemize}
+	\begin{center}http://www.gentoo.org/proj/en/hardened/selinux/selinux-handbook.xml\end{center}
+	\begin{center}http://blog.siphos.be/category/gentoo/hardened/\end{center}
+\end{frame}
+
+\subsection{Integrity}
+
+
+\section{Menší zamyšlení závěrem}
+
+\subsection{Nejpravděpodobnější možnosti útoků}
+
+\begin{frame}{Nejpravděpodobnější možnosti útoků na desktop v dnešní době}
 	\begin{itemize}
-		\item CONFIG\_GRKERNSEC\_IO: ioperm and iopl calls return error when enabled, but X won't start at all.
-		\item CONFIG\_PAX\_KERNEXEC: protects agains code injections into kernel memory, but causes input devices like mouse to hang.
-	\end{itemize}
-\end{frame}
-
-\section{Hardened features}
-
-\begin{frame}{Hardened features}
-	We can split the features into 4 indepenednt areas:
-	\begin{itemize}
-		\item Compilation protection
-		\item Link time protection
-		\item Kernel level
-		\item GCC plugins from kernel
-	\end{itemize}
-\end{frame}
-
-\subsection{Compilation}
-
-\begin{frame}{Stack-Smashing Protector}
-	\begin{center}
-	\begin{tabular}{|c|c|}
-		\hline
-		SSP & NORMAL GCC \\
-		\hline
-		Variable n & Variable n \\
-		\ldots & \ldots \\
-		Variable 1 & Variable 1 \\
-		Argument n & Argument n \\
-		\ldots & \ldots \\
-		Argument 1 & Argument 1 \\
-		Return addr & Return addr \\
-		Canary & Local variables \\
-		Local variables & --- \\
-		\hline
-	\end{tabular}
-	\end{center}
-\end{frame}
-
-\begin{frame}{-DFORTIFY\_SOURCE=2}
-	\begin{center}
-		Various operations detecting softvare vulnerabilities in compile and run time.
-	\end{center}
-\end{frame}
-
-\begin{frame}{PIE/PIC}
-	\begin{center}
-	Position-independent code/executable is code that can be put anywhere in the memory and does not require specific absolute address alocation.
-	\end{center}
-\end{frame}
-
-\subsection{Linking}
-
-\begin{frame}{RELRO}
-	\begin{center}
-	Linker marks some critical sections of the object like GOT and PLT tables as read only.
-	\end{center}
-	You can use this with linker flags -Wl,-z,relro \\
-	PLT means Procedure Linkage Table. \\
-	GOT stands for Global Offset Tables.
-\end{frame}
-
-\begin{frame}{BIND\_NOW}
-	\begin{center}
-	Ensures that all symbols ale loaded during aplication start so we can have GOT and PLT tables completely read-only. Sideefect is that apps can take more time to fire up.
-	\end{center}
-	You can use this with linker flags -Wl,-z,now
-\end{frame}
-
-\subsection{Kernel GCC plugins}
-\begin{frame}{GCC plugins}
-	\begin{itemize}
-		\item kernexec: forces function pointer calls and function returns to jump into kernel space.
-		\item constify: maks the ops structs and structs using do\_const parm as read only at compile time (which is implied by this for runtime too).
-		\item stackleak: sanitizes kernel stack by providing estimate of how much deep was the kernel stack used by the syscall.
-		\item interoverflow: detects calls which could have suffered from under/overflow by detecting these and prevents usage of incorrect sizes.
+		\item Zneužití špatně nastavených pravidel consolekit/dbus
+		\item Zneužití špatně nastaveného d-bus systému
+		\item SUID binárka liknovaná s kreativníma knihovnama (Xlib, ...), přecijen suid dává kernel
+		\item pomocí podvržení balíčku (distro od distra podle toho jak mají řešené podpisy)
 	\end{itemize}
 \end{frame}
 
-\subsection{Kernel features}
+\subsection{Obrana}
 
-\begin{frame}{Features part 1}
+\begin{frame}{Obrana}
 	\begin{itemize}
-	\item ASLR, RANDMMAP: Safeguards that provide random adresses to mmap calls unless required otherwise by the call.
-	\item RANDSTACK: Inserts random adress for the stack between system calls.
-	\item /proc only for user: Restricts the access to process informations only to owner (and group if needed).
-	\item Brute force: If daemon aobrts or gets interesting signal it can't fork during next 30 seconds.
-	\item UDEREF: prevents accessx to user space functions and data.
-	\item MIN\_MMAP\_ADDR: forbids memory reservation on lower adresses.
+		\item Přinucení distribucí vracet upstreamu patche s výchozím chováním, které je bezpečné
+		\item Díky předchozímu zabezpečení vetšiny distribucí
+		\item Odebírání suid bitů kde jen to jde
+		\item Více paranoiků kteří pomáhají s položkou číslo 1
 	\end{itemize}
-\end{frame}
-
-\begin{frame}{Features part 2}
-	\begin{itemize}
-	\item Memory sanitization: wipes mem pages when they are freed so nobody can read stored data.
-	\item Kernel stack sanitization: wipes the stack before returning from syscall.
-	\item Dmesg restriction: nobody except root can run dmesg.
-	\item Kernel symbol hiding: the symbols table is readable only by root and SYS\_MODULE can provide the needed info via syscalls.
-	\item Kernel process hiding: prevents user from seeing kernel threads.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{TODO}
-NX memory
-Mprotect restriction
-Reference counter overflow protection
-Free mem sanitization
-Kernel Stack sanitization
-VM86 mode restriction
-Disabled privileged I/O
-sysfs/debugfs restrictions
-linking restrictions
-fifo restrictions
-chroot jail restrictions
-enforce process limit on execs (not only on forks)
-dmesg restrictions
-TCP/UDP blackholing and LAST\_ACK DoS protection
-Code execution on non trusted folders
-ptrace denial on non readable sugid binaries
-socket restrictions
-consistent multitrheaded privilege enforcement
-active kernel exploit responce
-kernel auditing
 \end{frame}
 
 % -----------------------------------------------------------------------------
-\section{Wrap-up}
+\section{Souhrn}
 
-\subsection{Wrap-up}
+\subsection{Souhrn}
 
-\begin{frame}{Links to insteresting stuff about hardened}
-	\begin{itemize}
-		\item Project page - http://www.gentoo.org/proj/en/hardened/
-		\item Svens blog - http://blog.siphos.be/category/gentoo/hardened/
-	\end{itemize}
+\begin{frame}{Dotazy}
+	\begin{center}Otázky a odpovědi, koukejte se na něco zeptat, měli bysme na tuhle část mít 5 minut.\end{center}
 \end{frame}
 
-\begin{frame}{Questions}
-	\begin{center}Nobody wants to ask anything. Right?\end{center}
-\end{frame}
-
-\begin{frame}{Thank you}
-	\begin{center}Thank you for your attention!\end{center}
+\begin{frame}{Poděkování}
+	\begin{center}Děkuji za pozornost\end{center}
 \end{frame}
 % -----------------------------------------------------------------------------
 \end{document}
