@@ -126,9 +126,59 @@
 	\end{itemize}
 \end{frame}
 
+\subsection{grSec}
+
+
+
 \subsection{PaX}
 
-\subsection{grSec}
+\begin{frame}{PaX}
+	Technicky vzato se jedná o část grSecurity, která není vyvýjená upstreamem a umožnuje následující činnosti.
+	\begin{itemize}
+		\item ASLR: náhodné rozmístění adresového prostoru a proto útočník neodhadne rozvržení paměti
+		\item Vynucení stavu paměti: buď je ke čtení nebo pouze k zápisu. VELICE zpomalí systém, zato ho zatraceně dobře zabezpečí (binarní drivery pláčou)
+		\item Trampolínky: runtime rozšíření pro SSP dá se říct, protože dělá téměř to samé. Bohužel runtime ovládá PaX a tedy díra v PaX kompromituje celý systém
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{PaX - ovládání}
+	Všichni si po přednášce povinně stáhnou soubor checksec.sh.
+	\begin{itemize}
+		\item paxctl -<flagy> binarka / paxctl-ng -flagy binarka
+		\item Paxctl zapisuje přímo do elf a nefunguje např. nefunguje na Skype
+		\item Paxctl-ng používá xattr (v Gentoo myslím to používá i starý pax)
+	\end{itemize}
+	\begin{tiny}
+	\begin{verbatim}
+root@desktopik: ~ # paxctl-ng -v /usr/lib64/libreoffice/program/soffice.bin
+/usr/lib64/libreoffice/program/soffice.bin:
+        PT_PAX   : -em--
+        XATTR_PAX: not found
+	\end{verbatim}
+	\end{tiny}
+\end{frame}
+
+\begin{frame}[fragile]{PaX - výstup checksec.sh}
+	\begin{tiny}
+	\begin{verbatim}
+...
+* Does the CPU support NX: Yes
+
+         COMMAND    PID RELRO             STACK CANARY           NX/PaX        PIE
+            init      1 Full RELRO        Canary found           NX enabled    PIE enabled
+           udevd   2583 Full RELRO        Canary found           NX enabled    PIE enabled
+     dbus-daemon   3176 Full RELRO        Canary found           NX enabled    PIE enabled
+        rsyslogd   3190 Full RELRO        Canary found           NX enabled    PIE enabled
+ console-kit-dae   3209 Full RELRO        Canary found           NX enabled    PIE enabled
+         polkitd   3283 Full RELRO        Canary found           NX enabled    PIE enabled
+  wpa_supplicant   3520 Full RELRO        Canary found           NX enabled    PIE enabled
+         wpa_cli   3527 Full RELRO        Canary found           NX enabled    PIE enabled
+          smartd   4089 Full RELRO        No canary found        NX enabled    PIE enabled
+               X   3564 Partial RELRO     Canary found           NX enabled    PIE enabled
+...
+	\end{verbatim}
+	\end{tiny}
+\end{frame}
 
 \subsection{SELinux}
 
