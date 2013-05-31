@@ -98,7 +98,7 @@
 
 \begin{frame}{Dostupné funkce}
 	\begin{itemize}
-		\item Nastavení toolchainu (kompiler, linker, .. ) jako vynucení PIE, kontrola bufferů při kompilaci, nebo ochrana proti stack-smashingu
+		\item Nastavení toolchainu (kompiler, linker, .. ) jako vynucení PIE, kontrola zásobníků při kompilaci, nebo ochrana proti stack-smashingu
 		\item Rozšíření jádra PaX, poskytující non-executable memory, address space layout randomization, \ldots
 		\item Rozšíření jádra grSecurity, umožňující restrikce chrootu, dodatečný audit, omezení procesů, \ldots
 		\item Rozšíření jádra SELinux, MAC (Mandatory Access Control) rozšiřující běžná omezení linuxových práv
@@ -109,6 +109,22 @@
 \section{Lehčí detaily jednotivých funkcí}
 
 \subsection{Toolchain}
+
+\begin{frame}{Zabezpečení při kompilaci}
+	\begin{center}PIE a FORTIFY\_SOURCE jsou i v základním profilu\end{center}
+	\begin{itemize}
+		\item -DFORTIFY\_SOURCE=2: zabezpečení proti jednoduchým přetečením zásobníků
+		\item PIE/PIC: kód nezávislý na pozici v paměti, vetšina skoků je počítána tedy relativne místo abs. odkazů
+		\item SSP: ochrana proti stack-smashing z GCC, přidá na konec (lze i náhodně) zásobníku kanárka který informuje o pokusu o přetečení ať náhodném či cíleném (sranda sledovat s nepomukem)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Zabezpečení při linkování}
+	\begin{itemize}
+		\item -Wl,-z,relro: označí části knihovny pouze pro čtení a znemožní úpravy (GOT, PLT)
+		\item -Wl,-z,now: přeloží všechny symboly a vynutí načtení knihoven při spuštení aplikace (spadne když nejsou všechny splněny) a neznatelně zpomalí první spuštění applikace
+	\end{itemize}
+\end{frame}
 
 \subsection{PaX}
 
