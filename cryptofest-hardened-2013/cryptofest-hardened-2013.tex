@@ -126,9 +126,21 @@
 	\end{itemize}
 \end{frame}
 
-\subsection{grSec}
+\subsection{grSecurity}
 
+\begin{frame}{grSecurity}
+	\begin{itemize}
+		\item RBAC část: rozšíření unixových přístupových práv o další možnosti, např. ochrana před brute-force, skrytí ptrace vybraným procesům, ...
+		\item Omezení chroot: ochrana proti priv-esc a další omezení/zábrany: zamezený přístup do sdílené paměti z chrootu, nemožnost videt procesy mimo chroot, omezený kill/sgid/...
+		\item Audit: logovaní činností uživatelů, mount, změny času, použití chdir, zaznamenání příkazů Exec, nezdařené fork...
+	\end{itemize}
+\end{frame}
 
+\begin{frame}{grSecurity - nastavení}
+	grSecurity obsahuje spoustu možností a vyplatí se je nastudovat s webových stránek projektu. \\
+	Gentoo se snaží proti výchozím možnostem (Nízké/Vysoké zabezpečení) přidat ještě možnost desktop/server, kdy jsou ty nejzajímavější možnosti povoleny.\\
+	Mimo jádro už se moc věcí pro grSec dělat nemusí, spíše se jedná o nastavení pro PaX.
+\end{frame}
 
 \subsection{PaX}
 
@@ -142,20 +154,20 @@
 \end{frame}
 
 \begin{frame}[fragile]{PaX - ovládání}
-	Všichni si po přednášce povinně stáhnou soubor checksec.sh.
+	Doporučuji na testování stáhnou soubor checksec.sh a nainstalovat paxtest.
 	\begin{itemize}
-		\item paxctl -<flagy> binarka / paxctl-ng -flagy binarka
+		\item paxctl -flagy binarka / paxctl-ng -flagy binarka
 		\item Paxctl zapisuje přímo do elf a nefunguje např. nefunguje na Skype
 		\item Paxctl-ng používá xattr (v Gentoo myslím to používá i starý pax)
 	\end{itemize}
-	\begin{tiny}
+	\begin{small}
 	\begin{verbatim}
 root@desktopik: ~ # paxctl-ng -v /usr/lib64/libreoffice/program/soffice.bin
 /usr/lib64/libreoffice/program/soffice.bin:
         PT_PAX   : -em--
         XATTR_PAX: not found
 	\end{verbatim}
-	\end{tiny}
+	\end{small}
 \end{frame}
 
 \begin{frame}[fragile]{PaX - výstup checksec.sh}
@@ -179,6 +191,42 @@ root@desktopik: ~ # paxctl-ng -v /usr/lib64/libreoffice/program/soffice.bin
 	\end{verbatim}
 	\end{tiny}
 \end{frame}
+
+\begin{frame}[fragile]{PaX - výstup paxtest}
+	\begin{tiny}
+	\begin{verbatim}
+# paxtest
+Executable anonymous mapping             : Killed
+Executable bss                           : Killed
+Executable data                          : Killed
+Executable heap                          : Killed
+Executable stack                         : Killed
+Executable anonymous mapping (mprotect)  : Killed
+Executable bss (mprotect)                : Killed
+Executable data (mprotect)               : Killed
+Executable heap (mprotect)               : Killed
+Executable stack (mprotect)              : Killed
+Executable shared library bss (mprotect) : Killed
+Executable shared library data (mprotect): Killed
+Writable text segments                   : Killed
+Anonymous mapping randomisation test     : 16 bits (guessed)
+Heap randomisation test (ET_EXEC)        : 13 bits (guessed)
+Heap randomisation test (ET_DYN)         : 25 bits (guessed)
+Main executable randomisation (ET_EXEC)  : 16 bits (guessed)
+Main executable randomisation (ET_DYN)   : 17 bits (guessed)
+Shared library randomisation test        : 16 bits (guessed)
+Stack randomisation test (SEGMEXEC)      : 23 bits (guessed)
+Stack randomisation test (PAGEEXEC)      : No randomisation
+Return to function (strcpy)              : Vulnerable
+Return to function (memcpy)              : Vulnerable
+Return to function (strcpy, RANDEXEC)    : Killed
+Return to function (memcpy, RANDEXEC)    : Killed
+Executable shared library bss            : Killed
+Executable shared library data           : Killed
+	\end{verbatim}
+	\end{tiny}
+\end{frame}
+
 
 \subsection{SELinux}
 
