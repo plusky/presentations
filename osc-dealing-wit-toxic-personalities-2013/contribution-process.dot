@@ -1,0 +1,13 @@
+digraph contribution_process {
+	rankdir=LR;
+	ranksep=0.5;
+	nodesep=1;
+	node [ color=black fontcolor=darkgreen];
+	edge [ color=black fontcolor=darkgreen];
+
+	graph [truecolor bgcolor="#ffffff00" fontcolor=white sep="+20"]
+
+	Contributor -> Content [label="creates"];
+	Content -> Reputation [label="gain"];
+	Reputation -> Contributor [label="attracts"];
+}

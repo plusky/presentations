@@ -1,6 +1,11 @@
 ELEMENTNAME=osc-dealing-wit-toxic-personalities-2013
 
-all: doc clean
+all: dot doc clean
+
+dot:
+	for dotfile in *.dot; do \
+		dot -Tpng $$dotfile > $${dotfile/.dot/.png} ; \
+	done
 
 doc: $(ELEMENTNAME).tex 
 	texi2pdf $(ELEMENTNAME).tex
