@@ -1,4 +1,4 @@
-ELEMENTNAME=osc-dealing-wit-toxic-personalities-2013
+ELEMENTNAME=osc-dealing-with-toxic-personalities-2013
 
 all: dot doc clean
 
