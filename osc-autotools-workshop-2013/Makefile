@@ -1,8 +1,13 @@
 ELEMENTNAME=osc-autotools-workshop-2013
 
-all: doc clean
+all: dot doc clean
 
-doc: $(ELEMENTNAME).tex 
+dot:
+	for dotfile in *.dot; do \
+		dot -Tpng $$dotfile > $${dotfile/.dot/.png} ; \
+	done
+
+doc: dot $(ELEMENTNAME).tex 
 	texi2pdf $(ELEMENTNAME).tex
 
 clean:

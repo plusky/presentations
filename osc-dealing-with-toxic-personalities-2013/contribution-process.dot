@@ -2,8 +2,8 @@ digraph contribution_process {
 	rankdir=LR;
 	ranksep=0.5;
 	nodesep=1;
-	node [ color=black fontcolor=darkgreen];
-	edge [ color=black fontcolor=darkgreen];
+	node [ color=black fontcolor=darkgreen fontname="Liberation Sans"];
+	edge [ color=black fontcolor=darkgreen fontname="Liberation Sans"];
 
 	graph [truecolor bgcolor="#ffffff00" fontcolor=white sep="+20"]
 

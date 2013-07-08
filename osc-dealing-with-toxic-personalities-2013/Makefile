@@ -7,7 +7,7 @@ dot:
 		dot -Tpng $$dotfile > $${dotfile/.dot/.png} ; \
 	done
 
-doc: $(ELEMENTNAME).tex 
+doc: dot $(ELEMENTNAME).tex 
 	texi2pdf $(ELEMENTNAME).tex
 
 clean:
