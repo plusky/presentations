@@ -3,7 +3,7 @@ digraph contribution_process {
 	ranksep=0.5;
 	nodesep=1;
 	node [ color=black fontcolor=darkgreen fontname="Liberation Sans"];
-	edge [ color=black fontcolor=darkgreen fontname="Liberation Sans"];
+	edge [ color=black fontcolor="#0098df" fontname="Liberation Sans"];
 
 	graph [truecolor bgcolor="#ffffff00" fontcolor=white sep="+20"]
 
