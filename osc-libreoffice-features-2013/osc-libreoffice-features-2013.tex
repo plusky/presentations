@@ -35,29 +35,65 @@
 
 \subsection{Writer features}
 
-\begin{frame}
-Fonts embedding (for all formats)
-90 Degree rotation of images
-Gradient background
-Range comments can span multiple paragraphs
+\begin{frame}[t]{Fonts embedding}
+	\begin{itemize}
+	\item Feature apply actually for all parts, writer/impress/calc/...
+	\item Ensures that your peers can see the document exactly like you
+	\item Applies only for OpenDocument formats
+	\item File $\rightarrow$ Properites $\rightarrow$ Font $\rightarrow$ Embedd fonts in the document
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{90 Degree rotation of images}
+	\begin{figure}
+	\includegraphics[width= 0.6\linewidth]{90degreerotation-writer.png}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}{Gradient background}
+	\begin{figure}
+	\includegraphics[width= 0.8\linewidth]{gradientbg-writer.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Range comments can span multiple paragraphs}
+	\includegraphics[width= 1.0\linewidth]{rangecomments-writer.png}
 \end{frame}
 
 \subsection{Calc features}
 
-\begin{frame}
-Large tables import support >64k table cells
-New functions from excel 2013 for formulas creation
+\begin{frame}[t]{Large tables import support $>$64k table cells}
+	\begin{itemize}
+	\item With this fuction you can finally put in use huge stylesheet
+	\item The problem was that previously with big sheets you imported only 13635 from word file and lost the rest silently
+	\item Big problem is that calc is just huge mesh of cells, which inflict speed problems with more and more cells in equasion (this is being fixed if I am not mistaken)
+	\end{itemize}
 \end{frame}
+
+\begin{frame}[t]{New functions from excel 2013 for formulas creation}
+ACOT, ACOTH, ARABIC, BASE, BINOM.DIST.RANGE (B) [BINOM.DIST.RANGE], BITAND, BITLSHIFT, BITOR, BITRSHIFT, BITXOR, COMBINA, COT, COTH, CSC, CSCH, DAYS, DECIMAL, FORMULATEXT (FORMULA) [FORMULA], GAMMA, GAUSS, IFNA, IMCOSH, IMCOT, IMCSC, IMCSCH, IMSEC, IMSECH, IMSINH, IMTAN, ISFORMULA, MUNIT, NUMBERVALUE, PDURATION (DURATION) [PDURATION], PERMUTATIONA, PHI, RRI, SEC, SECH, SHEET, SHEETS, SKEW.P (SKEWP) [SKEWP], UNICHAR, UNICODE, XOR
+\end{frame}
+
+\begin{frame}{Counting selected cells}
+	\includegraphics[width= 1.0\linewidth]{cells-selection-count-calc.png}
+\end{frame}
+
 
 \subsection{Impress features}
 
-\begin{frame}
-Create picture series presentations with photoalbum functionality
+\begin{frame}[t]{Creating picture series presentations}
+	\begin{itemize}
+	\item Family reunions were never scarier
+	\item Just point impress to folder with photos and you get series of your pictures for everyone
+	\item Insert $\rightarrow$ Picture $\rightarrow$ Photo Album
+	\end{itemize}
+
 \end{frame}
 
 \subsection{Base features}
 
-\begin{frame}
+\begin{frame}{LIMIT for results}
 Possibility to LIMIT the results to some predefined value.
 \end{frame}
 
