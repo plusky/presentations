@@ -94,35 +94,69 @@ ACOT, ACOTH, ARABIC, BASE, BINOM.DIST.RANGE (B) [BINOM.DIST.RANGE], BITAND, BITL
 \subsection{Base features}
 
 \begin{frame}{LIMIT for results}
-Possibility to LIMIT the results to some predefined value.
+	\begin{center}
+	\includegraphics[width= 0.7\linewidth]{limit-base.png}
+	\end{center}
 \end{frame}
 
 \subsection{Global/Core changes}
 
-\begin{frame}
-There is ongoing effort punting java in favor of python, tis time Agenda and Web wizzards were pythonified
-Text rendering was moved from deprecated ICU LE to HarfBuzz (mostly used up now in chrome)
-More dialogs were rewritten with HIG in mind (glade .ui files).
-New Galery images taken from Lotus Symphony
-Experimental sidebar from Lotus Symphony, this is being converted to dynamic expansion and the feature should be completely ready for 4.2 release.
+\begin{frame}[t]{Core changes}
+	\begin{itemize}
+	\item There is ongoing effort punting java in favor of python, tis time Agenda and Web wizzards were pythonified
+	\item Text rendering was moved from deprecated ICU LE to HarfBuzz (mostly used up now in chrome)
+	\item More dialogs were rewritten with HIG in mind (glade .ui files).
+	\item New Galery images taken from Lotus Symphony
+	\item Experimental sidebar from Lotus Symphony, this is being converted to dynamic expansion and the feature should be completely ready for 4.2 release.
+	\item Deprecation of dmake
+	\end{itemize}
 \end{frame}
 
 \subsection{Filter updates}
 
-\begin{frame}
-New libmwaw provide support for mwaw format
+\begin{frame}[t]{New provider for mwaw format}
+	\begin{itemize}
+	\item Files generated on Mac OS (pre-OSX)
+	\item Microsoft Word for Mac 5.1, Write Now 4.0, MacWrite Pro 1.5, Appleworks 6.0
+	\item Even if questionable use nowdays it is always good to be able to open old documents
+	\end{itemize}
 \end{frame}
 
 \subsection{Help updates}
 
-\begin{frame}
-Syntax is highlighted in help to be better readable.
+\begin{frame}{Syntax highlighting}
+	\includegraphics[width= 0.5\linewidth]{syntax36-help.png}
+	\includegraphics[width= 0.5\linewidth]{syntax41-help.png}
 \end{frame}
 
-\section{Contributor graphs}
+\section{Contributing}
 
-\begin{frame}
-Graphs from Michael that contain the influx of people and their contributions.
+\subsection{Graphs}
+
+\begin{frame}{Current contributors}
+	\includegraphics[width= 1.0\linewidth]{contribution-graph.png}
+\end{frame}
+
+\begin{frame}{Unique hits on page per version}
+	\includegraphics[width= 1.0\linewidth]{downloads-unique.png}
+\end{frame}
+
+\subsection{How can I contribute}
+
+\begin{frame}[t]{Working with bugs}
+	\begin{itemize}
+	\item Report your bugs using assistant https://www.libreoffice.org/get-help/bug/
+	\item Work in bugzilla to confirm and cleanup all the reported bugs
+	\item Currently there are 5442 overall open bugs, weekly it gets around 200 more and around 100 is closed
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Running tinderbox}
+	\begin{itemize}
+	\item Tool running continuous builds to see if something broke or not
+	\item http://tinderbox.libreoffice.org/MASTER/status.html
+	\item Even if it is without fancy css it provides great fast way how to keep the code compiling under various build setups
+	\end{itemize}
 \end{frame}
 
 \section{Thanks}
