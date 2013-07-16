@@ -79,7 +79,6 @@ ACOT, ACOTH, ARABIC, BASE, BINOM.DIST.RANGE (B) [BINOM.DIST.RANGE], BITAND, BITL
 	\includegraphics[width= 1.0\linewidth]{cells-selection-count-calc.png}
 \end{frame}
 
-
 \subsection{Impress features}
 
 \begin{frame}[t]{Creating picture series presentations}
@@ -108,7 +107,17 @@ ACOT, ACOTH, ARABIC, BASE, BINOM.DIST.RANGE (B) [BINOM.DIST.RANGE], BITAND, BITL
 	\item More dialogs were rewritten with HIG in mind (glade .ui files).
 	\item New Galery images taken from Lotus Symphony
 	\item Experimental sidebar from Lotus Symphony, this is being converted to dynamic expansion and the feature should be completely ready for 4.2 release.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Core changes: part 2}
+	\begin{itemize}
 	\item Deprecation of dmake
+	\item Reduction of german comments (around 17k lines, 3.3 had 52k)
+	\item Tons of coverity fixes
+	\item Automated detection of crasher bugs
+	\item 100+ new unit tests to cover more ground
+	\item Complete SDF removal -> way faster build with enabled languages
 	\end{itemize}
 \end{frame}
 
