@@ -16,16 +16,20 @@
 
 \AtBeginSection[]
 {
-  \begin{frame}
-    \begin{center}\begin{huge}\secname\end{huge}\end{center}
-  \end{frame}
+	\setbeamercolor{background canvas}{bg=chameleongreen3}
+	\begin{frame}[plain]
+		\begin{center}\begin{huge}\secname\end{huge}\end{center}
+	\end{frame}
+	\setbeamercolor{background canvas}{bg=}
 }
 
 \AtBeginSubsection[]
 {
-  \begin{frame}
-    \begin{center}\begin{huge}\subsecname\end{huge}\end{center}
-  \end{frame}
+	\setbeamercolor{background canvas}{bg=chameleongreen3}
+	\begin{frame}[plain]
+		\begin{center}\begin{huge}\subsecname\end{huge}\end{center}
+	\end{frame}
+	\setbeamercolor{background canvas}{bg=}
 }
 
 \begin{document}
