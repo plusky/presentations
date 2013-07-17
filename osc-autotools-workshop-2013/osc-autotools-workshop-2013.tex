@@ -1,6 +1,9 @@
 \documentclass{beamer}
 \usepackage[utf8x]{inputenc}
 \usepackage[czech]{babel}
+\usepackage{booktabs}
+\usepackage{listings}
+
 \usetheme[pageofpages=of,% String used between the current page and the
                          % total page count.
           bullet=circle,% Use circles instead of squares for bullets.
@@ -52,25 +55,90 @@
 
 \section{Autotools process}
 
-\begin{frame}
+\begin{frame}{Complete autotools process}
+	\begin{figure}
+	\includegraphics[width= 1.0\linewidth]{autotools.png}
+	\end{figure}
 \end{frame}
 
-What does automake/autoconf actually do and generate
+\begin{frame}{Simplified autotools process}
+	\begin{figure}
+	\includegraphics[width= 1.0\linewidth]{autotools_simple.png}
+	\end{figure}
+\end{frame}
 
-\section{Autoconf layout}
+\begin{frame}{How does deploying looks}
+	\begin{tabular}{|l|l|}
+	\toprule
+	Developer & Consumer \\
+	\midrule
+	\$ cd git-repo/ & \$ wget "uploaded tarball" \\
+	\$ sh autogen.sh & \$ unpack "uploaded tarball" \\
+	\$ ./configure & \$ ./configure --enable-this --disable-that \\
+	\$ make distcheck & \$ make -jVALUE \\
+	"upload tarball" & \$ make install \\
+	\bottomrule
+	\end{tabular}
+\end{frame}
 
-Setting version
+\section{Writting autotools for dummies}
 
-Finding compiler
+\subsection{Autoconf aka configure.ac}
 
-Pkgconfig finding and setting ; why is it bad to ; 0.28 can crosscompile;
+\begin{frame}[t]{What is autogen.sh}
+	\begin{itemize}
+	\item \url{http://tinyurl.com/q596zjt} \\
+	\item Shorter version is just to run "$autoreconf -vi$"
+	\end{itemize}
+\end{frame}
 
-Options/automagicness
+\begin{frame}[t]{Defining version}
+	\begin{small}
+	\lstinputlisting{autoconfinit.txt}
+	\end{small}
+\end{frame}
 
-\section{m4 macros}
+\begin{frame}[t]{Finding used apps/libs}
+	\begin{small}
+	\lstinputlisting{autoconfappsdetection.txt}
+	\end{small}
+\end{frame}
+
+\begin{frame}[t]{Hand-searching for libraries}
+	\begin{small}
+	\lstinputlisting{autoconfhandlib.txt}
+	\end{small}
+\end{frame}
+
+\begin{frame}[t]{Automagicness in autoconf}
+	\begin{small}
+	\lstinputlisting{autoconfautomagicness.txt}
+	\end{small}
+\end{frame}
+
+\begin{frame}[t]{Werror handling}
+	\begin{small}
+	\lstinputlisting{autoconfwerror.txt}
+	\end{small}
+\end{frame}
+
+\begin{frame}[t]{Generate results}
+	\begin{small}
+	\lstinputlisting{autoconfresults.txt}
+	\end{small}
+\end{frame}
+
+\begin{frame}[t]{m4 macros}
+	\begin{small}
+	\lstinputlisting{m4macros.txt}
+	\end{small}
+\end{frame}
+
+
+
 (boost, easy mutliple same switches [libreoffice])
 
-\section{Automake layout}
+\subsection{Automake aka Makefile.am}
 
 Why rootdir makefile rule them all
 
@@ -93,7 +161,13 @@ https://github.com/openSUSE/sax3/tree/kill-ui-library
 libvisio
 libtextextcat
 
-\section{Endnote}
+\section{Reading}
+
+\begin{frame}{Reading}
+	\begin{figure}
+	\includegraphics[width= 0.4\linewidth]{mythbuster.png}
+	\end{figure}
+\end{frame}
 
 \section{Endnote}
 

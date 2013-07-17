@@ -1,0 +1,6 @@
+AC_CHECK_HEADERS([buffio.h tidy.h], [], [
+	AC_MSG_ERROR([Unable to find htmltidy headers])
+])
+AC_SEARCH_LIBS([tidyParseBuffer], [tidy], [], [
+	AC_MSG_ERROR([Unable to find htmltidy library])
+])
