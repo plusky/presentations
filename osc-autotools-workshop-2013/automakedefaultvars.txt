@@ -9,4 +9,5 @@ EXTRA_DIST = \
 	autogen.sh \
 	libexample.pc.in \
 	data/extrafile.blob \
-	$(MY_VARIABLE)
+	$(MY_VARIABLE) \
+	.version version.sh

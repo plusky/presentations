@@ -7,5 +7,5 @@ libexample_la_CFLAGS = \
 	$(MYEXTERNALPACKAGE_CFLAGS)
 libexample_la_LDFLAGS = \
 	$(MYEXTERNALPACKAGE_LIBS) \
-	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
+	-version-info $(LT_VERSION) \
 	-export-symbols-regex '^foo_'
