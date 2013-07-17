@@ -67,7 +67,7 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{How does deploying looks}
+\begin{frame}{How does deploying look}
 	\begin{tabular}{|l|l|}
 	\toprule
 	Developer & Consumer \\
@@ -88,7 +88,7 @@
 \begin{frame}[t]{What is autogen.sh}
 	\begin{itemize}
 	\item \url{http://tinyurl.com/q596zjt} \\
-	\item Shorter version is just to run "$autoreconf -vi$"
+	\item Shorter version is just to run "autoreconf -vi"
 	\end{itemize}
 \end{frame}
 
@@ -137,32 +137,69 @@
 \subsection{Automake aka Makefile.am}
 
 \begin{frame}[t]{Non-recursive Makefiles}
+	\begin{itemize}
+	\item Easier to see the changes in one file in top \$(srcdir)
+	\item Faster with paralelization, because of the depgraph calculations
+	\item Easier to write the stack as you always start from the top
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Basic declarations}
+	\begin{small}
+	\lstinputlisting{automakedefaultvars.txt}
+	\end{small}
 \end{frame}
 
 \begin{frame}[t]{Adding sources}
+	\begin{small}
+	\lstinputlisting{automakesources.txt}
+	\end{small}
 \end{frame}
 
 \begin{frame}[t]{Adding headers}
+	\begin{small}
+	\lstinputlisting{automakeinclude.txt}
+	\end{small}
 \end{frame}
 
 \begin{frame}[t]{Creating tests}
+	\begin{small}
+	\lstinputlisting{automaketests.txt}
+	\end{small}
 \end{frame}
 
 \begin{frame}[t]{Creating custom rules}
+	\begin{small}
+	\lstinputlisting{automakecustomrules.txt}
+	\end{small}
 \end{frame}
 
 \subsection{Libtool}
 
+\begin{frame}{Libtool versioning}
+	\begin{itemize}
+	\item Start with version information of ‘0:0:0’ for each libtool library
+	\item Update the version information only immediately before a public release of your software. More frequent updates are unnecessary, and only guarantee that the current interface number gets larger faster
+	\item If the library source code has changed at all since the last update, then increment revision (‘c:r:a’ becomes ‘c:r+1:a’)
+	\item If any interfaces have been added, removed, or changed since the last update, increment current, and set revision to 0
+	\item If any interfaces have been added since the last public release, then increment age
+	\item If any interfaces have been removed or changed since the last public release, then set age to 0
+	\end{itemize}
+\end{frame}
+
 \begin{frame}[t]{configure.ac changes}
+	\begin{small}
+	\lstinputlisting{autoconflibtool.txt}
+	\end{small}
 \end{frame}
 
 \begin{frame}[t]{Makefile.am changes}
+	\begin{small}
+	\lstinputlisting{automakelibtool.txt}
+	\end{small}
 \end{frame}
 
-\section{Lets try to wrate a buildsystem}
+\section{Lets try to write a buildsystem}
 
 \begin{frame}{Lets write a buildsystem for sax3}
 \url{https://github.com/openSUSE/sax3/tree/kill-ui-library}

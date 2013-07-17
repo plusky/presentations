@@ -1,0 +1,11 @@
+bin_PROGRAMS = binary
+binary_SOURCES = \
+	src/file.c \
+	src/example.c \
+	src/whatever.c
+binary_CFLAGS = \
+	$(EXTERNALPACKAGE_CFLAGS) \
+	-I$(srcdir)/where/ever/
+binary_LDADD = \
+	$(EXTERNALPACKAGE_LIBS) \
+	libexample.la

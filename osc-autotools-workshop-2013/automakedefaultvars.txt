@@ -1,0 +1,12 @@
+ACLOCAL_AMFLAGS = -I m4
+
+AM_LDFLAGS = -no-undefined
+
+pkgconfdir = $(libdir)/pkgconfig
+pkgconf_DATA = libexample.pc
+
+EXTRA_DIST = \
+	autogen.sh \
+	libexample.pc.in \
+	data/extrafile.blob \
+	$(MY_VARIABLE)
