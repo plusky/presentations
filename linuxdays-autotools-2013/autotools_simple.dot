@@ -1,0 +1,32 @@
+digraph autotools_simple {
+	rankdir=LR;
+
+	node [fontname="Liberation Sans"];
+	edge [fontname="Liberation Sans"];
+
+	ordering=out;
+
+	"configure.ac" [shape=box];
+	"Makefile.am" [shape=box];
+	{rank=same; "configure.ac" "Makefile.am"}
+
+	"configure.ac" -> "configure" [arrowhead=open];
+	"Makefile.am" -> "Makefile.in" [arrowhead=open];
+
+	"configure" [shape=box style=bold];
+	"Makefile.in" [shape=box style=bold];
+	{rank=same; "configure" "Makefile.in"}
+
+	"configure" -> "Makefile" [arrowhead=open];
+	"configure" -> "config.h" [arrowhead=open];
+	"Makefile.in" -> "Makefile" [arrowhead=open];
+
+	"Makefile" [shape=box];
+	"config.h" [shape=box];
+	{rank=same; "config.h" "Makefile"}
+
+	"config.h" -> "Executable" [style=bold,arrowsize=1.5]
+	"Makefile" -> "Executable" [style=bold,arrowsize=1.5]
+
+	"Executable" [style=bold]
+}

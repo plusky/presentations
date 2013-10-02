@@ -1,0 +1,12 @@
+AC_CONFIG_FILES([
+	Makefile
+	mylibrary.pc
+])
+AC_OUTPUT
+
+AC_MSG_NOTICE([
+==========================================
+Build configuration:
+	werror:          ${enable_werror}
+==========================================
+])
