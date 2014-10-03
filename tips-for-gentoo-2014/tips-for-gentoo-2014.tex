@@ -1,0 +1,196 @@
+\documentclass{beamer}
+
+\batchmode
+
+\usepackage{amsmath,amssymb,enumerate,epsfig,bbm,calc,color,ifthen,capt-of}
+
+\usetheme{Berlin}
+\usecolortheme{mit}
+
+%% <language_settings> %%
+\usepackage[utf8x]{inputenc}
+\usepackage[czech]{babel}
+%% </language_settings> %%
+
+%% Source code insertions
+\usepackage{verbatim}
+
+%% <change me> %%
+\title{Why use Gentoo}
+\author[Tomáš Chvátal]{Tomáš Chvátal $<$scarabeus@gentoo.org$>$}
+\date{2014/10/04}
+%% </change me> %%
+
+%% <logo> %%
+\usepackage[absolute,overlay]{textpos}
+\setlength{\TPHorizModule}{1mm}
+\setlength{\TPVertModule}{1mm}
+\newcommand{\MyLogo}{
+	\begin{textblock}{14}(110,7)
+		\includegraphics[width=14mm,height=14mm]{gentoo-logo.png}
+	\end{textblock}
+}
+
+\newcommand*\oldmacro{}
+\let\oldmacro\insertshorttitle
+\renewcommand*\insertshorttitle{
+	\MyLogo
+	\oldmacro\hfill
+}
+%% </logo> %%
+
+%% <bgimage> %%
+\usebackgroundtemplate{
+	\includegraphics[width=\paperwidth,height=\paperheight]{gentoo-background-1.png}
+}
+%% </bgimage> %%
+
+%% <ToC Before each section> %%
+%\AtBeginSection[]{
+%	\begin{frame}<beamer>
+%		\frametitle{Přehled}
+%		\tableofcontents[currentsection]
+%	\end{frame}
+%}
+%% </ToC Before each section> %%
+
+%% <each bullet on one slide> %%
+%% better to use \pause on points where we really want to stop :)
+%\beamerdefaultoverlayspecification{<+->}
+%% </each bullet on one slide> %%
+% -----------------------------------------------------------------------------
+\begin{document}
+% -----------------------------------------------------------------------------
+\frame{\titlepage}
+%\section[Přehled]{}
+%\begin{frame}{Přehled}
+%	\tableofcontents
+%\end{frame}
+% -----------------------------------------------------------------------------
+\section{Introduction}
+\begin{frame}{Questions}
+\begin{itemize}
+	\item What is this Gentoo thing?
+	\item I hate paying so much for central heating... Solutions?
+	\item Optimalization overkill is always needed
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Who am I?}
+	\begin{center}Tomáš Chvátal\end{center}
+	\begin{itemize}
+		\item Gentoo developer since fall 2008
+		\item Was member of Gentoo Council for few terms
+		\item Currently maintaining libreoffice (hint we need volunteers) and KDE team member
+		\item Works at SUSE and is bossing around bunch of packagers :)
+	\end{itemize}
+\end{frame}
+% -----------------------------------------------------------------------------
+\section{What is Gentoo?}
+\begin{frame}{Basic stuff}
+	\begin{itemize}
+		\item Gentoo was started by Daniel Robbins in 1999
+		\item Metadistribution compiled from scratch on user system
+		\item Supports loads of various archs: amd64, arm, x86, ppc64, ...
+		\item Democratically governed distribution where Council stands as appealing body
+		\item Portage contains something around 20 000 packages with 30 thousand versions
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{What the hell is Metadistribution?}
+	Basically it means that Gentoo is used as base to create other distributions, instead of direct Gentoo usage.
+	Some distros starting from Gentoo:
+	\begin{itemize}
+		\item Chrome OS
+		\item Funtoo
+		\item Calculate linux
+		\item Sabayon
+	\end{itemize}
+	We can say Debian/Ubuntu are used like this (see all the damn forks with different skins there).
+\end{frame}
+
+\section{What is the cool stuff?}
+\begin{frame}{Rolling distribution}
+	\begin{itemize}
+		\item Always up-to-date
+		\item No need for migration
+		\item New stuff every 30 minutes
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Build locally from source code}
+	\begin{itemize}
+		\item Optimize directly for your hardware
+		\item Tweak out dependencies and configure options for build
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Hardened project}
+	\begin{itemize}
+		\item Super secure Linux TM
+		\item Enables quite some compilation switches to harden the output
+		\item Various kernel patches to skyrocket the security
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Other trivia}
+	\begin{itemize}
+		\item Ability to tweak out options a lot (no cups, no systemd, etc.)
+		\item Almost no distro patches: you get the package as upstream desires
+		\item You can choose to live on the edge by using testing tree
+	\end{itemize}
+\end{frame}
+
+\section{Not so cool stuff}
+
+\begin{frame}{What should I be aware of}
+	\begin{itemize}
+		\item Quite complex installation compared to others
+		\item Rolling updates
+		\item Slow application install
+		\item Testing tree can be fatal and you might be forced to reinstall
+	\end{itemize}
+\end{frame}
+
+\section{When  should I use it}
+\begin{frame}{When should I start considering to install it?}
+	\begin{itemize}
+		\item I want to learn really well how this linux thing works
+		\item I don't mind searching answers on internet
+		\item I actually read distro notification and act upon them
+	\end{itemize}
+	Mostly Gentoo can be deployed everywhere, just some administration decisions can make it really big nightmare.
+\end{frame}
+
+\section{Contributing}
+\begin{frame}{I feel so intrigued I want to contribute}
+	\begin{itemize}
+		\item Report bugs to http://bugs.gentoo.org/
+		\item Contribute to portage (became developer or contribute like proxy-maintainer)
+		\item Finances (donate button on http://www.gentoo.org/)
+	\end{itemize}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+\section{Endnote}
+
+\subsection{More reading}
+\begin{frame}{More reading}
+	\begin{itemize}
+		\item http://www.gentoo.org/
+		\item http://forums.gentoo.org/
+		\item http://wiki.gentoo.org/
+	\end{itemize}
+\end{frame}
+
+\subsection{Questions}
+\begin{frame}{Q\&A}
+	\begin{center}Do you happen to have some questions people?\end{center}
+\end{frame}
+
+\subsection{Thanks}
+\begin{frame}{}
+	\begin{center}Thank you for your attention\end{center}
+\end{frame}
+% -----------------------------------------------------------------------------
+\end{document}
