@@ -16,7 +16,7 @@
 \usepackage{verbatim}
 
 %% <change me> %%
-\title{Why use Gentoo}
+\title{Tips for starting with Gentoo}
 \author[Tomáš Chvátal]{Tomáš Chvátal $<$scarabeus@gentoo.org$>$}
 \date{2014/10/04}
 %% </change me> %%
@@ -68,11 +68,11 @@
 %\end{frame}
 % -----------------------------------------------------------------------------
 \section{Introduction}
-\begin{frame}{Questions}
+\begin{frame}{Famous last words}
 \begin{itemize}
-	\item What is this Gentoo thing?
-	\item I hate paying so much for central heating... Solutions?
-	\item Optimalization overkill is always needed
+	\item This switch sounds harmless...
+	\item I am sure it should still boot
+	\item There is no need to update it
 \end{itemize}
 \end{frame}
 
@@ -86,96 +86,84 @@
 	\end{itemize}
 \end{frame}
 % -----------------------------------------------------------------------------
-\section{What is Gentoo?}
-\begin{frame}{Basic stuff}
+\section{Basics}
+\begin{frame}{What areas shall we cover}
 	\begin{itemize}
-		\item Gentoo was started by Daniel Robbins in 1999
-		\item Metadistribution compiled from scratch on user system
-		\item Supports loads of various archs: amd64, arm, x86, ppc64, ...
-		\item Democratically governed distribution where Council stands as appealing body
-		\item Portage contains something around 20 000 packages with 30 thousand versions
+		\item Interesting applications
+		\item Configuration Tips
+		\item General ideas
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{What the hell is Metadistribution?}
-	Basically it means that Gentoo is used as base to create other distributions, instead of direct Gentoo usage.
-	Some distros starting from Gentoo:
-	\begin{itemize}
-		\item Chrome OS
-		\item Funtoo
-		\item Calculate linux
-		\item Sabayon
-	\end{itemize}
-	We can say Debian/Ubuntu are used like this (see all the damn forks with different skins there).
-\end{frame}
+\section{Interesting apps}
 
-\section{What is the cool stuff?}
-\begin{frame}{Rolling distribution}
+\begin{frame}{Apps list}
 	\begin{itemize}
-		\item Always up-to-date
-		\item No need for migration
-		\item New stuff every 30 minutes
+		\item eix: fast pkg searcher with it own index
+		\item gentoolkit: set of cool small apps
+		\item gentoolkit-dev: another set for developement
+		\item tmux: screen like provider
+		\item layman: overlay management tool
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Build locally from source code}
+\begin{frame}{Compilation/developement}
 	\begin{itemize}
-		\item Optimize directly for your hardware
-		\item Tweak out dependencies and configure options for build
+		\item ccache: compilation cache when you reubild often
+		\item distcc: distribute load on more machines
+		\item clang: compile with better warnings :)
+		\item icecream: another approach to distributed CC
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Hardened project}
+\section{Configuration Tips}
+
+\begin{frame}{/etc/portage/}
 	\begin{itemize}
-		\item Super secure Linux TM
-		\item Enables quite some compilation switches to harden the output
-		\item Various kernel patches to skyrocket the security
+	\item keep package.use/mask/\ldots as directories
+	\item separate the content by purpose ie /etc/portage/package.unmask/libav-10
+	\item periodically clean it up (few times a year)
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Other trivia}
+\begin{frame}{/etc/portage/make.conf}
 	\begin{itemize}
-		\item Ability to tweak out options a lot (no cups, no systemd, etc.)
-		\item Almost no distro patches: you get the package as upstream desires
-		\item You can choose to live on the edge by using testing tree
+	\item keep it small
+	\item try to stick with profiles where possible and file bugs if needed
+	\item remember to set good mirrors
+	\item it is defining shell variables so you can keep lines short
 	\end{itemize}
 \end{frame}
 
-\section{Not so cool stuff}
-
-\begin{frame}{What should I be aware of}
+\begin{frame}{/var/lib/portage/world}
 	\begin{itemize}
-		\item Quite complex installation compared to others
-		\item Rolling updates
-		\item Slow application install
-		\item Testing tree can be fatal and you might be forced to reinstall
+	\item Keep this file exeptionaly tidy (emerge or just edit it)
+	\item Make sure only apps you consider your end point are in here
 	\end{itemize}
 \end{frame}
 
-\section{When  should I use it}
-\begin{frame}{When should I start considering to install it?}
-	\begin{itemize}
-		\item I want to learn really well how this linux thing works
-		\item I don't mind searching answers on internet
-		\item I actually read distro notification and act upon them
-	\end{itemize}
-	Mostly Gentoo can be deployed everywhere, just some administration decisions can make it really big nightmare.
-\end{frame}
+\section{General ideas}
 
-\section{Contributing}
-\begin{frame}{I feel so intrigued I want to contribute}
+\begin{frame}{Ideas}
 	\begin{itemize}
-		\item Report bugs to http://bugs.gentoo.org/
-		\item Contribute to portage (became developer or contribute like proxy-maintainer)
-		\item Finances (donate button on http://www.gentoo.org/)
+	\item Update often: once a month or more
+	\item Consider hardened: safer box is better
+	\item Do not mix: try to avoid using testing/stable mix
 	\end{itemize}
 \end{frame}
 
 % -----------------------------------------------------------------------------
 \section{Endnote}
 
+\subsection{SUSE is Hiring!}
+
+\begin{frame}{We are hiring at SUSE}
+	\begin{center}\bf{We are looking for people to have fun at SUSE!}\end{center}
+	\begin{center}\bf{Drop by SUSE booth to get informations.}\end{center}
+\end{frame}
+
 \subsection{More reading}
-\begin{frame}{More reading}
+\begin{frame}{Links}
 	\begin{itemize}
 		\item http://www.gentoo.org/
 		\item http://forums.gentoo.org/
@@ -185,11 +173,11 @@
 
 \subsection{Questions}
 \begin{frame}{Q\&A}
-	\begin{center}Do you happen to have some questions people?\end{center}
+	\begin{center}Any questions?\end{center}
 \end{frame}
 
 \subsection{Thanks}
-\begin{frame}{}
+\begin{frame}
 	\begin{center}Thank you for your attention\end{center}
 \end{frame}
 % -----------------------------------------------------------------------------
