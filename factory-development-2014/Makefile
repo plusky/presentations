@@ -1,17 +1,12 @@
 ELEMENTNAME=factory-development-2014
 
-all: dot doc clean
+all: doc clean
 
-dot:
-	for dotfile in *.dot; do \
-		dot -Tpng $$dotfile > $${dotfile/.dot/.png} ; \
-	done
-
-doc: dot $(ELEMENTNAME).tex 
+doc: $(ELEMENTNAME).tex 
 	texi2pdf $(ELEMENTNAME).tex
 
 clean:
-	rm -rf *.{aux,toc,log,out,snm,nav,lot,lol,lof}
+	rm -rf *.{aux,toc,log,out,snm,nav,lot,lol,lof,vrb}
 	rm -rf *~
 
 upload:
