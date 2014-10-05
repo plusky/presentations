@@ -1,0 +1,123 @@
+\documentclass{beamer}
+\usepackage[utf8x]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{booktabs}
+\usepackage{listings}
+
+\usetheme[pageofpages=of,% String used between the current page and the
+                         % total page count.
+          bullet=circle,% Use circles instead of squares for bullets.
+          titleline=true,% Show a line below the frame title.
+	  titlepagelogo=opensuse,
+          alternativetitlepage=true,% Use the fancy title page.
+          ]{Torino}
+
+\setbeamerfont{title}{series=\bfseries,size=\LARGE}
+\author{Tom\'{a}\v{s} Chv\'{a}tal\newline {\small openSUSE Team}}
+\title{openSUSE Factory development}
+\date{2014/10/05}
+
+\AtBeginSection[]
+{
+	\setbeamercolor{background canvas}{bg=chameleongreen3}
+	\begin{frame}[plain]
+		\begin{center}\begin{huge}\textcolor{white}{\secname}\end{huge}\end{center}
+	\end{frame}
+	\setbeamercolor{background canvas}{bg=}
+}
+
+\AtBeginSubsection[]
+{
+	\setbeamercolor{background canvas}{bg=chameleongreen3}
+	\begin{frame}[plain]
+		\begin{center}\begin{huge}\textcolor{white}{\subsecname}\end{huge}\end{center}
+	\end{frame}
+	\setbeamercolor{background canvas}{bg=}
+}
+
+\begin{document}
+
+\begin{frame}[t,plain]
+\titlepage
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}[t]{Who is Tomáš Chvátal}
+	\begin{itemize}
+	\item SUSE Employee since 2011
+	\item Lead of Packagers team in SUSE
+	\item Gentoo developer working on varous things there
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{What is openSUSE Factory}
+	\begin{itemize}
+	\item Rolling distribution that should be stable enough
+	\item Idea is to provide environment for early adopters
+	\item Testbed for all new features that are entering openSUSE and SLE
+	\item This presentation is done from laptop running it :)
+	\end{frame}
+\end{frame}
+
+\section{The past}
+
+\section{Current status}
+
+\section{Bright and shiny future}
+
+\section{openSUSE releases}
+
+\section{Contribute}
+
+\begin{frame}[fragile]{Contributing packaging fixes}
+        \begin{tiny}
+        \begin{verbatim}
+$ osc develproject openSUSE:Factory rsnapshot
+Archiving
+$ osc branch Archiving rsnapshot
+A working copy of the branched package can be checked out with:
+osc co home:scarabeus_iv:branches:Archiving/rsnapshot
+$ osc co home:scarabeus_iv:branches:Archiving/rsnapshot
+$ cd home:scarabeus_iv:branches:Archiving/rsnapshot
+$ vi rsnapshot.spec # hackyhacky
+$ osc build
+$ osc vc -m "Fix something. Wrt bnc#2345"
+$ oscb
+$ osc ci
+$ osc sr -m "Finally got around to fix bnc#2345 so enjoy"
+        \end{verbatim}
+        \end{tiny}
+\end{frame}
+
+\begin{frame}[t]{Other areas}
+	\begin{itemize}
+	\item Report bugs on https://bugs.opensuse.org/
+	\item Create tests on https://openqa.opensuse.org/
+	\item Increase your code contributions and join some of review teams
+	\end{itemize}
+\end{frame}
+
+\section{Endnote}
+
+\begin{frame}{Handy links}
+	\begin{itemize}
+	\item http://openqa.opensuse.org
+	\item https://build.opensuse.org/factory/staging\_projects
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Suse is hiring}
+	\begin{figure}
+	\includegraphics[width= 0.8\linewidth]{suse_hiring.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Thanks}
+	\begin{center}
+	Thank you for your attention.
+	\end{center}
+\end{frame}
+
+\end{document}
+
