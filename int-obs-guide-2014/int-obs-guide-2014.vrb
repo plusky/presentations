@@ -1,0 +1,18 @@
+\frametitle{SLE cont.}
+\begin{tiny}
+\begin{verbatim}
+$ isc maintained vsftpd
+SUSE:SLE-10-SP3:Update:Test/vsftpd
+SUSE:SLE-11:Update:Test/vsftpd
+$ isc mbranch vsftpd
+$ isc co home:scarabeus_iv:branches:OBS_Maintained:vsftpd
+$ cd home:scarabeus_iv:branches:OBS_Maintained:vsftpd
+$ ls
+vsftpd.SUSE_SLE-10-SP3_Update_Test/  vsftpd.SUSE_SLE-11_Update_Test/
+% for each folder
+$ vi vsftpd.spec
+$ oscb
+$ osc ci
+$ osc sr <RESPECTIVE_PROJECT>/<EXACT_PKG_NAME> -> osc sr SUSE:SLE-10-SP3:Update:Test/vsftpd
+\end{verbatim}
+\end{tiny}
