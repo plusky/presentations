@@ -5,8 +5,9 @@ digraph contribution_process {
 	node [ color=black fontcolor=darkgreen fontname="Liberation Sans"];
 	edge [ color=black fontcolor="#0098df" fontname="Liberation Sans"];
 
-	graph [truecolor bgcolor="#ffffff00" fontcolor=white sep="+20"]
-
+	Contributor [shape=box];
+	Content [shape=box];
+	Reputation [shape=box];
 	Contributor -> Content [label="creates"];
 	Content -> Reputation [label="gain"];
 	Reputation -> Contributor [label="attracts"];
