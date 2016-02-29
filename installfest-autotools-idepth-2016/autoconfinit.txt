@@ -1,0 +1,11 @@
+# Process this file with autoconf to create configure.
+AC_PREREQ([2.65])
+
+AC_INIT([package], [m4_esyscmd([./version.sh])])
+AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_HEADERS([config.h])
+AM_INIT_AUTOMAKE([1.11 foreign no-dist-gz dist-xz])
+AM_SILENT_RULES([yes])
+AC_LANG([C])
+
+PC_VERSION=m4_esyscmd([./version.sh -p])

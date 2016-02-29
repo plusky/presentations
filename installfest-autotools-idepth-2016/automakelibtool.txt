@@ -1,0 +1,11 @@
+lib_LTLIBRARIES = libexample.la
+libexample_la_SOURCES = \
+	src/something.c \
+	src/somethingelse.c \
+	src/whatever.c
+libexample_la_CFLAGS = \
+	$(MYEXTERNALPACKAGE_CFLAGS)
+libexample_la_LDFLAGS = \
+	$(MYEXTERNALPACKAGE_LIBS) \
+	-version-info $(LT_VERSION) \
+	-export-symbols-regex '^foo_'
