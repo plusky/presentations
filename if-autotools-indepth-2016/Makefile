@@ -1,4 +1,4 @@
-ELEMENTNAME=osc-autotools-workshop-2013
+ELEMENTNAME=if-autotools-indepth-2016
 
 all: dot doc clean
 
