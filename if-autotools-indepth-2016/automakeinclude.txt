@@ -1,8 +1,0 @@
-libexample_includedir = $(includedir)/libexample
-libexample_include_HEADERS = \
-	libexample/example.h \
-	config.h
-
-noinst_HEADERS = \
-	libexample/example_internal1.h \
-	icnlude/example_internal2.h

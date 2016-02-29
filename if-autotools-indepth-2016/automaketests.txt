@@ -1,9 +1,0 @@
-check_PROGRAMS = test
-TESTS = test
-test_SOURCES = test/test.c
-test_CFLAGS = \
-	$(EXTERNALPKG_CFLAGS)
-test_LDADD = \
-	$(EXTERNALPKG_LIBS) \
-	locallib.la
-test_LDFLAGS = -no-install
