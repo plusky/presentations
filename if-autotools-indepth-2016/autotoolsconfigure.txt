@@ -1,0 +1,15 @@
+AC_INIT(Name, 0.42, bugs@my.org)
+AC_CONFIG_SRCDIR([Readme.MyProject])
+AC_CONFIG_HEADER([config.h])
+
+AC_PROG_CXX
+AC_PROG_CPP
+AC_PROG_INSTALL
+
+AC_HEADER_STDC
+AC_CHECK_HEADERS([string.h unistd.h limits.h])
+
+AC_CONFIG_FILES([Makefile
+                 doc/Makefile
+                 src/Makefile])
+AC_OUTPUT

@@ -60,12 +60,6 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Simplified autotools process}
-	\begin{figure}
-	\includegraphics[width= 1.0\linewidth]{autotools_simple.png}
-	\end{figure}
-\end{frame}
-
 \section{Make}
 
 \begin{frame}{Why not just a sh script?}
@@ -98,7 +92,59 @@
     \end{itemize}
 \end{frame}
 
-%# Autotools example
+\section{Autotools}
+
+\begin{frame}{Simplified autotools process}
+	\begin{figure}
+	\includegraphics[width= 1.0\linewidth]{autotools_simple.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}[t]{Autoconf/configure sample}
+	\begin{small}
+	\lstinputlisting{autotoolsconfigure.txt}
+	\end{small}
+\end{frame}
+
+\begin{frame}{Autoconf syntax}
+    \begin{itemize}
+    \item The M4 syntax is quite weird on the first read
+    \item It is not interpreted, it is text substitution machine
+    \item Lots of quoting is needed, if in doubt add more []
+    \item Everything that does or might contain whitespace or commas has to be quoted
+    \item Custom autoconf M4 macros are almost unreadable
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Automake}
+	\begin{small}
+	\lstinputlisting{autotoolsmake.txt}
+	\end{small}
+\end{frame}
+
+\begin{frame}{Variables for automake - SUFFIXES}
+    \begin{itemize}
+    \item \_PROGRAMS
+    \item \_LIBRARIES DO\_NOT\_USE go for \_LTLIBRARIES
+    \item \_SCRIPTS
+    \item \_SOURCES
+    \item \_HEADERS
+    \item \_OBJECTS
+    \item \_DATA
+    \item \_LDADD
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Variables for automake - PREFIXES}
+    \begin{itemize}
+    \item bin\_	will be installed to bindir
+    \item sbin\_	will be installed to sbindir
+    \item lib\_	will be installed to libdir
+    \item noinst\_	will not be installed
+    \item EXTRA\_	will be packaged upon make dist
+    \item check\_	used only for make check
+    \end{itemize}
+\end{frame}
 
 \subsection{Libtool}
 
