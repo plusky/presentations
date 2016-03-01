@@ -1,2 +1,4 @@
 # ignore compiled pdfs
 *.pdf
+# swp files too
+.*.swp
