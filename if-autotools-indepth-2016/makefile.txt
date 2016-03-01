@@ -1,0 +1,16 @@
+CC      ?= @CC@
+CFLAGS  ?= @CFLAGS@
+PROGRAM = examplebinary
+OBJ     = main.o parser.o output.o
+$(PROGRRAM): $(OBJ)
+	$(CC) $(LDFLAGS) -o $@ $^
+
+main.o: main.c common.h
+parser.o: parser.c common.h
+output.o: output.c common.h setup.h
+
+install: $(PROGRAM)
+# You have to use tabs here
+	$(INSTALL) $(PROGRAM) $(BINDIR)
+clean:
+	$(RM) $(OBJ)

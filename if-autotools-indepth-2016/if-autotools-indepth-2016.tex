@@ -66,7 +66,38 @@
 	\end{figure}
 \end{frame}
 
-%# Make example
+\section{Make}
+
+\begin{frame}{Why not just a sh script?}
+	\begin{center}
+    \item Always recompiling everything is a waste of time and CPU power
+	\end{center}
+\end{frame}
+
+\begin{frame}[t]{Plain makefile example}
+	\begin{small}
+	\lstinputlisting{makefile.txt}
+	\end{small}
+\end{frame}
+
+\begin{frame}{Variables in Makefiles}
+    \begin{itemize}
+    \item Variables expanded using \$(), ie \$(VAR)
+    \item Variables are assigned like in sh, ie VAR=value
+    \item \$@ current target
+    \item \$< the first dependent file
+    \item \$\textasciicircum all dependent files
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Well nice, but why autotools then}
+    \begin{itemize}
+    \item Makefiles can get complex fast (really unreadable)
+    \item Lots of details to keep in mind when writing, small mistakes happen fast
+    \item Does not make dependencies between targets really easier
+    \end{itemize}
+\end{frame}
+
 %# Autotools example
 
 \subsection{Libtool}
