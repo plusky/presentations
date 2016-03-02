@@ -123,6 +123,15 @@
 	\end{small}
 \end{frame}
 
+\begin{frame}{Basic rules}
+    \begin{itemize}
+    \item Always use just one Makefile.am in root folder
+    \item All files that are to be distributed must be added to relevant parts or EXTRA\_DIST
+    \item Always run make distcheck to verify your package really works
+    \item Use check\_BINARIES/etc\ldots to have test phase
+    \end{itemize}
+\end{frame}
+
 \begin{frame}{Variables for automake - SUFFIXES}
     \begin{itemize}
     \item \_PROGRAMS
@@ -172,7 +181,38 @@
 \end{frame}
 
 %# windows support in autotools
-%# cmake example
+
+\section{CMake}
+
+\begin{frame}{What are the benefits?}
+	\begin{itemize}
+    \item No libtool!
+    \item Multiplatform generator for free Mac/Win/Linux...
+    \item Can swap make for ninja
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Any disadvantages?}
+	\begin{itemize}
+    \item FindBLA.cmake are sometimes pretty crappy
+    \item If you rely on just .pc files you loose multiplatformity
+    \item Can get unreadable fast
+    \item Conflicting guides online, fine when you have someone to ask
+    \item Distribution archive generator using CPack confuse many people
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{CMake example}
+	\begin{small}
+	\lstinputlisting{cmakeexample.txt}
+	\end{small}
+\end{frame}
+
+\begin{frame}[t]{CPack example}
+	\begin{small}
+	\lstinputlisting{cpackexample.txt}
+	\end{small}
+\end{frame}
 
 \section{Reading}
 

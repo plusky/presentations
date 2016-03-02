@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 2.8)
+project(example C)
+set(Example_VERSION_MAJOR 0)
+set(Example_VERSION_MINOR 1)
+
+set(src_EXAMPLE
+    src/main.c
+    src/parser.c
+    src/output.c
+    src/setup.c
+    src/common.h
+    src/setup.h
+)
+add_executable(examplebinary ${src_EXAMPLE})
+install(TARGETS examplebinary DESTINATION bin)

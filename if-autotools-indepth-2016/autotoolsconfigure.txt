@@ -1,8 +1,7 @@
-AC_INIT(Name, 0.42, bugs@my.org)
-AC_CONFIG_SRCDIR([Readme.MyProject])
+AC_INIT(example, 0.1, bugs@example.com)
 AC_CONFIG_HEADER([config.h])
 
-AC_PROG_CXX
+AC_PROG_C
 AC_PROG_CPP
 AC_PROG_INSTALL
 

@@ -1,9 +1,9 @@
 bin_PROGRAMS = examplebinary
 
 examplebinary_SOURCES = \
-    main.c \
-    parser.c \
-    output.c \
-    setup.c
+    src/main.c \
+    src/parser.c \
+    src/output.c \
+    src/setup.c
 
-noinst_HEADERS = common.h setup.h
+noinst_HEADERS = src/common.h src/setup.h
