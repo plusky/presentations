@@ -1,0 +1,19 @@
+bin_PROGRAMS = examplebinary
+
+examplebinary_SOURCES = \
+    src/main.c \
+    src/parser.c \
+    src/output.c \
+    src/setup.c
+examplebinary_LDADD = \
+    $(OTHER_LIBS) \
+    @BINARY_WIN32_RESOURCE@
+
+noinst_HEADERS = src/common.h src/setup.h
+
+if OS_WIN32
+@BINARY_WIN32_RESOURCE@ : examplebinary.rc $(examplebinary_OBJECTS)
+        chmod +x $(top_srcdir)/build/*compile-resource && \
+        WINDRES=@WINDRES@ $(top_srcdir)/build/lt-compile-resource examplebinary.rc @BINARY_WIN32_RESOURCE@
+endif
+

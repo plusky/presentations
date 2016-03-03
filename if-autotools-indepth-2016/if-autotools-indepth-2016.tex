@@ -180,7 +180,45 @@
 	\end{small}
 \end{frame}
 
-%# windows support in autotools
+\subsection{Autotools and windows}
+
+\begin{frame}{Initial thoughts}
+    \begin{itemize}
+    \item Well for multiplatform support you can count on autotools on any UNIX-ish system
+    \item On windows you have to use cygwin/mingw
+    \item Per above you will spent bit of time getting that running
+    \item You have to write yourself the .rc or rc.in file to be processed by cmake (see librevenge/etc.)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Changes for configure.ac}
+	\begin{tiny}
+	\lstinputlisting{autoconfwindows.txt}
+	\end{tiny}
+\end{frame}
+
+\begin{frame}[t]{Changes for Makefile.am}
+	\begin{tiny}
+	\lstinputlisting{automakewindows.txt}
+	\end{tiny}
+\end{frame}
+
+\begin{frame}{Additional points for Makefile.am}
+    \begin{itemize}
+    \item Always pass -avoid-version to libtool
+    \item Remember to add the resource file to \_DEPENDENCIES
+    \item Script to compile the .lo files https://github.com/AbiWord/enchant/blob/master/lt-compile-resource
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Autotools usability}
+    \begin{itemize}
+    \item Not hard as people are led to believe -> you can deploy it unless your files are too messy
+    \item It, because of mingw, produces slower binaries than MSVC
+    \item Most people are fine with it, but if not use Visual Studio project file and be done
+    \item For .rc files you usualy have to use some shellscript as libtool has no clue
+    \end{itemize}
+\end{frame}
 
 \section{CMake}
 
