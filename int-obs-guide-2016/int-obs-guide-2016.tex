@@ -146,6 +146,10 @@ Add extra packages on the chroot environment:
 \end{frame}
 
 \begin{frame}[fragile]{osc tips continued}
+Do not init the chroot just go ahead with build:
+\begin{small}
+\begin{verbatim}$ osc build --no-init\end{verbatim}
+\end{small}
 Get the buildlog from the local build:
 \begin{small}
 \begin{verbatim}$ osc lbl <project eg. openSUSE_13.2>\end{verbatim}
