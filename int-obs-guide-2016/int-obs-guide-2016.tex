@@ -193,7 +193,25 @@ $ osc sr -m "Finally got around to fix bnc#2345 so enjoy"
 	\item You should forward only smaller things (ie. no huge version updates that could break too much)
 	\item One should be MORE careful when creating the maint. update than when submitting to Factory itself
 	\item \url{https://en.opensuse.org/openSUSE:Build\_Service\_Concept\_Maintenance}
+	\item In some cases packages in Leap come over from SLE and thus need to be updated there first
 	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{openSUSE Leap package origin}
+In Leap one must first determine where the package comes from by using various
+scripts:
+\begin{small}
+\begin{verbatim}$ /mounts/work/src/bin/is_maintained.rb curl
+Product                        Codestream
+SLE-DEBUGINFO_11-SP1-TERADATA  SUSE:SLE-11-SP1:Update
+[...]
+Leap package comes from SUSE:SLE-12:Update
+[...]\end{verbatim}
+\end{small}
+\begin{small}
+\begin{verbatim}$ osc cat openSUSE:Leap:42.1:Update/00Meta/lookup.yml | grep "^curl:"
+curl: SUSE:SLE-12:Update\end{verbatim}
+\end{small}
 \end{frame}
 
 \begin{frame}[fragile]{openSUSE Releases cont.}
