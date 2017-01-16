@@ -178,7 +178,6 @@ osc co home:scarabeus_iv:branches:Archiving/rsnapshot
 $ osc co home:scarabeus_iv:branches:Archiving/rsnapshot
 $ cd home:scarabeus_iv:branches:Archiving/rsnapshot
 $ vi rsnapshot.spec # hackyhacky
-$ osc build
 $ osc vc -m "Fix something. Wrt bnc#2345"
 $ oscb
 $ osc ci
@@ -229,8 +228,8 @@ rsnapshot.openSUSE_12.3_Update/  rsnapshot.openSUSE_13.1_Update/
 $ vi rsnapshot.openSUSE_12.3_Update/rsnapshot.spec
 $ vi rsnapshot.openSUSE_13.1_Update/rsnapshot.spec
 % for each folder now
-$ oscb
 $ osc vc -m "I did fancy maintenance changes, I am great"
+$ oscb
 $ osc ci
 % back one level
 $ osc mr -m "Maintenance update wrt bnc#something"
@@ -262,6 +261,7 @@ $ ls
 vsftpd.SUSE_SLE-10-SP3_Update_Test/  vsftpd.SUSE_SLE-11_Update_Test/
 % for each folder
 $ vi vsftpd.spec
+$ vi vsftpd.changes
 $ oscb
 $ osc ci
 $ osc sr <RESPECTIVE_PROJECT>/<EXACT_PKG_NAME> -> osc sr SUSE:SLE-10-SP3:Update:Test/vsftpd
