@@ -1,4 +1,4 @@
-ELEMENTNAME=int-obs-guide-2016
+ELEMENTNAME=int-obs-guide-2017
 
 all: doc clean
 

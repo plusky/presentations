@@ -152,7 +152,7 @@ Do not init the chroot just go ahead with build:
 \end{small}
 Get the buildlog from the local build:
 \begin{small}
-\begin{verbatim}$ osc lbl <project eg. openSUSE_13.2>\end{verbatim}
+\begin{verbatim}$ osc lbl <project eg. openSUSE_Tumbleweed>\end{verbatim}
 \end{small}
 Avoid password request prior each build:
 \begin{tiny}
@@ -162,12 +162,12 @@ Avoid password request prior each build:
 
 \subsection{Collaboration/maintenance}
 
-\begin{frame}{openSUSE Factory}
+\begin{frame}{openSUSE Tumbleweed}
 	\center{\url{https://progress.opensuse.org/workflow/factory-proposal.html}}
 	\center{\url{https://en.opensuse.org/openSUSE:Factory\_development\_model}}
 \end{frame}
 
-\begin{frame}[fragile]{openSUSE Factory cont.}
+\begin{frame}[fragile]{openSUSE Tubmleweed/Factory}
 	\begin{tiny}
 	\begin{verbatim}
 $ osc develproject openSUSE:Factory rsnapshot
@@ -217,16 +217,16 @@ curl: SUSE:SLE-12:Update\end{verbatim}
 	\begin{tiny}
 	\begin{verbatim}
 $ osc maintained rsnapshot
-openSUSE:12.3:Update/rsnapshot
-openSUSE:13.1:Update/rsnapshot
+openSUSE:Leap:42.1:Update/rsnapshot
+openSUSE:Leap:42.2:Update/rsnapshot
 $ osc mbranch rsnapshot
 A working copy of the maintenance branch can be checked out with:
 osc co home:scarabeus_iv:branches:OBS_Maintained:rsnapshot
 $ cd home:scarabeus_iv:branches:OBS_Maintained:rsnapshot
 $ ls
-rsnapshot.openSUSE_12.3_Update/  rsnapshot.openSUSE_13.1_Update/
-$ vi rsnapshot.openSUSE_12.3_Update/rsnapshot.spec
-$ vi rsnapshot.openSUSE_13.1_Update/rsnapshot.spec
+rsnapshot.openSUSE_Leap_42.1_Update/  rsnapshot.openSUSE_Leap_42.2_Update/
+$ vi rsnapshot.openSUSE_Leap_42.1_Update/rsnapshot.spec
+$ vi rsnapshot.openSUSE_Leap_42.2_Update/rsnapshot.spec
 % for each folder now
 $ osc vc -m "I did fancy maintenance changes, I am great"
 $ oscb
@@ -244,7 +244,7 @@ created request id 1234
 	\item All of the submissions are to adhere to Maintenance SLA (ask your boss to provide it to you)
 	\item If you do something wrong people from QAM will report bugs to you and frown :)
 	\item You always recieve list of bnc\#s you are supposed to fix, note that you can nominate additional fixes
-	\item SLE does use new maintenance model from SLE-11 as openSUSE
+	\item You need to sent submission for each respective codestream for better testing/release separation
 	\end{itemize}
 \end{frame}
 
@@ -253,18 +253,20 @@ created request id 1234
 	\begin{verbatim}
 $ isc maintained vsftpd
 SUSE:SLE-10-SP3:Update:Test/vsftpd
-SUSE:SLE-11:Update:Test/vsftpd
+SUSE:SLE-11:Update/vsftpd
+SUSE:SLE-12:Update/vsftpd
 $ isc mbranch vsftpd
 $ isc co home:scarabeus_iv:branches:OBS_Maintained:vsftpd
 $ cd home:scarabeus_iv:branches:OBS_Maintained:vsftpd
 $ ls
-vsftpd.SUSE_SLE-10-SP3_Update_Test/  vsftpd.SUSE_SLE-11_Update_Test/
+vsftpd.SUSE_SLE-10-SP3_Update_Test/  vsftpd.SUSE_SLE-11_Update/ vsftpd.SUSE_SLE-12_Update/
 % for each folder
 $ vi vsftpd.spec
 $ vi vsftpd.changes
 $ oscb
 $ osc ci
-$ osc sr <RESPECTIVE_PROJECT>/<EXACT_PKG_NAME> -> osc sr SUSE:SLE-10-SP3:Update:Test/vsftpd
+$ osc sr <RESPECTIVE_PROJECT>/<EXACT_PKG_NAME> ->
+	osc sr SUSE:SLE-12:Update/vsftpd
 	\end{verbatim}
 	\end{tiny}
 \end{frame}
