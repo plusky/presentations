@@ -213,7 +213,7 @@ curl: SUSE:SLE-12:Update\end{verbatim}
 \end{small}
 \end{frame}
 
-\begin{frame}[fragile]{openSUSE Releases cont.}
+\begin{frame}[fragile]{openSUSE Releases code example}
 	\begin{tiny}
 	\begin{verbatim}
 $ osc maintained rsnapshot
@@ -238,6 +238,40 @@ created request id 1234
 	\end{tiny}
 \end{frame}
 
+\begin{frame}[t]{SUSE Package Hub}
+	\begin{itemize}
+	\item Community maintained packages not included in SLE \url{https://packagehub.suse.com/}
+	\item Project can't include any software already present in SLE release
+	\item Maintained in special project in OBS called Backports
+	\item One should follow rules the same way like the openSUSE releases maintenance
+	\item \url{https://en.opensuse.org/openSUSE:Backports_Package_Submission_Process}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{SUSE Package Hub code example}
+	\begin{tiny}
+	\begin{verbatim}
+$ osc maintained chromium
+openSUSE:Backports:SLE-12/chromium
+openSUSE:Backports:SLE-12-SP2/chromium
+$ osc mbranch chromium
+A working copy of the maintenance branch can be checked out with:
+osc co home:scarabeus_iv:branches:OBS_Maintained:chromium
+$ cd home:scarabeus_iv:branches:OBS_Maintained:chromium
+$ ls
+chromium.openSUSE_Backports_SLE-12/  chromium.openSUSE_Backports_SLE-12-SP2/
+% for each folder now
+% update spec file
+$ osc vc -m "I did fancy maintenance changes, I am great"
+$ oscb
+$ osc ci
+% back one level
+$ osc mr -m "Maintenance update wrt bnc#something"
+created request id 1234
+	\end{verbatim}
+	\end{tiny}
+\end{frame}
+
 \begin{frame}[t]{SLE}
 	\begin{itemize}
 	\item For SLE all updates are requested by Maintenance DPT and you recieve notification with deadline
@@ -248,7 +282,7 @@ created request id 1234
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{SLE cont.}
+\begin{frame}[fragile]{SLE code example}
 	\begin{tiny}
 	\begin{verbatim}
 $ isc maintained vsftpd
