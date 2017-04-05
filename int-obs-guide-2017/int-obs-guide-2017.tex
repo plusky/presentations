@@ -46,7 +46,7 @@
 	\item ibs = build.suse.de
 	\item obs = build.opensuse.org
 	\item SR\# = submit request in any of the above instances
-	\item bnc = bug on bugzilla.novell.com
+	\item bsc = bug on bugzilla.suse.com
 	\end{itemize}
 \end{frame}
 
@@ -117,7 +117,7 @@ alias oscsd="osc service localrun download_files"
 $ osc co Archiving/rsnapshot
 $ cd Archiving/rsnapshot
 $ vi rsnapshot.spec # hackyhacky
-$ osc vc -m "Fix something. Resolves bnc#1234"
+$ osc vc -m "Fix something. Resolves bsc#1234"
 $ oscb
 $ osc ci
 	\end{verbatim}
@@ -178,10 +178,10 @@ osc co home:scarabeus_iv:branches:Archiving/rsnapshot
 $ osc co home:scarabeus_iv:branches:Archiving/rsnapshot
 $ cd home:scarabeus_iv:branches:Archiving/rsnapshot
 $ vi rsnapshot.spec # hackyhacky
-$ osc vc -m "Fix something. Wrt bnc#2345"
+$ osc vc -m "Fix something. Wrt bsc#2345"
 $ oscb
 $ osc ci
-$ osc sr -m "Finally got around to fix bnc#2345 so enjoy"
+$ osc sr -m "Finally got around to fix bsc#2345 so enjoy"
 	\end{verbatim}
 	\end{tiny}
 \end{frame}
@@ -232,7 +232,7 @@ $ osc vc -m "I did fancy maintenance changes, I am great"
 $ oscb
 $ osc ci
 % back one level
-$ osc mr -m "Maintenance update wrt bnc#something"
+$ osc mr -m "Maintenance update wrt bsc#something"
 created request id 1234
 	\end{verbatim}
 	\end{tiny}
@@ -266,7 +266,7 @@ $ osc vc -m "I did fancy maintenance changes, I am great"
 $ oscb
 $ osc ci
 % back one level
-$ osc mr -m "Maintenance update wrt bnc#something"
+$ osc mr -m "Maintenance update wrt bsc#something"
 created request id 1234
 	\end{verbatim}
 	\end{tiny}
@@ -277,7 +277,7 @@ created request id 1234
 	\item For SLE all updates are requested by Maintenance DPT and you recieve notification with deadline
 	\item All of the submissions are to adhere to Maintenance SLA (ask your boss to provide it to you)
 	\item If you do something wrong people from QAM will report bugs to you and frown :)
-	\item You always recieve list of bnc\#s you are supposed to fix, note that you can nominate additional fixes
+	\item You always recieve list of bsc\#s you are supposed to fix, note that you can nominate additional fixes
 	\item You need to sent submission for each respective codestream for better testing/release separation
 	\end{itemize}
 \end{frame}
