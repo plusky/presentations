@@ -65,7 +65,7 @@
 \end{frame}
 
 
-\begin{frame}[t]{How about what is it for the packager?}
+\begin{frame}[t]{What does it provide for the packager?}
 	\begin{itemize}
 	\item Tool to provide the container to the user in unified way
 	\item In our distributions the .spec file specifying various areas of what should be done
@@ -83,8 +83,9 @@
 
 \begin{frame}[t]{Easy parts}
 	\begin{itemize}
-	\item Name, Version, Summary, Url
-    \item License - SPDX formatted
+	\item Name, Version, Summary, Url, Patch
+    \item License - SPDX \url{https://github.com/openSUSE/spec-cleaner#spdx-licenses}
+    \item Group - \url{https://en.opensuse.org/openSUSE:Package_group_guidelines}
     \item Source - with full URL path
     \item \%description
 	\end{itemize}
@@ -94,7 +95,7 @@
 	\begin{itemize}
 	\item Should contain what your package needs for build
     \item Preferably it should be version limited (based i.e. on configure.ac)
-    \item If something is amiss here the package should not build
+    \item If something is wrong here the package should not build
 	\end{itemize}
 \end{frame}
 
@@ -103,22 +104,21 @@
     \item Used for Run-time dependencies
     \item Automatically populated for shared libraries
     \item Basically all your application needs to run ought to be there
-    \item If wrong one will notice when using the application. It is tricky so be careful
+    \item If you get it wrong user might notice during runtime and not sooner so be careful
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Requires - scriptlets}
 	\begin{itemize}
-	\item Special case of require needed only for scriptlet not during runtime
-    \item Used to request just something extra for the phase
-    \item Alternatively also used to ensure something be installed
+	\item Special case of require needed only for scriptlet not during runtime of the application
+    \item Used to request just something extra for the specific phase
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Requires - specialities}
 	\begin{itemize}
     \item \%requires\_eq - for exactly same version requirement
-    \item  \%requires\_ge - Translates to >= on the requirement
+    \item  \%requires\_ge - Translates to $>=$ on the requirement
 	\end{itemize}
 \end{frame}
 
@@ -129,8 +129,10 @@ BuildRequires: libvisio-devel >= 1.2.3
 BuildRequires: cmake(GLEW) < 2.0
 BuildRequires: pkgconfig(X11) => 0.9
 BuildRequires: python-imaging
+BuildRequires: perl(imaging)
 Requires(post): update-alternatives
 Requires: python-imaging
+Requires: tex(yhmath)
 %requires_eq perl
 	\end{verbatim}
 	\end{small}
@@ -139,7 +141,8 @@ Requires: python-imaging
 \begin{frame}[t]{Conflicts}
 	\begin{itemize}
     \item Used to block installation of the conflicting packages
-    \item All requiring packages should have the conflict on each other
+    \item Usually used in case multiple packages have and provide same set of files
+    \item All of such packages must have the Conflicts specified in them to ensure it works.
 	\end{itemize}
 \end{frame}
 
@@ -167,6 +170,7 @@ Provides: alternativepackage = %{version}
 	\item Subpackages carry the syntax logic for the main spec package
     \item They have it's own provides/requires/scriptlets/files/etc., but buildrequires should be at main package for readability
     \item There are two types, appending name (ie. bla and bla-python) or completely renaming one (ie. blas.spec to provide libblas1)
+    \item All subpackages must have their own Summary, Group, and \%description
 	\end{itemize}
 \end{frame}
 
@@ -179,6 +183,14 @@ Group:   some/group
 
 %description python
 The python bindings providing a, b, and c for bla
+
+%package -n format_spec_file # generates format_spec_file
+Summary:        Binding replacing OBS service format_spec_file
+Group:          Development/Tools/Other
+
+%description -n format_spec_file
+Alternative provider of format_spec_file functionality in order to allow
+user to use spec-cleaner rather than to stick to perl based format_spec_file.
 	\end{verbatim}
 	\end{small}
 \end{frame}
@@ -198,8 +210,11 @@ The python bindings providing a, b, and c for bla
 \begin{frame}[fragile]{Build phase}
 	\begin{itemize}
 	\item Phase used for source configuration and compilation
-    \item The configuration step should use macros (ie. \begin{verbatim}%configure\end{verbatim} or \begin{verbatim}%cmake\end{verbatim})
-    \item The building should happen in threads (ie. \begin{verbatim}make %{?_smp_mflags\end{verbatim}")
+    \item The configuration step should use macros
+    \begin{verbatim}%configure\end{verbatim}
+    \begin{verbatim}%cmake\end{verbatim})
+    \item The building should happen in threads
+    \begin{verbatim}make %{?_smp_mflags}\end{verbatim}
 	\end{itemize}
 \end{frame}
 
@@ -242,6 +257,7 @@ The python bindings providing a, b, and c for bla
 	\begin{small}
 	\begin{verbatim}
 Requires(post): update-alternatives
+
 %post
 update-alternatives --install %{_javadir}/el_api.jar el_api \
   %{_javadir}/%{name}-el-%{elspec}-api.jar 2030
@@ -305,9 +321,9 @@ Tue Sep 13 12:53:23 UTC 2016 - tchvatal@suse.com
 \begin{frame}[t]{Library packaging}
 	\begin{itemize}
 	\item We require to be subpackage named as the soname they provide
-    \item Must run ldconfig after install and uninstall, updates count
+    \item Must run ldconfig after install, uninstall, and update
     \item Should have proper soname data set
-    \item Never consider packaging static library
+    \item Static libraries should be avoided uness absolutely required
 	\end{itemize}
 \end{frame}
 
@@ -332,7 +348,8 @@ Shared library to operate with bla
 
 \begin{frame}[fragile]{Conditions}
 	\begin{itemize}
-	\item Usually used for distinguishing between various codestreams we have
+	\item Usually used for distinguishing between various codestreams we provide
+	\item \url{https://en.opensuse.org/openSUSE:Build_Service_cross_distribution_howto#Detect_a_distribution_flavor_for_special_code}
 	\item Simply conditions as in any other programming language
 	\end{itemize}
 	\begin{small}
@@ -349,9 +366,6 @@ do other stuff
 \begin{frame}[fragile]{Conditions cast sample}
        \begin{small}
        \begin{verbatim}
-%define suse_version 1320
-#
-# rpm casts that into a number
 0%{?suse_version} => "01320" => 1320
 0%{?something_undefined} => "0" => 0
 #
@@ -371,13 +385,13 @@ do other stuff
 
 \begin{frame}[t]{Hints}
 	\begin{itemize}
-	\item Be lazy! Offload to upstream and inspire by other distributors.
+	\item Be lazy! Offload to upstream rather than inventing hacks
     \item Use the tools we have (osc, spec-cleaner)
-    \item Inspire yourself and use same approach to problems like the others
+    \item Inspire yourself and use same approach to problems like the other distributions
     \item Build from Pristine Sources
     \item Document patches in changelog
     \item Source Patches are meaningful on several levels
-    \item Respect the guidelines or ask if unsure
+    \item Respect the guidelines or ask if unsure about them
 	\end{itemize}
 \end{frame}
 
