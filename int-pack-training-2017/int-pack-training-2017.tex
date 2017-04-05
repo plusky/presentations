@@ -270,6 +270,36 @@ update-alternatives --install %{_javadir}/el_api.jar el_api \
 	\end{small}
 \end{frame}
 
+\subsection{Changelog}
+
+\begin{frame}[t]{Changelog}
+	\begin{itemize}
+	\item The \%changelog section in openSUSE spec files is populated by build scripts
+	\item We keep the content in \%{name}.changes file
+    \item It should contain information that should be delivered to user about the changes
+    \item The content can be pre-filled by using osc vc command
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example changelog entry}
+	\begin{tiny}
+	\begin{verbatim}
+-------------------------------------------------------------------
+Tue Sep 13 12:53:23 UTC 2016 - tchvatal@suse.com
+
+- Switch to gold, we need to use less memory when linking
+- Expand constraints for the debug symbols
+- Use default chromium values from master_preferences on first run
+  rather than pseudo-duplicating in shellscript, bugs should be
+  fixed in the masterprefs
+- Add patch to fix build on 4.5+ kernels with systemlibs:
+  * chromium-sandbox.patch
+
+	\end{verbatim}
+	\end{tiny}
+\end{frame}
+
+
 \section{Advanced topics}
 
 \begin{frame}[t]{Library packaging}
