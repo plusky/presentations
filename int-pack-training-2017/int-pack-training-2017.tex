@@ -10,9 +10,9 @@
           ]{Torino}
 
 \setbeamerfont{title}{series=\bfseries,size=\LARGE}
-\author{Tom\'{a}\v{s} Chv\'{a}tal\newline {\small tchvatal@suse.com}\newline {\small L3-Packaging/Packaging}}
-\title{OBS introductionary course for SUSE people}
-\date{2017/04/04}
+\author{Tom\'{a}\v{s} Chv\'{a}tal\newline {\small tchvatal@suse.com}\newline {\small Packaging/L3 - Packaging}}
+\title{Basic packaging introduction for openSUSE}
+\date{2017/04/05}
 
 \AtBeginSection[]
 {
@@ -40,275 +40,315 @@
 
 \section{Introduction}
 
-\begin{frame}[t]{Explanation of few shortcuts used in the slides}
+\begin{frame}[t]{What actually is packaging}
 	\begin{itemize}
-	\item isc = alias for osc -A IBS
-	\item ibs = build.suse.de
-	\item obs = build.opensuse.org
-	\item SR\# = submit request in any of the above instances
-	\item bnc = bug on bugzilla.novell.com
+	\item Milk/Amazon?
+	\item More like process to deliver software stack in compact and verified form to user/customer
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[t]{What is buildservice}
+\begin{frame}[t]{Why do we need packages at all?}
 	\begin{itemize}
-	\item provider for reproducable build results
-	\item VCS for our packages
-	\item collaboration tools using SR\#s
+	\item We need to be able to deliver software to users
+	\item We need to ensure proper testing of such software
+	\item We need to compile together all various software stacks together
+	\item We need to provide comprehensive solutions for some tasks (postinst configuration)
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[t]{How do I communicate with the tool}
+\begin{frame}[t]{What are packages for the user?}
 	\begin{itemize}
-	\item Using web interface on the ibs or obs locations
-	\item Using commandline interface called osc (osc is provided on most distributions as package too)
+	\item Collection of files and their respective permissions
+	\item Metadata containing information about the software runtime dependencies
+	\item Intial configuration provider
 	\end{itemize}
 \end{frame}
 
-\section{CLI Configuration tips}
 
-\begin{frame}[fragile]{Configuration suggestions}
-	\begin{center}\$HOME/.oscrc\end{center}
+\begin{frame}[t]{How about what is it for the packager?}
+	\begin{itemize}
+	\item Tool to provide the container to the user in unified way
+	\item In our distributions the .spec file specifying various areas of what should be done
+	\item Tool to verify software is buildable and distributable on various distribution codestreams
+	\end{itemize}
+\end{frame}
+
+\section{Specfile surgery}
+
+\begin{frame}[t]{Sample initial spec}
+	\begin{center}\$ vim whatever.spec\end{center}
+\end{frame}
+
+\subsection{Preamble}
+
+\begin{frame}[t]{Easy parts}
+	\begin{itemize}
+	\item Name, Version, Summary, Url
+    \item License - SPDX formatted
+    \item Source - with full URL path
+    \item \%description
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{BuildRequires}
+	\begin{itemize}
+	\item Should contain what your package needs for build
+    \item Preferably it should be version limited (based i.e. on configure.ac)
+    \item If something is amiss here the package should not build
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Requires}
+	\begin{itemize}
+    \item Used for Run-time dependencies
+    \item Automatically populated for shared libraries
+    \item Basically all your application needs to run ought to be there
+    \item If wrong one will notice when using the application. It is tricky so be careful
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Requires - scriptlets}
+	\begin{itemize}
+	\item Special case of require needed only for scriptlet not during runtime
+    \item Used to request just something extra for the phase
+    \item Alternatively also used to ensure something be installed
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Requires - specialities}
+	\begin{itemize}
+    \item \%requires\_eq - for exactly same version requirement
+    \item  \%requires\_ge - Translates to >= on the requirement
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example}
 	\begin{small}
 	\begin{verbatim}
-build-jobs = 16 # value for buildjobs
-extra-pkgs = vim gdb strace mc less unzip # some tools
-no_verify = 1 # local verification only
+BuildRequires: libvisio-devel >= 1.2.3
+BuildRequires: cmake(GLEW) < 2.0
+BuildRequires: pkgconfig(X11) => 0.9
+BuildRequires: python-imaging
+Requires(post): update-alternatives
+Requires: python-imaging
+%requires_eq perl
 	\end{verbatim}
 	\end{small}
 \end{frame}
 
-\begin{frame}[fragile]{Configuration suggestions - cont.}
+\begin{frame}[t]{Conflicts}
+	\begin{itemize}
+    \item Used to block installation of the conflicting packages
+    \item All requiring packages should have the conflict on each other
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Provides/Obsoletes}
+	\begin{itemize}
+	\item Generally used to swap one package for another
+    \item Provides/Obsoletes should be always versioned
+    \item Do not obsolete unless 100\% replacement
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example}
 	\begin{small}
 	\begin{verbatim}
-[https://api.suse.de]
-user = bugzillausername
-pass = bugzillapw
-email = guessyourself
-aliases = ibs
-
-[https://api.opensuse.org]
-user = bugzillausername
-pass = bugzillapw
-email = guessyourself
-aliases = obs
+Conflicts: libwriterperfect
+Provides: liboldpackage = %{version}
+Obsoletes: liboldpackage < %{version}
+Provides: alternativepackage = %{version}
 	\end{verbatim}
 	\end{small}
 \end{frame}
 
-\begin{frame}[fragile]{Configuration suggestions - cont.}
-	\begin{center}\$HOME/.bashrc\end{center}
-	As few commands will be called quite often it is easier to alias them.
-	\begin{tiny}
-	\begin{verbatim}
-export COMP_WORDBREAKS=${COMP_WORDBREAKS/:/}
-alias isc="osc -A ibs"
-alias oscb="osc build --ccache"
-alias oscsd="osc service localrun download_files"
-	\end{verbatim}
-	\end{tiny}
+\begin{frame}[t]{Subpackages}
+	\begin{itemize}
+	\item Subpackages carry the syntax logic for the main spec package
+    \item They have it's own provides/requires/scriptlets/files/etc., but buildrequires should be at main package for readability
+    \item There are two types, appending name (ie. bla and bla-python) or completely renaming one (ie. blas.spec to provide libblas1)
+	\end{itemize}
 \end{frame}
 
-\section{Basic CLI usage}
-
-\begin{frame}[fragile]{Sample workload}
+\begin{frame}[fragile]{Example}
 	\begin{small}
 	\begin{verbatim}
-$ osc co Archiving/rsnapshot
-$ cd Archiving/rsnapshot
-$ vi rsnapshot.spec # hackyhacky
-$ osc vc -m "Fix something. Resolves bnc#1234"
-$ oscb
-$ osc ci
+%package python # generates bla-python
+Summary: python bindings for bla
+Group:   some/group
+
+%description python
+The python bindings providing a, b, and c for bla
 	\end{verbatim}
 	\end{small}
 \end{frame}
 
-\subsection{Some handy tips}
+\subsection{Prepare}
 
-\begin{frame}[fragile]{osc build options}
-Build debuginfo packages localy:
-\begin{small}
-\begin{verbatim}$ osc build --debuginfo/-d\end{verbatim}
-\end{small}
-Skip the pesky post-build-checks:
-\begin{small}
-\begin{verbatim}$ osc build --nochecks\end{verbatim}
-\end{small}
-Add extra rpms from local system rather than from O/IBS:
-\begin{small}
-\begin{verbatim}$ osc build --prefer-pkgs /my/directory/withrpms/\end{verbatim}
-\end{small}
-Add extra packages on the chroot environment:
-\begin{small}
-\begin{verbatim}$ osc build -x gdb\end{verbatim}
-\end{small}
-\end{frame}
-
-\begin{frame}[fragile]{osc tips continued}
-Do not init the chroot just go ahead with build:
-\begin{small}
-\begin{verbatim}$ osc build --no-init\end{verbatim}
-\end{small}
-Get the buildlog from the local build:
-\begin{small}
-\begin{verbatim}$ osc lbl <project eg. openSUSE_Tumbleweed>\end{verbatim}
-\end{small}
-Avoid password request prior each build:
-\begin{tiny}
-\begin{verbatim}echo "yourlogin ALL = (root) NOPASSWD: /usr/bin/build" >> /etc/sudoers\end{verbatim}
-\end{tiny}
-\end{frame}
-
-\subsection{Collaboration/maintenance}
-
-\begin{frame}{openSUSE Tumbleweed}
-	\center{\url{https://progress.opensuse.org/workflow/factory-proposal.html}}
-	\center{\url{https://en.opensuse.org/openSUSE:Factory\_development\_model}}
-\end{frame}
-
-\begin{frame}[fragile]{openSUSE Tubmleweed/Factory}
-	\begin{tiny}
-	\begin{verbatim}
-$ osc develproject openSUSE:Factory rsnapshot
-Archiving
-$ osc branch Archiving rsnapshot
-A working copy of the branched package can be checked out with:
-osc co home:scarabeus_iv:branches:Archiving/rsnapshot
-$ osc co home:scarabeus_iv:branches:Archiving/rsnapshot
-$ cd home:scarabeus_iv:branches:Archiving/rsnapshot
-$ vi rsnapshot.spec # hackyhacky
-$ osc vc -m "Fix something. Wrt bnc#2345"
-$ oscb
-$ osc ci
-$ osc sr -m "Finally got around to fix bnc#2345 so enjoy"
-	\end{verbatim}
-	\end{tiny}
-\end{frame}
-
-\begin{frame}[t]{openSUSE Releases}
+\begin{frame}[t]{Prepare phase}
 	\begin{itemize}
-	\item Forwarding fixes from devel project to released distributions are always up to maintainer (your) decision
-	\item You should forward only smaller things (ie. no huge version updates that could break too much)
-	\item One should be MORE careful when creating the maint. update than when submitting to Factory itself
-	\item \url{https://en.opensuse.org/openSUSE:Build\_Service\_Concept\_Maintenance}
-	\item In some cases packages in Leap come over from SLE and thus need to be updated there first
+	\item Phase used for source unpacking and preparations
+    \item All the patches should be applied here
+    \item All the source code changing operations should happen here
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{openSUSE Leap package origin}
-In Leap one must first determine where the package comes from by using various
-scripts:
-\begin{small}
-\begin{verbatim}$ /mounts/work/src/bin/is_maintained.rb curl
-Product                        Codestream
-SLE-DEBUGINFO_11-SP1-TERADATA  SUSE:SLE-11-SP1:Update
-[...]
-Leap package comes from SUSE:SLE-12:Update
-[...]\end{verbatim}
-\end{small}
-\begin{small}
-\begin{verbatim}$ osc cat openSUSE:Leap:42.1:Update/00Meta/lookup.yml | grep "^curl:"
-curl: SUSE:SLE-12:Update\end{verbatim}
-\end{small}
-\end{frame}
+\subsection{Build/Check}
 
-\begin{frame}[fragile]{openSUSE Releases code example}
-	\begin{tiny}
-	\begin{verbatim}
-$ osc maintained rsnapshot
-openSUSE:Leap:42.1:Update/rsnapshot
-openSUSE:Leap:42.2:Update/rsnapshot
-$ osc mbranch rsnapshot
-A working copy of the maintenance branch can be checked out with:
-osc co home:scarabeus_iv:branches:OBS_Maintained:rsnapshot
-$ cd home:scarabeus_iv:branches:OBS_Maintained:rsnapshot
-$ ls
-rsnapshot.openSUSE_Leap_42.1_Update/  rsnapshot.openSUSE_Leap_42.2_Update/
-$ vi rsnapshot.openSUSE_Leap_42.1_Update/rsnapshot.spec
-$ vi rsnapshot.openSUSE_Leap_42.2_Update/rsnapshot.spec
-% for each folder now
-$ osc vc -m "I did fancy maintenance changes, I am great"
-$ oscb
-$ osc ci
-% back one level
-$ osc mr -m "Maintenance update wrt bnc#something"
-created request id 1234
-	\end{verbatim}
-	\end{tiny}
-\end{frame}
-
-\begin{frame}[t]{SUSE Package Hub}
+\begin{frame}[fragile]{Build phase}
 	\begin{itemize}
-	\item Community maintained packages not included in SLE \url{https://packagehub.suse.com/}
-	\item Project can't include any software already present in SLE release
-	\item Maintained in special project in OBS called Backports
-	\item One should follow rules the same way like the openSUSE releases maintenance
-	\item \url{https://en.opensuse.org/openSUSE:Backports_Package_Submission_Process}
+	\item Phase used for source configuration and compilation
+    \item The configuration step should use macros (ie. \begin{verbatim}%configure\end{verbatim} or \begin{verbatim}%cmake\end{verbatim})
+    \item The building should happen in threads (ie. \begin{verbatim}make %{?_smp_mflags\end{verbatim}")
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{SUSE Package Hub code example}
-	\begin{tiny}
-	\begin{verbatim}
-$ osc maintained chromium
-openSUSE:Backports:SLE-12/chromium
-openSUSE:Backports:SLE-12-SP2/chromium
-$ osc mbranch chromium
-A working copy of the maintenance branch can be checked out with:
-osc co home:scarabeus_iv:branches:OBS_Maintained:chromium
-$ cd home:scarabeus_iv:branches:OBS_Maintained:chromium
-$ ls
-chromium.openSUSE_Backports_SLE-12/  chromium.openSUSE_Backports_SLE-12-SP2/
-% for each folder now
-% update spec file
-$ osc vc -m "I did fancy maintenance changes, I am great"
-$ oscb
-$ osc ci
-% back one level
-$ osc mr -m "Maintenance update wrt bnc#something"
-created request id 1234
-	\end{verbatim}
-	\end{tiny}
-\end{frame}
-
-\begin{frame}[t]{SLE}
+\begin{frame}[t]{Check phase}
 	\begin{itemize}
-	\item For SLE all updates are requested by Maintenance DPT and you recieve notification with deadline
-	\item All of the submissions are to adhere to Maintenance SLA (ask your boss to provide it to you)
-	\item If you do something wrong people from QAM will report bugs to you and frown :)
-	\item You always recieve list of bnc\#s you are supposed to fix, note that you can nominate additional fixes
-	\item You need to sent submission for each respective codestream for better testing/release separation
+	\item Phase used for test compilation and testsuite execution
+    \item If package has testsuite it must be run and all failures should be coordinated with upstream
+    \item We rely on this phase to do the first round of "sanity checking" for the software stack
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{SLE code example}
-	\begin{tiny}
-	\begin{verbatim}
-$ isc maintained vsftpd
-SUSE:SLE-10-SP3:Update:Test/vsftpd
-SUSE:SLE-11:Update/vsftpd
-SUSE:SLE-12:Update/vsftpd
-$ isc mbranch vsftpd
-$ isc co home:scarabeus_iv:branches:OBS_Maintained:vsftpd
-$ cd home:scarabeus_iv:branches:OBS_Maintained:vsftpd
-$ ls
-vsftpd.SUSE_SLE-10-SP3_Update_Test/  vsftpd.SUSE_SLE-11_Update/ vsftpd.SUSE_SLE-12_Update/
-% for each folder
-$ vi vsftpd.spec
-$ vi vsftpd.changes
-$ oscb
-$ osc ci
-$ osc sr <RESPECTIVE_PROJECT>/<EXACT_PKG_NAME> ->
-	osc sr SUSE:SLE-12:Update/vsftpd
-	\end{verbatim}
-	\end{tiny}
+\subsection{Install}
+
+\begin{frame}[t]{Install phase}
+	\begin{itemize}
+	\item Phase used to install the software files to the proper locations
+    \item Also used to install additional files we might need to deliver (systemd units, ...)
+    \item Simply just commands telling where to put what from within the compiled sources
+	\end{itemize}
 \end{frame}
 
-\section{Webinterface}
+\subsection{Scriptlets}
 
-\begin{frame}{Practical example}
-	\center{Lets go over to \url{http://build.opensuse.org}}
+\begin{frame}[t]{Install phase}
+	\begin{itemize}
+    \item Scriptlets are shell or lua scripts executed during various phases of the package install/removal or update
+    \item \url{https://fedoraproject.org/wiki/Packaging:Scriptlets}
+        \begin{itemize}
+        \item \%pretrans - LUA only
+        \item \%pre
+        \item \%post
+        \item \%preun
+        \item \%postun
+        \item \%posttrans
+        \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example}
+	\begin{small}
+	\begin{verbatim}
+Requires(post): update-alternatives
+%post
+update-alternatives --install %{_javadir}/el_api.jar el_api \
+  %{_javadir}/%{name}-el-%{elspec}-api.jar 2030
+	\end{verbatim}
+	\end{small}
+\end{frame}
+
+\subsection{Filelists}
+
+\begin{frame}[t]{Files section}
+	\begin{itemize}
+	\item Part of the spec stating where should be what files present among the split subpackages
+    \item Can also contain exact specification for permissions/user/group they should contain
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example}
+	\begin{small}
+	\begin{verbatim}
+%files devel
+%defattr(-,root,root)
+%{_libdir}/*.so
+%{_libdir}/pkgconfig/libwps*.pc
+%{_includedir}/libwps-*
+	\end{verbatim}
+	\end{small}
+\end{frame}
+
+\section{Advanced topics}
+
+\begin{frame}[t]{Library packaging}
+	\begin{itemize}
+	\item We require to be subpackage named as the soname they provide
+    \item Must run ldconfig after install and uninstall, updates count
+    \item Should have proper soname data set
+    \item Never consider packaging static library
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example}
+	\begin{small}
+	\begin{verbatim}
+%package -n libbla1
+Summary: library for bla
+Group: System/Libraries
+
+%description -n libbla1
+Shared library to operate with bla
+
+%post -n libbla1 -p /sbin/ldconfig
+%postun -n libbla1 -p /sbin/ldconfig
+
+%files -n libbla1
+%{_libdir}/libbla1.so.*
+	\end{verbatim}
+	\end{small}
+\end{frame}
+
+\begin{frame}[fragile]{Conditions}
+	\begin{itemize}
+	\item Usually used for distinguishing between various codestreams we have
+	\item Simply conditions as in any other programming language
+	\end{itemize}
+	\begin{small}
+	\begin{verbatim}
+%if 0%{?something}
+do stuff
+%else
+do other stuff
+%endif
+	\end{verbatim}
+	\end{small}
+\end{frame}
+
+\begin{frame}[fragile]{Conditions cast sample}
+       \begin{small}
+       \begin{verbatim}
+%define suse_version 1320
+#
+# rpm casts that into a number
+0%{?suse_version} => "01320" => 1320
+0%{?something_undefined} => "0" => 0
+#
+# => anything > 0 is true
+%if 0%{?suse_version}
+#
+# => any suse with version bigger than 13.2
+%if 0%{?suse_version} >= 1320
+#
+# => anything before 13.2?
+%if (0%{?suse_version} && 0%{?suse_version} <= 1320)
+       \end{verbatim}
+       \end{small}
+\end{frame}
+
+\section{So how to do good packaging}
+
+\begin{frame}[t]{Hints}
+	\begin{itemize}
+	\item Be lazy! Offload to upstream and inspire by other distributors.
+    \item Use the tools we have (osc, spec-cleaner)
+    \item Inspire yourself and use same approach to problems like the others
+    \item Build from Pristine Sources
+    \item Document patches in changelog
+    \item Source Patches are meaningful on several levels
+    \item Respect the guidelines or ask if unsure
+	\end{itemize}
 \end{frame}
 
 \section{Endnote}
