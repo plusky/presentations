@@ -84,8 +84,8 @@
 \begin{frame}[t]{Easy parts}
 	\begin{itemize}
 	\item Name, Version, Summary, Url, Patch
-    \item License - SPDX \url{https://github.com/openSUSE/spec-cleaner\#spdx-licenses}
-    \item Group - \url{https://en.opensuse.org/openSUSE:Package\_group\_guidelines}
+	\item License - SPDX \begin{small}\url{https://github.com/openSUSE/spec-cleaner\#spdx-licenses}\end{small}
+    \item Group - \begin{small}\url{https://en.opensuse.org/openSUSE:Package\_group\_guidelines}\end{small}
     \item Source - with full URL path
     \item \%description
 	\end{itemize}
@@ -177,11 +177,18 @@ Provides: alternativepackage = %{version}
 \begin{frame}[fragile]{Example}
 	\begin{small}
 	\begin{verbatim}
-Recommends: wine # package will install wine if it gets installed
-Supplements: pulseaudio # if pulseaudio gets installed this package will as well
-Supplements: packageand(util-linux:vim) # if both vim and util-linux are installed the package will be installed too
-Suggests: k3b # honorable mention of k3b in zypper output
-Enhances: xonotic # if user installs xonotic this package will be mentioned by zypper
+# package will install wine if it gets installed
+Recommends: wine
+# if pulseaudio gets installed this package will as well
+Supplements: pulseaudio
+# if both vim and util-linux are installed the package
+# will be installed too
+Supplements: packageand(util-linux:vim)
+# honorable mention of k3b in zypper output
+Suggests: k3b
+# if user installs xonotic this package will be
+# mentioned by zypper
+Enhances: xonotic
 	\end{verbatim}
 	\end{small}
 \end{frame}
@@ -233,7 +240,7 @@ user to use spec-cleaner rather than to stick to perl based format_spec_file.
 	\item Phase used for source configuration and compilation
     \item The configuration step should use macros
     \begin{verbatim}%configure\end{verbatim}
-    \begin{verbatim}%cmake\end{verbatim})
+    \begin{verbatim}%cmake\end{verbatim}
     \item The building should happen in threads
     \begin{verbatim}make %{?_smp_mflags}\end{verbatim}
 	\end{itemize}
@@ -373,13 +380,16 @@ Shared library to operate with bla
 	\end{small}
 \end{frame}
 
-\begin{frame}[fragile]{Conditions}
+\begin{frame}[t]{Conditions}
 	\begin{itemize}
 	\item Usually used for distinguishing between various codestreams we provide
-	\item \url{https://en.opensuse.org/openSUSE:Build_Service_cross_distribution_howto#Detect_a_distribution_flavor_for_special_code}
+	\item \begin{tiny}\url{https://en.opensuse.org/openSUSE:Build\_Service\_cross\_distribution\_howto\#Detect\_a\_distribution\_flavor\_for\_special_code}\end{tiny}
 	\item Simply conditions as in any other programming language
 	\item Alternatively once can use build conditionals
 	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example}
 	\begin{small}
 	\begin{verbatim}
 %if 0%{?something}
