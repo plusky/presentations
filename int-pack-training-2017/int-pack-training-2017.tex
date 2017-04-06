@@ -165,6 +165,27 @@ Provides: alternativepackage = %{version}
 	\end{small}
 \end{frame}
 
+\begin{frame}[t]{Recommends/Suggests/Supplements/Enhances}
+	\begin{itemize}
+	\item Weak dependencies where Recommends is soft version of Requires
+    \item It is not required to have packages in this category installed contrary to Requires
+    \item Supplements is mirror of Recommends, where other package states it is addition that is to be installed if package a is present
+    \item Suggest and Enhances are weaker version that do not get autoinstalled, just mentioned by zypper
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example}
+	\begin{small}
+	\begin{verbatim}
+Recommends: wine # package will install wine if it gets installed
+Supplements: pulseaudio # if pulseaudio gets installed this package will as well
+Supplements: packageand(util-linux:vim) # if both vim and util-linux are installed the package will be installed too
+Suggests: k3b # honorable mention of k3b in zypper output
+Enhances: xonotic # if user installs xonotic this package will be mentioned by zypper
+	\end{verbatim}
+	\end{small}
+\end{frame}
+
 \begin{frame}[t]{Subpackages}
 	\begin{itemize}
 	\item Subpackages carry the syntax logic for the main spec package
@@ -233,6 +254,7 @@ user to use spec-cleaner rather than to stick to perl based format_spec_file.
 	\item Phase used to install the software files to the proper locations
     \item Also used to install additional files we might need to deliver (systemd units, ...)
     \item Simply just commands telling where to put what from within the compiled sources
+    \item It is pretty good idea to rather use install with proper mode than cp/mkdir/\ldots
 	\end{itemize}
 \end{frame}
 
@@ -279,9 +301,14 @@ update-alternatives --install %{_javadir}/el_api.jar el_api \
 	\begin{verbatim}
 %files devel
 %defattr(-,root,root)
+%license COPYING
+%doc doc/README.md
+%config %{_sysconfdir}/%{name}.conf
+%config(noreplace) %{_sysconfig}/%{name}-user.conf
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/libwps*.pc
 %{_includedir}/libwps-*
+%attr(600, user, group) %{_sbindir}/secret
 	\end{verbatim}
 	\end{small}
 \end{frame}
@@ -351,6 +378,7 @@ Shared library to operate with bla
 	\item Usually used for distinguishing between various codestreams we provide
 	\item \url{https://en.opensuse.org/openSUSE:Build_Service_cross_distribution_howto#Detect_a_distribution_flavor_for_special_code}
 	\item Simply conditions as in any other programming language
+	\item Alternatively once can use build conditionals
 	\end{itemize}
 	\begin{small}
 	\begin{verbatim}
@@ -358,6 +386,19 @@ Shared library to operate with bla
 do stuff
 %else
 do other stuff
+%endif
+	\end{verbatim}
+	\end{small}
+	\begin{small}
+	\begin{verbatim}
+%if 0%{?suse_version} >= 1315
+%bcond_without wayland
+%else
+%bcond_with wayland
+%endif
+...
+%if %{with wayland}
+...
 %endif
 	\end{verbatim}
 	\end{small}
