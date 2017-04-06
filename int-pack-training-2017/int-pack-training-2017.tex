@@ -51,8 +51,8 @@
 	\begin{itemize}
 	\item We need to be able to deliver software to users
 	\item We need to ensure proper testing of such software
-	\item We need to compile together all various software stacks together
-	\item We need to provide comprehensive solutions for some tasks (postinst configuration)
+	\item We need to compile all various software stacks together
+	\item We need to provide comprehensive solutions for some tasks (postinstall configuration)
 	\end{itemize}
 \end{frame}
 
@@ -60,14 +60,14 @@
 	\begin{itemize}
 	\item Collection of files and their respective permissions
 	\item Metadata containing information about the software runtime dependencies
-	\item Intial configuration provider
+	\item Initial configuration provider
 	\end{itemize}
 \end{frame}
 
 
 \begin{frame}[t]{What does it provide for the packager?}
 	\begin{itemize}
-	\item Tool to provide the container to the user in unified way
+	\item Tool to provide the container to the user in a unified way
 	\item In our distributions the .spec file specifying various areas of what should be done
 	\item Tool to verify software is buildable and distributable on various distribution codestreams
 	\end{itemize}
@@ -103,14 +103,14 @@
 	\begin{itemize}
     \item Used for Run-time dependencies
     \item Automatically populated for shared libraries
-    \item Basically all your application needs to run ought to be there
+    \item Basically, all your application needs to run ought to be there
     \item If you get it wrong user might notice during runtime and not sooner so be careful
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Requires - scriptlets}
 	\begin{itemize}
-	\item Special case of require needed only for scriptlet not during runtime of the application
+	\item Special case of require needed only for scriptlet, not during runtime of the application
     \item Used to request just something extra for the specific phase
 	\end{itemize}
 \end{frame}
@@ -141,7 +141,7 @@ Requires: tex(yhmath)
 \begin{frame}[t]{Conflicts}
 	\begin{itemize}
     \item Used to block installation of the conflicting packages
-    \item Usually used in case multiple packages have and provide same set of files
+    \item Usually used in case multiple packages have and provide the same set of files
     \item All of such packages must have the Conflicts specified in them to ensure it works.
 	\end{itemize}
 \end{frame}
@@ -169,7 +169,7 @@ Provides: alternativepackage = %{version}
 	\begin{itemize}
 	\item Weak dependencies where Recommends is soft version of Requires
     \item It is not required to have packages in this category installed contrary to Requires
-    \item Supplements is mirror of Recommends, where other package states it is addition that is to be installed if package a is present
+    \item Supplements is mirror of Recommends, where other package states it is an addition that is to be installed if package A is present
     \item Suggest and Enhances are weaker version that do not get autoinstalled, just mentioned by zypper
 	\end{itemize}
 \end{frame}
@@ -196,7 +196,7 @@ Enhances: xonotic
 \begin{frame}[t]{Subpackages}
 	\begin{itemize}
 	\item Subpackages carry the syntax logic for the main spec package
-    \item They have it's own provides/requires/scriptlets/files/etc., but buildrequires should be at main package for readability
+    \item They have it's own provides/requires/scriptlets/files/etc., but BuildRequires should be at the main package for readability
     \item There are two types, appending name (ie. bla and bla-python) or completely renaming one (ie. blas.spec to provide libblas1)
     \item All subpackages must have their own Summary, Group, and \%description
 	\end{itemize}
@@ -217,8 +217,7 @@ Summary:        Binding replacing OBS service format_spec_file
 Group:          Development/Tools/Other
 
 %description -n format_spec_file
-Alternative provider of format_spec_file functionality in order to allow
-user to use spec-cleaner rather than to stick to perl based format_spec_file.
+Alternative provider of format_spec_file functionality
 	\end{verbatim}
 	\end{small}
 \end{frame}
@@ -357,7 +356,7 @@ Tue Sep 13 12:53:23 UTC 2016 - tchvatal@suse.com
 	\item We require to be subpackage named as the soname they provide
     \item Must run ldconfig after install, uninstall, and update
     \item Should have proper soname data set
-    \item Static libraries should be avoided uness absolutely required
+    \item Static libraries should be avoided unless absolutely required
 	\end{itemize}
 \end{frame}
 
@@ -385,7 +384,7 @@ Shared library to operate with bla
 	\item Usually used for distinguishing between various codestreams we provide
 	\item \begin{tiny}\url{https://en.opensuse.org/openSUSE:Build\_Service\_cross\_distribution\_howto\#Detect\_a\_distribution\_flavor\_for\_special_code}\end{tiny}
 	\item Simply conditions as in any other programming language
-	\item Alternatively once can use build conditionals
+	\item Alternatively, once can use build conditionals
 	\end{itemize}
 \end{frame}
 
@@ -438,7 +437,7 @@ do other stuff
 	\begin{itemize}
 	\item Be lazy! Offload to upstream rather than inventing hacks
     \item Use the tools we have (osc, spec-cleaner)
-    \item Inspire yourself and use same approach to problems like the other distributions
+    \item Inspire yourself and use the same approach to problems like the other distributions
     \item Build from Pristine Sources
     \item Document patches in changelog
     \item Source Patches are meaningful on several levels
