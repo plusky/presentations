@@ -1,4 +1,4 @@
-ELEMENTNAME=osc-spec-cleaner-20177
+ELEMENTNAME=osc-spec-cleaner-2017
 
 all: doc clean
 
