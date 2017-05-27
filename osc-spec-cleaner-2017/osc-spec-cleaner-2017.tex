@@ -1,0 +1,101 @@
+\documentclass{beamer}
+\usepackage[utf8x]{inputenc}
+\usepackage[czech]{babel}
+\usetheme[pageofpages=of,% String used between the current page and the
+                         % total page count.
+          bullet=circle,% Use circles instead of squares for bullets.
+          titleline=true,% Show a line below the frame title.
+	  titlepagelogo=opensuse,
+          alternativetitlepage=true,% Use the fancy title page.
+          ]{Torino}
+
+\setbeamerfont{title}{series=\bfseries,size=\LARGE}
+\author{Tom\'{a}\v{s} Chv\'{a}tal\newline {\small tchvatal@suse.com}\newline {\small Packaging/L3 - Packaging}}
+\title{Spec-cleaner}
+\date{2017/05/27}
+
+\AtBeginSection[]
+{
+	\setbeamercolor{background canvas}{bg=chameleongreen3}
+	\begin{frame}[plain]
+		\begin{center}\begin{huge}\textcolor{white}{\secname}\end{huge}\end{center}
+	\end{frame}
+	\setbeamercolor{background canvas}{bg=}
+}
+
+\AtBeginSubsection[]
+{
+	\setbeamercolor{background canvas}{bg=chameleongreen3}
+	\begin{frame}[plain]
+		\begin{center}\begin{huge}\textcolor{white}{\subsecname}\end{huge}\end{center}
+	\end{frame}
+	\setbeamercolor{background canvas}{bg=}
+}
+
+\begin{document}
+
+\begin{frame}[t,plain]
+\titlepage
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}[t]{What the heck is spec-cleaner}
+	\begin{itemize}
+	\item Package format unifier
+	\item Coverter of common typos/bugs
+	\item Currently used by:
+		\begin{itemize}
+		\item Python conversions for singlespec
+		\item Cloud guys
+		\item Haskell guys
+		\item Pack team and other contributors
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Interesting features}
+	\begin{itemize}
+	\item Conversion to pkgconfig perl tex ... bracketed dependencies
+	\item Optional exclusion using # nospeccleaner
+	\item Codeblock detection
+	\item Comprehensive testsuite
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Plans/Bugs}
+	\begin{itemize}
+	\item Replace completely format\_spec\_file github#
+	\item Allow parsing of the new rpm 4.13 boolean syntax
+	\item Provide separate option to not include curly brackets
+	\item Cleanup preamble parsing to be more undestandable
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[t]{How can I help?}
+	\begin{itemize}
+	\item Reporting bugs on github
+	\item Using the tool :)
+	\item Expanding testsuite
+	\item Adding more fixes of common issues
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Contact points}
+	\begin{itemize}
+	\item \url{https://github.com/openSUSE/spec-cleaner}
+	\item tchvatal@suse.com
+	\item \#opensuse-factory@freenode.net 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Thanks/Questions}
+	\begin{center}
+	Thank you for your attention.\\
+	Are there any questions?
+	\end{center}
+\end{frame}
+
+\end{document}
+
