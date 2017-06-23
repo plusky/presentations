@@ -11,9 +11,9 @@
           ]{Torino}
 
 \setbeamerfont{title}{series=\bfseries,size=\LARGE}
-\author{Tom\'{a}\v{s} Chv\'{a}tal\newline {\small tchvatal@suse.com}\newline {\small Packaging/L3 - Packaging}}
+\author{Tom\'{a}\v{s} Chv\'{a}tal et al.\newline {\small tchvatal@suse.com}\newline {\small Packaging/L3 - Packaging}}
 \title{OBS introductionary course for SUSE people}
-\date{2017/04/04}
+\date{2017/06/29}
 
 \AtBeginSection[]
 {
@@ -53,9 +53,17 @@
 
 \begin{frame}[t]{What is buildservice}
 	\begin{itemize}
-	\item provider for reproducable build results
+	\item Build tool
+    \begin{itemize}
+      \item Builds packages for different architectures/platforms
+      \item Creates iso/vm images, container images, appimage
+      \item Automatic rebuilds when dependency tree changes (i.e Factory)
+      \item Reproducible builds
+      \item See i.e \url{https://build.opensuse.org/package/show/benchmark/glmark2}
+    \end{itemize}
 	\item VCS for our packages
-	\item collaboration tools using SR\#s
+	\item Collaboration tools using SR\#s
+  \item Provides integration with QA tools used in SUSE/openSUSE (openQA)
 	\end{itemize}
 \end{frame}
 
@@ -63,6 +71,7 @@
 	\begin{itemize}
 	\item Using web interface on the ibs or obs locations
 	\item Using commandline interface called osc (osc is provided on most distributions as package too)
+  \item Using its API directly (i.e \url{api.build.opensuse.org})
 	\end{itemize}
 \end{frame}
 
@@ -166,6 +175,7 @@ Avoid password request prior each build:
 \begin{frame}{openSUSE Tumbleweed}
 	\center{\url{https://progress.opensuse.org/workflow/factory-proposal.html}}
 	\center{\url{https://en.opensuse.org/openSUSE:Factory\_development\_model}}
+  \center{\url{https://build.opensuse.org/project/dashboard/openSUSE:Factory}}
 \end{frame}
 
 \begin{frame}[fragile]{openSUSE Tubmleweed/Factory}
@@ -308,8 +318,11 @@ $ osc sr <RESPECTIVE_PROJECT>/<EXACT_PKG_NAME> ->
 
 \section{Webinterface}
 
-\begin{frame}{Practical example}
-	\center{Lets go over to \url{http://build.opensuse.org}}
+\begin{frame}{examples}
+	\center{Default view \url{http://build.opensuse.org}}
+	\center{Factory requests \url{https://build.opensuse.org/project/requests/openSUSE:Factory}}
+	\center{Devel project \url{https://build.opensuse.org/project/show/server:database}}
+	\center{Incidents \url{https://build.opensuse.org/project/maintenance_incidents/openSUSE:Maintenance}}
 \end{frame}
 
 \section{Endnote}
