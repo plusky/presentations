@@ -10,9 +10,9 @@
           ]{Torino}
 
 \setbeamerfont{title}{series=\bfseries,size=\LARGE}
-\author{Tom\'{a}\v{s} Chv\'{a}tal\newline {\small tchvatal@suse.com}\newline {\small Packaging/L3 - Packaging}}
+\author{Tom\'{a}\v{s} Chv\'{a}tal et al.\newline {\small tchvatal@suse.com}\newline {\small Packaging/L3 - Packaging}}
 \title{Basic packaging introduction for openSUSE}
-\date{2017/04/05}
+\date{2017/06/23}
 
 \AtBeginSection[]
 {
@@ -47,14 +47,59 @@
 	\end{itemize}
 \end{frame}
 
+
 \begin{frame}[t]{Why do we need packages at all?}
 	\begin{itemize}
 	\item We need to be able to deliver software to users
+  \item We need to isolate needed components
 	\item We need to ensure proper testing of such software
 	\item We need to compile all various software stacks together
-	\item We need to provide comprehensive solutions for some tasks (postinstall configuration)
+	\item We need to provide comprehensive solutions for some tasks
+    \begin{itemize}
+      \item Dependencies
+      \item Updating and migration
+      \item User management
+      \item Postinstallation configuration
+    \end{itemize}
 	\end{itemize}
 \end{frame}
+
+
+\begin{frame}[t]{Packages}
+	\begin{itemize}
+	\item Most operating systems have some type of packaging
+    \begin{itemize}
+      \item Unix/Linux
+      \item Widnows
+      \item Realtime operating systems
+    \end{itemize}
+  \item Many popular languages have their own package system/registry
+    \begin{itemize}
+      \item CPAN (perl)
+      \item pypi (python)
+      \item cabal (haskell)
+    \end{itemize}
+    \item Container/sandbox formats
+      \begin{itemize}
+        \item docker (dockerfiles, Open Containers Initiative)
+        \item flatpak
+        \item appimage
+      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Packages on Linux}
+	\begin{itemize}
+	\item Most distributions are leveraging some package/software management
+    \begin{itemize}
+      \item Debian/Ubuntu (apt + dpkg)
+      \item Arch linux (pacman)
+      \item Gentoo linux (portage)
+      \item rpm based distributions (rpm + zypper/yum/dpkg)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
 
 \begin{frame}[t]{What are packages for the user?}
 	\begin{itemize}
@@ -350,6 +395,23 @@ Tue Sep 13 12:53:23 UTC 2016 - tchvatal@suse.com
 
 
 \section{Advanced topics}
+
+\begin{frame}[fragile]{Advanced dependencies}
+  \begin{itemize}
+    \item Since rpm 4.13
+  \end{itemize}
+  \begin{small}
+  \begin{verbatim}
+Requires: (pkgA or pkgB or pkgC)
+Requires: (pkgA or (pkgB and pkgC))
+Requires: (pkgA >= 3.2 or pkgB)
+Supplements: (foo and (lang-support-cz or lang-support-all))
+Conflicts: (pkgA and pkgB)
+Recommends: (myPkg-langCZ if langsupportCZ)
+Requires: (myPkg-backend-mariaDB if mariaDB else sqlite)
+	\end{verbatim}
+	\end{small}
+\end{frame}
 
 \begin{frame}[t]{Library packaging}
 	\begin{itemize}
