@@ -197,6 +197,25 @@ $ osc sr -m "Finally got around to fix bsc#2345 so enjoy"
 	\end{tiny}
 \end{frame}
 
+
+\begin{frame}[fragile]{Advanced OBS features}
+  \begin{itemize}
+    \item Create link for packages between projects 
+      \begin{quote}
+        \begin{verbatim}$ osc linkpac Archiving/tar MyProject/tar\end{verbatim}
+      \end{quote}
+    \item Copy built rpm's to another project
+      \begin{quote}
+        \begin{verbatim}$ osc aggregatepac Archiving/tar MyProject/tar\end{verbatim}
+      \end{quote}
+    \item Copy package sources between projects
+      \begin{quote}
+        \begin{verbatim}$ osc copypac Archiving/tar MyProject/tar\end{verbatim}
+      \end{quote}
+  \end{itemize}
+\end{frame}
+
+
 \begin{frame}[t]{openSUSE Releases}
 	\begin{itemize}
 	\item Forwarding fixes from devel project to released distributions are always up to maintainer (your) decision
