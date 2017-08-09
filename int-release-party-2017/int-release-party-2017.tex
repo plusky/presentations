@@ -1,0 +1,91 @@
+\documentclass{beamer}
+\hypersetup{pdfpagemode=FullScreen}
+\usepackage[utf8x]{inputenc}
+\usepackage[czech]{babel}
+\usetheme[pageofpages=of,% String used between the current page and the
+                         % total page count.
+          bullet=circle,% Use circles instead of squares for bullets.
+          titleline=true,% Show a line below the frame title.
+	  titlepagelogo=opensuse,
+          alternativetitlepage=true,% Use the fancy title page.
+          ]{Torino}
+
+\setbeamerfont{title}{series=\bfseries,size=\LARGE}
+\author{Tom\'{a}\v{s} Chv\'{a}tal\newline {\small tchvatal@suse.com}\newline {\small Packaging/L3 - Packaging}}
+\title{openSUSE Leap 42.3 Release party}
+\date{2017/08/09}
+
+\AtBeginSection[]
+{
+	\setbeamercolor{background canvas}{bg=chameleongreen3}
+	\begin{frame}[plain]
+		\begin{center}\begin{huge}\textcolor{white}{\secname}\end{huge}\end{center}
+	\end{frame}
+	\setbeamercolor{background canvas}{bg=}
+}
+
+\AtBeginSubsection[]
+{
+	\setbeamercolor{background canvas}{bg=chameleongreen3}
+	\begin{frame}[plain]
+		\begin{center}\begin{huge}\textcolor{white}{\subsecname}\end{huge}\end{center}
+	\end{frame}
+	\setbeamercolor{background canvas}{bg=}
+}
+
+\begin{document}
+
+\begin{frame}[t,plain]
+\titlepage
+\end{frame}
+
+\section{Whats new}
+
+\begin{frame}[t]{New cool stuff}
+	\begin{itemize}
+	\item NOTHING
+	\item NOTHING2
+	\item It is a boring release
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{New boring stuff}
+	\begin{itemize}
+	\item Main focus is stability
+	\item Kernel release not updated, more HW enablement backported in
+	\item Same Gnome release, still stable and used in SLED too
+	\item New KDE release, still broken as always
+	\item libreoffice 5.3 (but they are integrated in 43.2 too)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{New less boring stuff}
+	\begin{itemize}
+	\item Mesa 17.0
+	\item GHC updated to cooler version (but I have no clue about haskell, they told me to put it here)
+	\item Updated texlive
+	\item Python singlespec macros are now supported
+	\end{itemize}
+\end{frame}
+
+\section{Bugzilla sprint}
+
+\begin{frame}[t]{Sprint data}
+	\begin{itemize}
+	\item Thursday 10.8. - Saturday 12.8.
+	\item \#opensuse-bughunting @ freenode.net
+	\item opensuse-factory@opensuse.org
+	\item \url{https://etherpad.opensuse.org/p/openSUSE-bughunting}
+	\end{itemize}
+\end{frame}
+
+\section{Cake!}
+
+\begin{frame}{Cake}
+	\begin{center}
+	Lets eat the cake, it seems it was not a lie!
+	\end{center}
+\end{frame}
+
+\end{document}
+
