@@ -13,7 +13,7 @@
 \setbeamerfont{title}{series=\bfseries,size=\LARGE}
 \author{Tom\'{a}\v{s} Chv\'{a}tal et al.\newline {\small tchvatal@suse.com}\newline {\small Packaging/L3 - Packaging}}
 \title{Basic packaging introduction for openSUSE}
-\date{2017/06/23}
+\date{2017/09/08}
 
 \AtBeginSection[]
 {
@@ -71,7 +71,7 @@
 	\item Most operating systems have some type of packaging
     \begin{itemize}
       \item Unix/Linux
-      \item Widnows
+      \item Windows
       \item Realtime operating systems
     \end{itemize}
   \item Many popular languages have their own package system/registry
@@ -114,7 +114,7 @@
 \begin{frame}[t]{What does it provide for the packager?}
 	\begin{itemize}
 	\item Tool to provide the container to the user in a unified way
-	\item In our distributions the .spec file specifying various areas of what should be done
+	\item In our distributions the \texttt{.spec} file specifying various areas of what should be done
 	\item Tool to verify software is buildable and distributable on various distribution codestreams
 	\end{itemize}
 \end{frame}
@@ -129,25 +129,25 @@
 
 \begin{frame}[t]{Easy parts}
 	\begin{itemize}
-	\item Name, Version, Summary, Url, Patch
-	\item License - SPDX \begin{small}\url{https://github.com/openSUSE/spec-cleaner\#spdx-licenses}\end{small}
-    \item Group - \begin{small}\url{https://en.opensuse.org/openSUSE:Package\_group\_guidelines}\end{small}
-    \item Source - with full URL path
-    \item \%description
+	\item \texttt{Name}, \texttt{Version}, \texttt{Summary}, \texttt{Url}, \texttt{Patch}
+	\item \texttt{License} - SPDX \begin{small}\url{https://github.com/openSUSE/spec-cleaner\#spdx-licenses}\end{small}
+    \item \texttt{Group} - \begin{small}\url{https://en.opensuse.org/openSUSE:Package\_group\_guidelines}\end{small}
+    \item \texttt{Source} - with full URL path
+    \item \texttt{\%description}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{BuildRequires}
 	\begin{itemize}
 	\item Should contain what your package needs for build
-    \item Preferably it should be version limited (based i.e. on configure.ac)
+    \item Preferably it should be version limited (based e.g. on \texttt{configure.ac})
     \item If something is wrong here the package should not build
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Requires}
 	\begin{itemize}
-    \item Used for Run-time dependencies
+    \item Used for run-time dependencies
     \item Automatically populated for shared libraries
     \item Basically, all your application needs to run ought to be there
     \item If you get it wrong user might notice during runtime and not sooner so be careful
@@ -163,8 +163,8 @@
 
 \begin{frame}[t]{Requires - specialities}
 	\begin{itemize}
-    \item \%requires\_eq - for exactly same version requirement
-    \item  \%requires\_ge - Translates to $>=$ on the requirement
+    \item \texttt{\%requires\_eq} - for exactly same version requirement
+    \item \texttt{\%requires\_ge} - translates to $>=$ on the requirement
 	\end{itemize}
 \end{frame}
 
@@ -188,7 +188,7 @@ Requires: tex(yhmath)
 	\begin{itemize}
     \item Used to block installation of the conflicting packages
     \item Usually used in case multiple packages have and provide the same set of files
-    \item All of such packages must have the Conflicts specified in them to ensure it works.
+    \item All of such packages must have the \texttt{Conflicts} specified in them to ensure it works
 	\end{itemize}
 \end{frame}
 
@@ -213,10 +213,10 @@ Provides: alternativepackage = %{version}
 
 \begin{frame}[t]{Recommends/Suggests/Supplements/Enhances}
 	\begin{itemize}
-	\item Weak dependencies where Recommends is soft version of Requires
-    \item It is not required to have packages in this category installed contrary to Requires
-    \item Supplements is mirror of Recommends, where other package states it is an addition that is to be installed if package A is present
-    \item Suggest and Enhances are weaker version that do not get autoinstalled, just mentioned by zypper
+	\item Weak dependencies where \texttt{Recommends} is soft version of \texttt{Requires}
+    \item It is not required to have packages in this category installed contrary to \texttt{Requires}
+    \item \texttt{Supplements} is mirror of \texttt{Recommends}, where other package states it is an addition that is to be installed if package A is present
+    \item \texttt{Suggests} and \texttt{Enhances} are weaker version that do not get autoinstalled, just mentioned by zypper
 	\end{itemize}
 \end{frame}
 
@@ -242,9 +242,9 @@ Enhances: xonotic
 \begin{frame}[t]{Subpackages}
 	\begin{itemize}
 	\item Subpackages carry the syntax logic for the main spec package
-    \item They have it's own provides/requires/scriptlets/files/etc., but BuildRequires should be at the main package for readability
-    \item There are two types, appending name (ie. bla and bla-python) or completely renaming one (ie. blas.spec to provide libblas1)
-    \item All subpackages must have their own Summary, Group, and \%description
+    \item They have it's own provides/requires/scriptlets/files/etc., but \texttt{BuildRequires} should be at the main package for readability
+    \item There are two types, appending name (i.e. bla and bla-python) or completely renaming one (i.e. blas.spec to provide libblas1)
+    \item All subpackages must have their own \texttt{Summary}, \texttt{Group}, and \texttt{\%description}
 	\end{itemize}
 \end{frame}
 
@@ -306,7 +306,7 @@ Alternative provider of format_spec_file functionality
 	\item Phase used to install the software files to the proper locations
     \item Also used to install additional files we might need to deliver (systemd units, ...)
     \item Simply just commands telling where to put what from within the compiled sources
-    \item It is pretty good idea to rather use install with proper mode than cp/mkdir/\ldots
+    \item It is pretty good idea to rather use \texttt{install} command with proper mode than \texttt{cp}/\texttt{mkdir}/\ldots
 	\end{itemize}
 \end{frame}
 
@@ -369,15 +369,15 @@ update-alternatives --install %{_javadir}/el_api.jar el_api \
 
 \begin{frame}[t]{Changelog}
 	\begin{itemize}
-	\item The \%changelog section in openSUSE spec files is populated by build scripts
-	\item We keep the content in \%{name}.changes file
+	\item The \texttt{\%changelog} section in openSUSE spec files is populated by build scripts
+	\item We keep the content in \texttt{\%{name}.changes} file
     \item It should contain information that should be delivered to user about the changes
     \item The content can be pre-filled by using \texttt{osc vc} command
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Example changelog entry}
-	\begin{tiny}
+	\begin{scriptsize}
 	\begin{verbatim}
 -------------------------------------------------------------------
 Tue Sep 13 12:53:23 UTC 2016 - tchvatal@suse.com
@@ -391,7 +391,7 @@ Tue Sep 13 12:53:23 UTC 2016 - tchvatal@suse.com
   * chromium-sandbox.patch
 
 	\end{verbatim}
-	\end{tiny}
+	\end{scriptsize}
 \end{frame}
 
 
@@ -417,7 +417,7 @@ Requires: (myPkg-backend-mariaDB if mariaDB else sqlite)
 \begin{frame}[t]{Library packaging}
 	\begin{itemize}
 	\item We require to be subpackage named as the soname they provide
-    \item Must run ldconfig after install, uninstall, and update
+    \item Must run \texttt{ldconfig} after install, uninstall, and update
     \item Should have proper soname data set
     \item Static libraries should be avoided unless absolutely required
 	\end{itemize}
@@ -445,7 +445,7 @@ Shared library to operate with bla
 \begin{frame}[t]{Conditions}
 	\begin{itemize}
 	\item Usually used for distinguishing between various codestreams we provide
-	\item \begin{tiny}\url{https://en.opensuse.org/openSUSE:Build\_Service\_cross\_distribution\_howto\#Detect\_a\_distribution\_flavor\_for\_special_code}\end{tiny}
+	\item \begin{scriptsize}\url{https://en.opensuse.org/openSUSE:Build\_Service\_cross\_distribution\_howto\#Detect\_a\_distribution\_flavor\_for\_special_code}\end{scriptsize}
 	\item Simply conditions as in any other programming language
 	\item Alternatively, once can use build conditionals
 	\end{itemize}

@@ -13,7 +13,7 @@
 \setbeamerfont{title}{series=\bfseries,size=\LARGE}
 \author{Tom\'{a}\v{s} Chv\'{a}tal et al.\newline {\small tchvatal@suse.com}\newline {\small Packaging/L3 - Packaging}}
 \title{OBS introductionary course for SUSE people}
-\date{2017/06/29}
+\date{2017/09/08}
 
 \AtBeginSection[]
 {
@@ -43,7 +43,7 @@
 
 \begin{frame}[t]{Explanation of few shortcuts used in the slides}
 	\begin{itemize}
-	\item isc = alias for osc -A IBS
+	\item isc = alias for \texttt{osc -A IBS}
 	\item ibs = build.suse.de
 	\item obs = build.opensuse.org
 	\item SR\# = submit request in any of the above instances
@@ -51,15 +51,15 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[t]{What is buildservice}
+\begin{frame}[t]{What is openSUSE Build Service}
 	\begin{itemize}
 	\item Build tool
     \begin{itemize}
       \item Builds packages for different architectures/platforms
       \item Creates iso/vm images, container images, appimage
-      \item Automatic rebuilds when dependency tree changes (i.e Factory)
+      \item Automatic rebuilds when dependency tree changes (e.g. Factory)
       \item Reproducible builds
-      \item See i.e \url{https://build.opensuse.org/package/show/benchmark/glmark2}
+      \item See e.g. \url{https://build.opensuse.org/package/show/benchmark/glmark2}
     \end{itemize}
 	\item VCS for our packages
 	\item Collaboration tools using SR\#s
@@ -70,12 +70,12 @@
 \begin{frame}[t]{How do I communicate with the tool}
 	\begin{itemize}
 	\item Using web interface on the ibs or obs locations
-	\item Using commandline interface called osc (osc is provided on most distributions as package too)
-  \item Using its API directly (i.e \url{api.build.opensuse.org})
+	\item Using commandline interface called \texttt{osc} (\texttt{osc} is provided on most distributions as a package too)
+  \item Using its API directly (i.e. \url{api.build.opensuse.org})
 	\end{itemize}
 \end{frame}
 
-\section{CLI Configuration tips}
+\section{CLI configuration tips}
 
 \begin{frame}[fragile]{Configuration suggestions}
 	\begin{center}\$HOME/.oscrc\end{center}
@@ -109,14 +109,14 @@ aliases = obs
 \begin{frame}[fragile]{Configuration suggestions - cont.}
 	\begin{center}\$HOME/.bashrc\end{center}
 	As few commands will be called quite often it is easier to alias them.
-	\begin{tiny}
+	\begin{small}
 	\begin{verbatim}
 export COMP_WORDBREAKS=${COMP_WORDBREAKS/:/}
 alias isc="osc -A ibs"
 alias oscb="osc build --ccache"
 alias oscsd="osc service localrun download_files"
 	\end{verbatim}
-	\end{tiny}
+	\end{small}
 \end{frame}
 
 \section{Basic CLI usage}
@@ -136,8 +136,8 @@ $ osc ci
 
 \subsection{Some handy tips}
 
-\begin{frame}[fragile]{osc build options}
-Build debuginfo packages localy:
+\begin{frame}[fragile]{\texttt{osc} build options}
+Build debuginfo packages locally:
 \begin{small}
 \begin{verbatim}$ osc build --debuginfo/-d\end{verbatim}
 \end{small}
@@ -145,7 +145,7 @@ Skip the pesky post-build-checks:
 \begin{small}
 \begin{verbatim}$ osc build --nochecks\end{verbatim}
 \end{small}
-Add extra rpms from local system rather than from O/IBS:
+Add extra rpms from local system rather than from OBS/IBS:
 \begin{small}
 \begin{verbatim}$ osc build --prefer-pkgs /my/directory/withrpms/\end{verbatim}
 \end{small}
@@ -155,31 +155,33 @@ Add extra packages on the chroot environment:
 \end{small}
 \end{frame}
 
-\begin{frame}[fragile]{osc tips continued}
-Do not init the chroot just go ahead with build:
+\begin{frame}[fragile]{\texttt{osc} tips continued}
+Do not init the chroot, just go ahead with build:
 \begin{small}
 \begin{verbatim}$ osc build --no-init\end{verbatim}
 \end{small}
 Get the buildlog from the local build:
 \begin{small}
-\begin{verbatim}$ osc lbl <project eg. openSUSE_Tumbleweed>\end{verbatim}
+\begin{verbatim}$ osc lbl <project e.g. openSUSE_Tumbleweed>\end{verbatim}
 \end{small}
 Avoid password request prior each build:
-\begin{tiny}
-\begin{verbatim}echo "yourlogin ALL = (root) NOPASSWD: /usr/bin/build" >> /etc/sudoers\end{verbatim}
-\end{tiny}
+\begin{scriptsize}
+\begin{verbatim}$ echo "yourlogin ALL = (root) NOPASSWD: /usr/bin/build" >> /etc/sudoers\end{verbatim}
+\end{scriptsize}
 \end{frame}
 
 \subsection{Collaboration/maintenance}
 
 \begin{frame}{openSUSE Tumbleweed}
-	\center{\url{https://progress.opensuse.org/workflow/factory-proposal.html}}
-	\center{\url{https://en.opensuse.org/openSUSE:Factory\_development\_model}}
-  \center{\url{https://build.opensuse.org/project/dashboard/openSUSE:Factory}}
+	\begin{itemize}
+	\item{\url{https://progress.opensuse.org/workflow/factory-proposal.html}}
+	\item{\url{https://en.opensuse.org/openSUSE:Factory\_development\_model}}
+	\item{\url{https://build.opensuse.org/project/dashboard/openSUSE:Factory}}
+	\end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{openSUSE Tubmleweed/Factory}
-	\begin{tiny}
+\begin{frame}[fragile]{openSUSE Tumbleweed/Factory}
+	\begin{small}
 	\begin{verbatim}
 $ osc develproject openSUSE:Factory rsnapshot
 Archiving
@@ -194,7 +196,7 @@ $ oscb
 $ osc ci
 $ osc sr -m "Finally got around to fix bsc#2345 so enjoy"
 	\end{verbatim}
-	\end{tiny}
+	\end{small}
 \end{frame}
 
 
@@ -219,8 +221,8 @@ $ osc sr -m "Finally got around to fix bsc#2345 so enjoy"
 \begin{frame}[t]{openSUSE Releases}
 	\begin{itemize}
 	\item Forwarding fixes from devel project to released distributions are always up to maintainer (your) decision
-	\item You should forward only smaller things (ie. no huge version updates that could break too much)
-	\item One should be MORE careful when creating the maint. update than when submitting to Factory itself
+	\item You should forward only smaller things (i.e. no huge version updates that could break too much)
+	\item One should be MORE careful when creating the maintenance update than when submitting to Factory itself
 	\item \url{https://en.opensuse.org/openSUSE:Build\_Service\_Concept\_Maintenance}
 	\item In some cases packages in Leap come over from SLE and thus need to be updated there first
 	\end{itemize}
@@ -238,25 +240,25 @@ Leap package comes from SUSE:SLE-12:Update
 [...]\end{verbatim}
 \end{small}
 \begin{small}
-\begin{verbatim}$ osc cat openSUSE:Leap:42.1:Update/00Meta/lookup.yml | grep "^curl:"
+\begin{verbatim}$ osc cat openSUSE:Leap:42.3:Update/00Meta/lookup.yml | grep "^curl:"
 curl: SUSE:SLE-12:Update\end{verbatim}
 \end{small}
 \end{frame}
 
-\begin{frame}[fragile]{openSUSE Releases code example}
-	\begin{tiny}
+\begin{frame}[fragile]{openSUSE releases code example}
+	\begin{scriptsize}
 	\begin{verbatim}
 $ osc maintained rsnapshot
-openSUSE:Leap:42.1:Update/rsnapshot
 openSUSE:Leap:42.2:Update/rsnapshot
+openSUSE:Leap:42.3:Update/rsnapshot
 $ osc mbranch rsnapshot
 A working copy of the maintenance branch can be checked out with:
 osc co home:scarabeus_iv:branches:OBS_Maintained:rsnapshot
 $ cd home:scarabeus_iv:branches:OBS_Maintained:rsnapshot
 $ ls
-rsnapshot.openSUSE_Leap_42.1_Update/  rsnapshot.openSUSE_Leap_42.2_Update/
-$ vi rsnapshot.openSUSE_Leap_42.1_Update/rsnapshot.spec
+rsnapshot.openSUSE_Leap_42.2_Update/  rsnapshot.openSUSE_Leap_42.3_Update/
 $ vi rsnapshot.openSUSE_Leap_42.2_Update/rsnapshot.spec
+$ vi rsnapshot.openSUSE_Leap_42.3_Update/rsnapshot.spec
 % for each folder now
 $ osc vc -m "I did fancy maintenance changes, I am great"
 $ oscb
@@ -265,7 +267,7 @@ $ osc ci
 $ osc mr -m "Maintenance update wrt bsc#something"
 created request id 1234
 	\end{verbatim}
-	\end{tiny}
+	\end{scriptsize}
 \end{frame}
 
 \begin{frame}[t]{SUSE Package Hub}
@@ -274,12 +276,12 @@ created request id 1234
 	\item Project can't include any software already present in SLE release
 	\item Maintained in special project in OBS called Backports
 	\item One should follow rules the same way like the openSUSE releases maintenance
-	\item \url{https://en.opensuse.org/openSUSE:Backports_Package_Submission_Process}
+	\item \url{https://en.opensuse.org/openSUSE:Backports\_Package\_Submission\_Process}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{SUSE Package Hub code example}
-	\begin{tiny}
+	\begin{scriptsize}
 	\begin{verbatim}
 $ osc maintained chromium
 openSUSE:Backports:SLE-12/chromium
@@ -299,7 +301,7 @@ $ osc ci
 $ osc mr -m "Maintenance update wrt bsc#something"
 created request id 1234
 	\end{verbatim}
-	\end{tiny}
+	\end{scriptsize}
 \end{frame}
 
 \begin{frame}[t]{SLE}
@@ -337,11 +339,13 @@ $ osc sr <RESPECTIVE_PROJECT>/<EXACT_PKG_NAME> ->
 
 \section{Webinterface}
 
-\begin{frame}{examples}
-	\center{Default view \url{http://build.opensuse.org}}
-	\center{Factory requests \url{https://build.opensuse.org/project/requests/openSUSE:Factory}}
-	\center{Devel project \url{https://build.opensuse.org/project/show/server:database}}
-	\center{Incidents \url{https://build.opensuse.org/project/maintenance_incidents/openSUSE:Maintenance}}
+\begin{frame}{Examples}
+	\begin{itemize}
+	\item{\textbf{Default view}\newline \url{http://build.opensuse.org}}
+	\item{\textbf{Factory requests}\newline \url{https://build.opensuse.org/project/requests/openSUSE:Factory}}
+	\item{\textbf{Devel project}\newline \url{https://build.opensuse.org/project/show/server:database}}
+	\item{\textbf{Incidents}\newline \url{https://build.opensuse.org/project/maintenance\_incidents/openSUSE:Maintenance}}
+	\end{itemize}
 \end{frame}
 
 \section{Endnote}
