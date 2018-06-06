@@ -10,7 +10,7 @@ stages:
 build-pdfs:
   stage: build
   script:
-    - make || { cat */*.log ; exit 1 }
+    - make || cat */*.log
  
   # The files which are to be made available in GitLab
   # pdf are results
