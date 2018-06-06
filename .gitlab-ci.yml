@@ -2,7 +2,7 @@ image: opensuse/tumbleweed
  
 before_script:
   - zypper in -y texinfo make
-  - zypper in -y 'tex(beamer.cls)' 'tex(bbm.sty)' 'tex(capt-of.sty)'
+  - zypper in -y 'tex(beamer.cls)' 'tex(bbm.sty)' 'tex(capt-of.sty)' 'tex(textpos.sty)'
  
 stages:
   - build
