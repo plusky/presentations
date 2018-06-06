@@ -1,0 +1,19 @@
+image: opensuse/tumbleweed
+ 
+before_script:
+  - zypper in -y texinfo make
+ 
+stages:
+  - build
+ 
+build-distcheck:
+  stage: build
+  script:
+    - make
+ 
+  # The files which are to be made available in GitLab
+  # pdf are results ; log are errors from tex
+  artifacts:
+    paths:
+      - */*.pdf
+      - */*.log
