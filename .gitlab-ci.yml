@@ -2,7 +2,7 @@ image: opensuse/tumbleweed
  
 before_script:
   - zypper in -y texinfo make
-  - zypper in -y 'tex(beamer.cls)'
+  - zypper in -y 'tex(beamer.cls)' 'tex(bbm.sty)' 'tex(capt-of.sty)'
  
 stages:
   - build
@@ -10,11 +10,10 @@ stages:
 build-pdfs:
   stage: build
   script:
-    - make
+    - make || { cat */*.log ; exit 1 }
  
   # The files which are to be made available in GitLab
-  # pdf are results ; log are errors from tex
+  # pdf are results
   artifacts:
     paths:
       - "*/*.pdf"
-      - "*/*.log"
