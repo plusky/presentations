@@ -6,7 +6,7 @@ before_script:
 stages:
   - build
  
-build-distcheck:
+build-pdfs:
   stage: build
   script:
     - make
