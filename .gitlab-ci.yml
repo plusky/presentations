@@ -15,5 +15,5 @@ build-distcheck:
   # pdf are results ; log are errors from tex
   artifacts:
     paths:
-      - */*.pdf
-      - */*.log
+      - "*/*.pdf"
+      - "*/*.log"
