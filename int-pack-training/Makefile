@@ -1,4 +1,4 @@
-ELEMENTNAME=int-pack-training-2017
+ELEMENTNAME=int-pack-training
 
 all: doc clean
 
