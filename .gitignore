@@ -2,3 +2,7 @@
 *.pdf
 # swp files too
 .*.swp
+# tex temporary files
+*.{aux,toc,log,out,snm,nav,lot,lol,lof,vrb}
+# editor backups
+*~
