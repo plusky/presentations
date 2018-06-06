@@ -9,7 +9,8 @@
 	  titlepagelogo=opensuse,
           alternativetitlepage=true,% Use the fancy title page.
           ]{Torino}
-
+\renewcommand{\rmdefault}{phv} % Arial
+\renewcommand{\sfdefault}{phv} % Arial
 \setbeamerfont{title}{series=\bfseries,size=\LARGE}
 \author{Tom\'{a}\v{s} Chv\'{a}tal et al.\newline {\small tchvatal@suse.com}\newline {\small Packaging/L3 - Packaging}}
 \title{Basic packaging introduction for openSUSE}
@@ -17,7 +18,7 @@
 
 \AtBeginSection[]
 {
-	\setbeamercolor{background canvas}{bg=chameleongreen3}
+	\setbeamercolor{background canvas}{bg=chameleongreen0}
 	\begin{frame}[plain]
 		\begin{center}\begin{huge}\textcolor{white}{\secname}\end{huge}\end{center}
 	\end{frame}
@@ -26,7 +27,7 @@
 
 \AtBeginSubsection[]
 {
-	\setbeamercolor{background canvas}{bg=chameleongreen3}
+	\setbeamercolor{background canvas}{bg=chameleongreen0}
 	\begin{frame}[plain]
 		\begin{center}\begin{huge}\textcolor{white}{\subsecname}\end{huge}\end{center}
 	\end{frame}
