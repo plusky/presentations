@@ -1,7 +1,8 @@
 .DEFAULT_GOAL := all
 
 doc: $(ELEMENTNAME).tex 
-	texi2pdf $(ELEMENTNAME).tex
+	xelatex $(ELEMENTNAME).tex
+	xelatex $(ELEMENTNAME).tex
 
 dot:
 	for dotfile in *.dot; do \
