@@ -80,17 +80,17 @@
 \begin{frame}[fragile]{Configuration suggestions}
 	\begin{center}\$HOME/.oscrc\end{center}
 	\begin{small}
-	\begin{verbatim}
+\begin{verbatim}
 build-jobs = 16 # value for buildjobs
 extra-pkgs = vim gdb strace mc less unzip # some tools
 no_verify = 1 # local verification only
-	\end{verbatim}
+\end{verbatim}
 	\end{small}
 \end{frame}
 
 \begin{frame}[fragile]{Configuration suggestions - cont.}
 	\begin{small}
-	\begin{verbatim}
+\begin{verbatim}
 [https://api.suse.de]
 user = bugzillausername
 pass = bugzillapw
@@ -102,7 +102,7 @@ user = bugzillausername
 pass = bugzillapw
 email = guessyourself
 aliases = obs
-	\end{verbatim}
+\end{verbatim}
 	\end{small}
 \end{frame}
 
@@ -110,12 +110,12 @@ aliases = obs
 	\begin{center}\$HOME/.bashrc\end{center}
 	As few commands will be called quite often it is easier to alias them.
 	\begin{small}
-	\begin{verbatim}
+\begin{verbatim}
 export COMP_WORDBREAKS=${COMP_WORDBREAKS/:/}
 alias isc="osc -A ibs"
 alias oscb="osc build --ccache"
 alias oscsd="osc service localrun download_files"
-	\end{verbatim}
+\end{verbatim}
 	\end{small}
 \end{frame}
 
@@ -123,14 +123,14 @@ alias oscsd="osc service localrun download_files"
 
 \begin{frame}[fragile]{Sample workload}
 	\begin{small}
-	\begin{verbatim}
+\begin{verbatim}
 $ osc co Archiving/rsnapshot
 $ cd Archiving/rsnapshot
 $ vi rsnapshot.spec # hackyhacky
 $ osc vc -m "Fix something. Resolves bsc#1234"
 $ oscb
 $ osc ci
-	\end{verbatim}
+\end{verbatim}
 	\end{small}
 \end{frame}
 
@@ -182,7 +182,7 @@ Avoid password request prior each build:
 
 \begin{frame}[fragile]{openSUSE Tumbleweed/Factory}
 	\begin{small}
-	\begin{verbatim}
+\begin{verbatim}
 $ osc develproject openSUSE:Factory rsnapshot
 Archiving
 $ osc branch Archiving rsnapshot
@@ -195,7 +195,7 @@ $ osc vc -m "Fix something. Wrt bsc#2345"
 $ oscb
 $ osc ci
 $ osc sr -m "Finally got around to fix bsc#2345 so enjoy"
-	\end{verbatim}
+\end{verbatim}
 	\end{small}
 \end{frame}
 
@@ -204,15 +204,15 @@ $ osc sr -m "Finally got around to fix bsc#2345 so enjoy"
   \begin{itemize}
     \item Create link for packages between projects 
       \begin{quote}
-        \begin{verbatim}$ osc linkpac Archiving/tar MyProject/tar\end{verbatim}
+\begin{verbatim}$ osc linkpac Archiving/tar MyProject/tar\end{verbatim}
       \end{quote}
     \item Copy built rpm's to another project
       \begin{quote}
-        \begin{verbatim}$ osc aggregatepac Archiving/tar MyProject/tar\end{verbatim}
+\begin{verbatim}$ osc aggregatepac Archiving/tar MyProject/tar\end{verbatim}
       \end{quote}
     \item Copy package sources between projects
       \begin{quote}
-        \begin{verbatim}$ osc copypac Archiving/tar MyProject/tar\end{verbatim}
+\begin{verbatim}$ osc copypac Archiving/tar MyProject/tar\end{verbatim}
       \end{quote}
   \end{itemize}
 \end{frame}
@@ -247,7 +247,7 @@ curl: SUSE:SLE-12:Update\end{verbatim}
 
 \begin{frame}[fragile]{openSUSE releases code example}
 	\begin{scriptsize}
-	\begin{verbatim}
+\begin{verbatim}
 $ osc maintained rsnapshot
 openSUSE:Leap:42.2:Update/rsnapshot
 openSUSE:Leap:42.3:Update/rsnapshot
@@ -266,7 +266,7 @@ $ osc ci
 % back one level
 $ osc mr -m "Maintenance update wrt bsc#something"
 created request id 1234
-	\end{verbatim}
+\end{verbatim}
 	\end{scriptsize}
 \end{frame}
 
@@ -282,7 +282,7 @@ created request id 1234
 
 \begin{frame}[fragile]{SUSE Package Hub code example}
 	\begin{scriptsize}
-	\begin{verbatim}
+\begin{verbatim}
 $ osc maintained chromium
 openSUSE:Backports:SLE-12/chromium
 openSUSE:Backports:SLE-12-SP2/chromium
@@ -300,7 +300,7 @@ $ osc ci
 % back one level
 $ osc mr -m "Maintenance update wrt bsc#something"
 created request id 1234
-	\end{verbatim}
+\end{verbatim}
 	\end{scriptsize}
 \end{frame}
 
@@ -316,7 +316,7 @@ created request id 1234
 
 \begin{frame}[fragile]{SLE code example}
 	\begin{tiny}
-	\begin{verbatim}
+\begin{verbatim}
 $ isc maintained vsftpd
 SUSE:SLE-10-SP3:Update:Test/vsftpd
 SUSE:SLE-11:Update/vsftpd
@@ -333,7 +333,7 @@ $ oscb
 $ osc ci
 $ osc sr <RESPECTIVE_PROJECT>/<EXACT_PKG_NAME> ->
 	osc sr SUSE:SLE-12:Update/vsftpd
-	\end{verbatim}
+\end{verbatim}
 	\end{tiny}
 \end{frame}
 
