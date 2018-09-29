@@ -1,0 +1,533 @@
+\documentclass{beamer}
+\hypersetup{pdfpagemode=FullScreen}
+\usepackage[utf8x]{inputenc}
+\usepackage[czech]{babel}
+\usetheme[pageofpages=of,% String used between the current page and the
+                         % total page count.
+          bullet=circle,% Use circles instead of squares for bullets.
+          titleline=true,% Show a line below the frame title.
+	  titlepagelogo=opensuse,
+          alternativetitlepage=true,% Use the fancy title page.
+          ]{Torino}
+\usepackage{fontspec}
+\setmainfont{Liberation Sans}
+\author{Tom\'{a}\v{s} Chv\'{a}tal et al.\newline {\small tchvatal@suse.com}\newline {\small Packaging/L3 - Packaging}}
+\title{Basic packaging introduction for openSUSE}
+\date{2017/09/08}
+
+\AtBeginSection[]
+{
+	\setbeamercolor{background canvas}{bg=chameleongreen0}
+	\begin{frame}[plain]
+		\begin{center}\begin{huge}\textcolor{white}{\secname}\end{huge}\end{center}
+	\end{frame}
+	\setbeamercolor{background canvas}{bg=}
+}
+
+\AtBeginSubsection[]
+{
+	\setbeamercolor{background canvas}{bg=chameleongreen0}
+	\begin{frame}[plain]
+		\begin{center}\begin{huge}\textcolor{white}{\subsecname}\end{huge}\end{center}
+	\end{frame}
+	\setbeamercolor{background canvas}{bg=}
+}
+
+\begin{document}
+
+\begin{frame}[t,plain]
+\titlepage
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}[t]{What actually is packaging}
+	\begin{itemize}
+	\item Milk/Amazon?
+	\item More like process to deliver software stack in compact and verified form to user/customer
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[t]{Why do we need packages at all?}
+	\begin{itemize}
+	\item We need to be able to deliver software to users
+  \item We need to isolate needed components
+	\item We need to ensure proper testing of such software
+	\item We need to compile all various software stacks together
+	\item We need to provide comprehensive solutions for some tasks
+    \begin{itemize}
+      \item Dependencies
+      \item Updating and migration
+      \item User management
+      \item Postinstallation configuration
+    \end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[t]{Packages}
+	\begin{itemize}
+	\item Most operating systems have some type of packaging
+    \begin{itemize}
+      \item Unix/Linux
+      \item Windows
+      \item Realtime operating systems
+    \end{itemize}
+  \item Many popular languages have their own package system/registry
+    \begin{itemize}
+      \item CPAN (perl)
+      \item pypi (python)
+      \item cabal (haskell)
+    \end{itemize}
+    \item Container/sandbox formats
+      \begin{itemize}
+        \item docker (dockerfiles, Open Containers Initiative)
+        \item flatpak
+        \item appimage
+      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Packages on Linux}
+	\begin{itemize}
+	\item Most distributions are leveraging some package/software management
+    \begin{itemize}
+      \item Debian/Ubuntu (apt + dpkg)
+      \item Arch linux (pacman)
+      \item Gentoo linux (portage)
+      \item rpm based distributions (rpm + zypper/yum/dnf)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[t]{What are packages for the user?}
+	\begin{itemize}
+	\item Collection of files and their respective permissions
+	\item Metadata containing information about the software runtime dependencies
+	\item Initial configuration provider
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[t]{What does it provide for the packager?}
+	\begin{itemize}
+	\item Tool to provide the container to the user in a unified way
+	\item In our distributions the \texttt{.spec} file specifying various areas of what should be done
+	\item Tool to verify software is buildable and distributable on various distribution codestreams
+	\end{itemize}
+\end{frame}
+
+\section{Specfile surgery}
+
+\begin{frame}[t]{Sample initial spec}
+	\begin{center}\$ vim whatever.spec\end{center}
+\end{frame}
+
+\subsection{Preamble}
+
+\begin{frame}[t]{Easy parts}
+	\begin{itemize}
+	\item \texttt{Name}, \texttt{Version}, \texttt{Summary}, \texttt{Url}, \texttt{Patch}
+	\item \texttt{License} - SPDX \begin{small}\url{https://github.com/openSUSE/spec-cleaner\#spdx-licenses}\end{small}
+    \item \texttt{Group} - \begin{small}\url{https://en.opensuse.org/openSUSE:Package\_group\_guidelines}\end{small}
+    \item \texttt{Source} - with full URL path
+    \item \texttt{\%description}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{BuildRequires}
+	\begin{itemize}
+	\item Should contain what your package needs for build
+    \item Preferably it should be version limited (based e.g. on \texttt{configure.ac})
+    \item If something is wrong here the package should not build
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Requires}
+	\begin{itemize}
+    \item Used for run-time dependencies
+    \item Automatically populated for shared libraries
+    \item Basically, all your application needs to run ought to be there
+    \item If you get it wrong user might notice during runtime and not sooner so be careful
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Requires - scriptlets}
+	\begin{itemize}
+	\item Special case of require needed only for scriptlet, not during runtime of the application
+    \item Used to request just something extra for the specific phase
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Requires - specialities}
+	\begin{itemize}
+    \item \texttt{\%requires\_eq} - for exactly same version requirement
+    \item \texttt{\%requires\_ge} - translates to $>=$ on the requirement
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example}
+	\begin{small}
+\begin{verbatim}
+BuildRequires: libvisio-devel >= 1.2.3
+BuildRequires: cmake(GLEW) < 2.0
+BuildRequires: pkgconfig(X11) => 0.9
+BuildRequires: python-imaging
+BuildRequires: perl(imaging)
+Requires(post): update-alternatives
+Requires: python-imaging
+Requires: tex(yhmath)
+%requires_eq perl
+\end{verbatim}
+	\end{small}
+\end{frame}
+
+\begin{frame}[t]{Conflicts}
+	\begin{itemize}
+    \item Used to block installation of the conflicting packages
+    \item Usually used in case multiple packages have and provide the same set of files
+    \item All of such packages must have the \texttt{Conflicts} specified in them to ensure it works
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Provides/Obsoletes}
+	\begin{itemize}
+	\item Generally used to swap one package for another
+    \item Provides/Obsoletes should be always versioned
+    \item Do not obsolete unless 100\% replacement
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example}
+	\begin{small}
+\begin{verbatim}
+Conflicts: libwriterperfect
+Provides: liboldpackage = %{version}
+Obsoletes: liboldpackage < %{version}
+Provides: alternativepackage = %{version}
+\end{verbatim}
+	\end{small}
+\end{frame}
+
+\begin{frame}[t]{Recommends/Suggests/Supplements/Enhances}
+	\begin{itemize}
+	\item Weak dependencies where \texttt{Recommends} is soft version of \texttt{Requires}
+    \item It is not required to have packages in this category installed contrary to \texttt{Requires}
+    \item \texttt{Supplements} is mirror of \texttt{Recommends}, where other package states it is an addition that is to be installed if package A is present
+    \item \texttt{Suggests} and \texttt{Enhances} are weaker version that do not get autoinstalled, just mentioned by zypper
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example}
+	\begin{small}
+\begin{verbatim}
+# package will install wine if it gets installed
+Recommends: wine
+# if pulseaudio gets installed this package will as well
+Supplements: pulseaudio
+# if both vim and util-linux are installed the package
+# will be installed too
+Supplements: packageand(util-linux:vim)
+# honorable mention of k3b in zypper output
+Suggests: k3b
+# if user installs xonotic this package will be
+# mentioned by zypper
+Enhances: xonotic
+\end{verbatim}
+	\end{small}
+\end{frame}
+
+\begin{frame}[t]{Subpackages}
+	\begin{itemize}
+	\item Subpackages carry the syntax logic for the main spec package
+    \item They have it's own provides/requires/scriptlets/files/etc., but \texttt{BuildRequires} should be at the main package for readability
+    \item There are two types, appending name (i.e. bla and bla-python) or completely renaming one (i.e. blas.spec to provide libblas1)
+    \item All subpackages must have their own \texttt{Summary}, \texttt{Group}, and \texttt{\%description}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example}
+	\begin{small}
+\begin{verbatim}
+%package python # generates bla-python
+Summary: python bindings for bla
+Group:   some/group
+
+%description python
+The python bindings providing a, b, and c for bla
+
+%package -n format_spec_file # generates format_spec_file
+Summary:        Binding replacing OBS service format_spec_file
+Group:          Development/Tools/Other
+
+%description -n format_spec_file
+Alternative provider of format_spec_file functionality
+\end{verbatim}
+	\end{small}
+\end{frame}
+
+\subsection{Prepare}
+
+\begin{frame}[t]{Prepare phase}
+	\begin{itemize}
+	\item Phase used for source unpacking and preparations
+    \item All the patches should be applied here
+    \item All the source code changing operations should happen here
+	\end{itemize}
+\end{frame}
+
+\subsection{Build/Check}
+
+\begin{frame}[fragile]{Build phase}
+	\begin{itemize}
+	\item Phase used for source configuration and compilation
+    \item The configuration step should use macros
+	\begin{verbatim}%configure\end{verbatim}
+	\begin{verbatim}%cmake\end{verbatim}
+    \item The building should happen in threads
+    \begin{verbatim}make %{?_smp_mflags}\end{verbatim}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Check phase}
+	\begin{itemize}
+	\item Phase used for test compilation and testsuite execution
+    \item If package has testsuite it must be run and all failures should be coordinated with upstream
+    \item We rely on this phase to do the first round of "sanity checking" for the software stack
+	\end{itemize}
+\end{frame}
+
+\subsection{Install}
+
+\begin{frame}[t]{Install phase}
+	\begin{itemize}
+	\item Phase used to install the software files to the proper locations
+    \item Also used to install additional files we might need to deliver (systemd units, ...)
+    \item Simply just commands telling where to put what from within the compiled sources
+    \item It is pretty good idea to rather use \texttt{install} command with proper mode than \texttt{cp}/\texttt{mkdir}/\ldots
+	\end{itemize}
+\end{frame}
+
+\subsection{Scriptlets}
+
+\begin{frame}[t]{Install phase}
+	\begin{itemize}
+    \item Scriptlets are shell or lua scripts executed during various phases of the package install/removal or update
+    \item \url{https://fedoraproject.org/wiki/Packaging:Scriptlets}
+        \begin{itemize}
+        \item \%pretrans - LUA only
+        \item \%pre
+        \item \%post
+        \item \%preun
+        \item \%postun
+        \item \%posttrans
+        \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example}
+	\begin{small}
+\begin{verbatim}
+Requires(post): update-alternatives
+
+%post
+update-alternatives --install %{_javadir}/el_api.jar el_api \
+  %{_javadir}/%{name}-el-%{elspec}-api.jar 2030
+\end{verbatim}
+	\end{small}
+\end{frame}
+
+\subsection{Filelists}
+
+\begin{frame}[t]{Files section}
+	\begin{itemize}
+	\item Part of the spec stating where should be what files present among the split subpackages
+    \item Can also contain exact specification for permissions/user/group they should contain
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example}
+	\begin{small}
+\begin{verbatim}
+%files devel
+%defattr(-,root,root)
+%license COPYING
+%doc doc/README.md
+%config %{_sysconfdir}/%{name}.conf
+%config(noreplace) %{_sysconfig}/%{name}-user.conf
+%{_libdir}/*.so
+%{_libdir}/pkgconfig/libwps*.pc
+%{_includedir}/libwps-*
+%attr(600, user, group) %{_sbindir}/secret
+\end{verbatim}
+	\end{small}
+\end{frame}
+
+\subsection{Changelog}
+
+\begin{frame}[t]{Changelog}
+	\begin{itemize}
+	\item The \texttt{\%changelog} section in openSUSE spec files is populated by build scripts
+	\item We keep the content in \texttt{\%{name}.changes} file
+    \item It should contain information that should be delivered to user about the changes
+    \item The content can be pre-filled by using \texttt{osc vc} command
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example changelog entry}
+	\begin{scriptsize}
+\begin{verbatim}
+-------------------------------------------------------------------
+Tue Sep 13 12:53:23 UTC 2016 - tchvatal@suse.com
+
+- Switch to gold, we need to use less memory when linking
+- Expand constraints for the debug symbols
+- Use default chromium values from master_preferences on first run
+  rather than pseudo-duplicating in shellscript, bugs should be
+  fixed in the masterprefs
+- Add patch to fix build on 4.5+ kernels with systemlibs:
+  * chromium-sandbox.patch
+
+\end{verbatim}
+	\end{scriptsize}
+\end{frame}
+
+
+\section{Advanced topics}
+
+\begin{frame}[fragile]{Advanced dependencies}
+  \begin{itemize}
+    \item Since rpm 4.13
+  \end{itemize}
+  \begin{small}
+ \begin{verbatim}
+Requires: (pkgA or pkgB or pkgC)
+Requires: (pkgA or (pkgB and pkgC))
+Requires: (pkgA >= 3.2 or pkgB)
+Supplements: (foo and (lang-support-cz or lang-support-all))
+Conflicts: (pkgA and pkgB)
+Recommends: (myPkg-langCZ if langsupportCZ)
+Requires: (myPkg-backend-mariaDB if mariaDB else sqlite)
+\end{verbatim}
+	\end{small}
+\end{frame}
+
+\begin{frame}[t]{Library packaging}
+	\begin{itemize}
+	\item We require to be subpackage named as the soname they provide
+    \item Must run \texttt{ldconfig} after install, uninstall, and update
+    \item Should have proper soname data set
+    \item Static libraries should be avoided unless absolutely required
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example}
+	\begin{small}
+\begin{verbatim}
+%package -n libbla1
+Summary: library for bla
+Group: System/Libraries
+
+%description -n libbla1
+Shared library to operate with bla
+
+%post -n libbla1 -p /sbin/ldconfig
+%postun -n libbla1 -p /sbin/ldconfig
+
+%files -n libbla1
+%{_libdir}/libbla1.so.*
+\end{verbatim}
+	\end{small}
+\end{frame}
+
+\begin{frame}[t]{Conditions}
+	\begin{itemize}
+	\item Usually used for distinguishing between various codestreams we provide
+	\item \begin{scriptsize}\url{https://en.opensuse.org/openSUSE:Build\_Service\_cross\_distribution\_howto\#Detect\_a\_distribution\_flavor\_for\_special_code}\end{scriptsize}
+	\item Simply conditions as in any other programming language
+	\item Alternatively, once can use build conditionals
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example}
+	\begin{small}
+\begin{verbatim}
+%if 0%{?something}
+do stuff
+%else
+do other stuff
+%endif
+\end{verbatim}
+	\end{small}
+	\begin{small}
+\begin{verbatim}
+%if 0%{?suse_version} >= 1315
+%bcond_without wayland
+%else
+%bcond_with wayland
+%endif
+...
+%if %{with wayland}
+...
+%endif
+\end{verbatim}
+	\end{small}
+\end{frame}
+
+\begin{frame}[fragile]{Conditions cast sample}
+       \begin{small}
+\begin{verbatim}
+0%{?suse_version} => "01320" => 1320
+0%{?something_undefined} => "0" => 0
+#
+# => anything > 0 is true
+%if 0%{?suse_version}
+#
+# => any suse with version bigger than 13.2
+%if 0%{?suse_version} >= 1320
+#
+# => anything before 13.2?
+%if (0%{?suse_version} && 0%{?suse_version} <= 1320)
+\end{verbatim}
+       \end{small}
+\end{frame}
+
+\section{So how to do good packaging}
+
+\begin{frame}[t]{Hints}
+	\begin{itemize}
+	\item Be lazy! Offload to upstream rather than inventing hacks
+    \item Use the tools we have (osc, spec-cleaner)
+    \item Inspire yourself and use the same approach to problems like the other distributions
+    \item Build from Pristine Sources
+    \item Document patches in changelog
+    \item Source Patches are meaningful on several levels
+    \item Respect the guidelines or ask if unsure about them
+	\end{itemize}
+\end{frame}
+
+\section{Endnote}
+
+\begin{frame}[t]{Further reading/Contact points}
+	\begin{itemize}
+	\item \url{https://duncan.codes/tutorials/rpm-packaging/}
+	\item \url{https://en.opensuse.org/openSUSE:Packaging\_guidelines}
+	\item \url{http://pes.suse.de/packagers}
+	\item opensuse-packaging@opensuse.org
+	\item pack@suse.cz
+	\item \#opensuse-factory@freenode.net 
+	\item \#pack@irc.suse.cz
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Thanks/Questions}
+	\begin{center}
+	Thank you for your attention.\\
+	Are there any questions?
+	\end{center}
+\end{frame}
+
+\end{document}
+
