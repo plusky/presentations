@@ -11,7 +11,7 @@
           ]{Torino}
 \usepackage{fontspec}
 \setmainfont{Liberation Sans}
-\author{Tom\'{a}\v{s} Chv\'{a}tal et al.\newline {\small tchvatal@suse.com}\newline {\small SUSE/L3 - Packaging}}
+\author{Tom\'{a}\v{s} Chv\'{a}tal\newline {\small tchvatal@suse.com}\newline {\small SUSE/L3 - Packaging}}
 \title{Future of the software packaging}
 \date{2018/10/06}
 
@@ -44,7 +44,7 @@
 \begin{frame}[t]{Who}
     \begin{center}Who the hell is this sod presenting here?\end{center}
 	\begin{itemize}
-	\item SUSE employee working as torturer^Wteamlead of Packaging team
+	\item SUSE employee working as a teamlead of Packaging team
     \item One of the people that created Tumbleweed rolling release distro
     \item Formely Gentoo developer and Council member
 	\end{itemize}
@@ -63,26 +63,40 @@
 \begin{frame}[t]{What actually is packaging}
 	\begin{itemize}
 	\item Postal services, software? It does not matter.
-	\item The core goal is to get something that can be trusted from point A to B
+	\item The core goal is to get something that wrapped from point A to B
+	\item If we wrap in on "offline" Amazon usecase the software does all the steps
+	\begin{itemize}
+	\item Get request for delivery of goods
+	\item Gather the goods and put them to box
+	\item Send the box to delivery center (here we diverge with reality as we can deliver 1 resource endlessly)
+	\item Send the delivery to destination
+	\item Customer gets the goods and can enjoy his new bath duck
+	\end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[t]{Packages}
-	\begin{center}Most operating systems have some type of packaging\end{center}
+\begin{frame}[t]{Packages on Linux}
+	\begin{itemize}
+	\item Most distributions are leveraging some package/software management
     \begin{itemize}
-      \item Unix/Linux - yours truly RPM/ebuild/packman/\ldots
-      \item Windows - nsis wizzards/MSI archives/\ldots
-      \item Mac - the app bundles
+      \item Debian/Ubuntu (apt + dpkg)
+      \item Arch linux (pacman)
+      \item Gentoo linux (portage)
+      \item rpm based distributions (rpm + zypper/yum/dnf)
     \end{itemize}
+    \item The same applies for phones with android/iOS (F-Droid, etc.)
+    \item Windows provide the application store in Windows 10 and newer
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Languages}
-  \begin{itemize}Many popular languages have their own package system/registry\end{center}
+  \begin{center}Many popular languages have their own package system/registry\end{center}
     \begin{itemize}
       \item CPAN (perl)
       \item pypi (python)
       \item cabal (haskell)
       \item npm (JS)
+      \item \ldots
     \end{itemize}
 \end{frame}
 
@@ -102,42 +116,139 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[t]{Packages on Linux}
-	\begin{itemize}
-	\item Most distributions are leveraging some package/software management
-    \begin{itemize}
-      \item Debian/Ubuntu (apt + dpkg)
-      \item Arch linux (pacman)
-      \item Gentoo linux (portage)
-      \item rpm based distributions (rpm + zypper/yum/dnf)
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-
-\begin{frame}[t]{What are packages for the user?}
+\begin{frame}[t]{What are packages providing to the user}
 	\begin{itemize}
 	\item Collection of files and their respective permissions
-	\item Metadata containing information about the software runtime dependencies
+	\item Metadata containing information about the software, runtime dependencies
+	\item Something that can be verified (vendor, signature, etc.)
 	\item Initial configuration provider
+	\item Version migration management
 	\end{itemize}
 \end{frame}
 
-\section{Bit of history}
+\section{Bit of history; openSUSE POV}
 
-# 1995
-# 2000
-# 2010
-# NOW
+\begin{frame}[t]{Slackware}
+	\begin{itemize}
+	\item a
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Move to RPM}
+	\begin{itemize}
+	\item a
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Autobuild}
+	\begin{itemize}
+	\item a
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{OBS}
+	\begin{itemize}
+	\item a
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{openQA}
+	\begin{itemize}
+	\item a
+	\end{itemize}
+\end{frame}
 
 \section{Future?}
-# FLATPACK/Appimage
-# containers and their updates
 
+\begin{frame}[t]{RPM plans}
+    \begin{center}Well I can't say much for Debian as I am not involved there :-)\end{center}
+	\begin{itemize}
+	\item Strictification/unification in tests/reviews
+	\item Boolean dependencies (read as conditional dependencies)
+	\item Internal speedups
+	\item Linter improvements (rpmlint)
+	\end{itemize}
+\end{frame}
+
+\subsection{*packs}
+
+\begin{frame}[t]{What motivation generaly is behind this}
+	\begin{itemize}
+	\item a
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Flatpack overview}
+	\begin{itemize}
+	\item a
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Flatpack good and bad}
+	\begin{itemize}
+	\item a
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Snap overview}
+	\begin{itemize}
+	\item a
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Snap good and bad}
+	\begin{itemize}
+	\item a
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Appimage overview}
+	\begin{itemize}
+	\item a
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Appimage good and bad}
+	\begin{itemize}
+	\item a
+	\end{itemize}
+\end{frame}
+
+\subsection{Containers}
+
+\begin{frame}[t]{Why bother with containers}
+	\begin{itemize}
+	\item a
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{What is great about containers}
+	\begin{itemize}
+	\item a
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{What can bite your arse}
+	\begin{itemize}
+	\item a
+	\end{itemize}
+\end{frame}
 
 \section{Endnote}
-# recap of why packaging is important
-# invitation to contribute
+
+\begin{frame}[t]{RECAP}
+	\begin{itemize}
+	\item Distribution packages are in the end important for the user
+	\item It is not always best idea to just download something to your system from web
+	\item a
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Should you devote some of your time?}
+	\begin{itemize}
+	\item a
+	\end{itemize}
+\end{frame}
 
 \begin{frame}{Thanks/Questions}
 	\begin{center}
