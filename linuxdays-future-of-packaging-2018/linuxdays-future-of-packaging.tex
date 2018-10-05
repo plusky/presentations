@@ -130,60 +130,65 @@
 
 \begin{frame}[t]{Slackware}
 	\begin{itemize}
-	\item Slackware was the first implementation of packaging. The monolithic installation image was split to particular sets of files that were separately installable. The Slacware packages are plain compressed tar archives. A simple installation script is the only added feature. The packaging tool just unpacks these files into the correct location. These packages were compiled directly on the package maintainer system.
-
-Slacware has no concept of dependencies. It opens a way to a wide range of problems: Program can fail due to a missing dependency. Compilation can result in feature-restricted version due to a missing optional dependency.
-
-In these old ages, even the sources had no support for packaging. Files were installed directly to a live system. It made packaging process vulnerable to miscellaneous errors, like missing files or missing index updates. Over the time GNU auto tools introduced DESTDIR: an optional installation root path.
-	    
+	\item Slackware was the first implementation of packaging overall
+	\item The monolithic installation image was split to particular sets of files that were separately installable
+	\item The Slacware packages are plain compressed tar archives
+	\item A simple installation script is the only added feature. The packaging tool just unpacks these files into the correct location. These packages were compiled directly on the package maintainer system.
+    \item Slacware has no concept of dependencies. It opens a way to a wide range of problems:
+    \begin{itemize}
+    \item Program can fail due to a missing dependency
+    \item Compilation can result in feature-restricted version due to a missing optional dependency
+    \item Program can be compiled with extra feature that was supposed to be avoided
+    \end{itemize}
+    \item Files were installed directly to a live system
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Move to RPM}
 	\begin{itemize}
-	\item RPM was a big step forward. It is again a compressed archive, but it contains important metadata. Dependencies are the largest step forward. Package maintainer could specify list of packages that are required for the package installation or build. It makes installation easier for users.
-	
-	RPM also brings a new format of compilation description: a standardized spec file. It defines set of steps required to get the installable packages.
-	
-	But it introduces a new problem: RPM is able to report dependencies, but it is not able to evaluate and install these dependencies. That is why no distribution uses RPM directly. Packages are organized into repositories, and a front-end resolves the dependencies reported by the RPM to a packages in these repositories.
-	
-	S.u.S.E. developers invented YaST for this purpose.
+	\item RPM was a big step forward
+	\item It is again a compressed archive, but it contains important metadata and describes the package dependencies
+	\item RPM also brings a new format of compilation description: a standardized spec file. It defines set of steps required to get the installable packages
+	\item But it introduces a new problem: RPM is able to report dependencies, but it is not able to evaluate and install these dependencies
+	\item Packages are organized into repositories, and a front-end resolves the dependencies reported by the RPM to a packages in these repositories
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Autobuild}
 	\begin{itemize}
-	\item Raising number of packages require raising number of machines that build these packages. It is not as easy as it looks: Packages may change, if its depencency changes. It means, that once you change one of the basic libraries, you may need to rebuild all packages that require it. In case of the base system changes, it could mean a rebuild of the whole distribution.
-	
-	It is hard to determine, which packages need rebuild and which don't. Some distributions just depend on package maintainer's experience. S.u.S.E. went in another direction, and invented Autobuild. It was our first automated build system. When a package was changed, Autobuild evaluated all dependent packages and triggered a rebuild. It was a big build task scheduler. The interface of Autobuild was file system based. There was nearly no UI. Just directories, where packages were submitted, and directories, where results were placed.
-	
-	Packages were no more built inside a live system. Autobuild created a chroot with a limited and exactly defined environment. It was a big step forward towards a reproducible builds.
+	\item Raising number of packages require raising number of machines that build these packages
+	\item It is not as easy as it looks: Packages may change, if its depencency changes
+	\item It is hard to determine, which packages need rebuild and which don't
+	\item It was our first automated build system, when a package was changed, Autobuild evaluated all dependent packages and triggered a rebuild
+	\item Packages were no more built inside a live system. Autobuild created a chroot with a limited and exactly defined environment - big step forward towards a reproducible builds
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[t]{ZYPP}
+\begin{frame}[t]{zypper/libsolv}
         \begin{itemize}
-        \item Raising number of packages introduced a new problem. Evaluation of package dependencies in the YaST installer became slower and slower, and its memory requirements slowly raised the RAM size of computers of this era. Several SuSE employee were not happy with that, and they revived their mathematical occupation, and invented a new dependency resolver. The new resolver, called ZYPP, became the fastest even resolver. Thanks to the ZYPP, you don't have to wait minuted to get package dependencies resolved.
+        \item Raising number of packages introduced a new major problem
+        \item Evaluation of package dependencies in the YaST installer became slower and slower, and its memory requirements slowly raised the RAM size of computers of this era
+        \item Several SUSE employees were not happy with that, and they revived their mathematical occupation, and invented a new dependency resolver libsolv (now used as backend for both dnf and zypper)
+        \item Prior zypper SUSE also tried ZENworks Management Daemon (zmd) coded in C#
         \end{itemize}
 \end{frame}
 
 \begin{frame}[t]{OBS}
 	\begin{itemize}
-	\item Autobuild was a large monolitic tool. It was OK, when only few products existed, and only limited number of packages was there. openSUSE Build Service was a big step forward. It allows to create thousands of independent repositories, build packages for many products at once. And the most important: it has an user interface, including web UI.
-	
-	OBS also did a step forward in a separation of build. Builds are not only separated into chroot. They are running in virtual machines.
-	
-	OBS is not only a tool that allows to trigger rebuild of dependent packages. It is an advanced collaboration tool. Submit requests, reviews, revisions, link packages, aggregates, services, maintenance events and releases. It is only a small subset of OBS features.
-	
-	Nowadays, all SUSE Linux products are build inside OBS.
-	
-	SUSE Linux was opened to the community.
+	\item Autobuild was a large monolitic tool that could not be scaled up easily
+	\item It was OK, when only few products existed, and only limited number of packages were available
+	\item openSUSE Build Service was designed to expand the autobuild concept by allowing to create thousands of independent repositories, build packages for many products at once
+	\item Also we got bored by doing it all on our own and provide API and UI to allow external contributors
+	\item OBS also did another step forward in a separation of build. Builds are not only separated into chroot and run in virtual machines (containers).
+	\item OBS can and is also used as collabaration tool for distribution development
+	\item Nowadays, all SUSE Linux products are build inside OBS
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{openQA}
 	\begin{itemize}
-	\item a
+	\item Newest friend on the SUSE packaging block ensuring quality of the stuff we produce
+	\item With Tumbleweed no mere man could test all that mess 3-5x per week
 	\end{itemize}
 \end{frame}
 
@@ -199,14 +204,15 @@ In these old ages, even the sources had no support for packaging. Files were ins
 	\end{itemize}
 \end{frame}
 
-\subsection{*packs}
+\subsection{Flatsnaps}
 
 \begin{frame}[t]{What motivation generally is behind this}
 	\begin{itemize}
 	\item Create one package for all distributions
+	\item Create newest version of package for OLD distribution
 	\item Avoid problems with distribution dependencies
 	\item Isolation of applications
-	\item Allows multiple versions of installed libraries
+	\item Allows multiple versions of installed aplications
 	\itme Consistent environment for the application
 	\end{itemize}
 \end{frame}
@@ -214,13 +220,9 @@ In these old ages, even the sources had no support for packaging. Files were ins
 \begin{frame}[t]{Flatpak overview}
 	\begin{itemize}
 	\item Developed by the freedesktop.org project
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[t]{Flatpak good and bad}
-	\begin{itemize}
 	\item Can use libraries from other Flatpaks
-	\item Sandboxing
+	\item Provides sandboxing
+	\item flathub.org repository with apps
 	\end{itemize}
 \end{frame}
 
@@ -228,11 +230,6 @@ In these old ages, even the sources had no support for packaging. Files were ins
 	\begin{itemize}
 	\item Developed by Canonical (Ubuntu)
 	\item .snap is filesystem snapshot (squashfs)
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[t]{Snap good and bad}
-	\begin{itemize}
 	\item Sandbox using AppArmor
 	\item Apps need to bundle all the libraries they use
 	\item Ubuntu-centric
@@ -244,12 +241,18 @@ In these old ages, even the sources had no support for packaging. Files were ins
 	\item Image mounted via FUSE
 	\item One file per application
 	\item Formerly klik/PortableLinuxApps
+	\item No sandboxing - but can utilize firejail
+	\item Really nicely integrated with OBS
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[t]{Appimage good and bad}
+\begin{frame}[t]{Sounds okay, where is the catch}
 	\begin{itemize}
-	\item No sandboxing
+    \item Ever heard the term of DLL hell?
+    \item Offloading security auditing to extra provider (who updates the packs)
+    \item In long time we might end up with many "runtimes" (Visual C++ Redistributable analogy)
+    \item Appstores will need to be audited a lot (like distribution is)
+    \item Maintainers sometimes protect you from some crazy upstream ideas
 	\end{itemize}
 \end{frame}
 
@@ -267,13 +270,19 @@ In these old ages, even the sources had no support for packaging. Files were ins
 
 \begin{frame}[t]{What is great about containers}
 	\begin{itemize}
-	\item a
+	\item Really really really blazing fast to deploy something
+	\item Awesome for various CI integration
+	\item Small startup image and lower resource usage
+	\item Blazing fast startup (comparing to virtual machines)
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{What can bite your arse}
 	\begin{itemize}
 	\item Many instances of libraries to patch
+	\item People must use dockerhub or similar and update their containers
+	\item The initial containers must be trusted (shall not download randomly from the web)
+	\item Updates mean redeploying all the containers
 	\end{itemize}
 \end{frame}
 
@@ -283,13 +292,15 @@ In these old ages, even the sources had no support for packaging. Files were ins
 	\begin{itemize}
 	\item Distribution packages are in the end important for the user
 	\item It is not always best idea to just download something to your system from web
-	\item a
+	\item Containers can be very useful for quick deployment but it is never fire and forget
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Should you devote some of your time?}
 	\begin{itemize}
-	\item a
+	\item Hell yes, get involved (regardless of the distribution)
+    \item There are always some bugs to be fixed in packages that you personaly use
+    \item Remember to have fun!
 	\end{itemize}
 \end{frame}
 
