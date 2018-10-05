@@ -130,32 +130,55 @@
 
 \begin{frame}[t]{Slackware}
 	\begin{itemize}
-	\item a
+	\item Slackware was the first implementation of packaging. The monolithic installation image was split to particular sets of files that were separately installable. The Slacware packages are plain compressed tar archives. A simple installation script is the only added feature. The packaging tool just unpacks these files into the correct location. These packages were compiled directly on the package maintainer system.
+
+Slacware has no concept of dependencies. It opens a way to a wide range of problems: Program can fail due to a missing dependency. Compilation can result in feature-restricted version due to a missing optional dependency.
+
+In these old ages, even the sources had no support for packaging. Files were installed directly to a live system. It made packaging process vulnerable to miscellaneous errors, like missing files or missing index updates. Over the time GNU auto tools introduced DESTDIR: an optional installation root path.
+	    
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Move to RPM}
 	\begin{itemize}
-	\item a
+	\item RPM was a big step forward. It is again a compressed archive, but it contains important metadata. Dependencies are the largest step forward. Package maintainer could specify list of packages that are required for the package installation or build. It makes installation easier for users.
+	
+	RPM also brings a new format of compilation description: a standardized spec file. It defines set of steps required to get the installable packages.
+	
+	But it introduces a new problem: RPM is able to report dependencies, but it is not able to evaluate and install these dependencies. That is why no distribution uses RPM directly. Packages are organized into repositories, and a front-end resolves the dependencies reported by the RPM to a packages in these repositories.
+	
+	S.u.S.E. developers invented YaST for this purpose.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Autobuild}
 	\begin{itemize}
-	\item a
+	\item Raising number of packages require raising number of machines that build these packages. It is not as easy as it looks: Packages may change, if its depencency changes. It means, that once you change one of the basic libraries, you may need to rebuild all packages that require it. In case of the base system changes, it could mean a rebuild of the whole distribution.
+	
+	It is hard to determine, which packages need rebuild and which don't. Some distributions just depend on package maintainer's experience. S.u.S.E. went in another direction, and invented Autobuild. It was our first automated build system. When a package was changed, Autobuild evaluated all dependent packages and triggered a rebuild. It was a big build task scheduler. The interface of Autobuild was file system based. There was nearly no UI. Just directories, where packages were submitted, and directories, where results were placed.
+	
+	Packages were no more built inside a live system. Autobuild created a chroot with a limited and exactly defined environment. It was a big step forward towards a reproducible builds.
 	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{ZYPP}
+        \begin{itemize}
+        \item Raising number of packages introduced a new problem. Evaluation of package dependencies in the YaST installer became slower and slower, and its memory requirements slowly raised the RAM size of computers of this era. Several SuSE employee were not happy with that, and they revived their mathematical occupation, and invented a new dependency resolver. The new resolver, called ZYPP, became the fastest even resolver. Thanks to the ZYPP, you don't have to wait minuted to get package dependencies resolved.
+        \end{itemize}
 \end{frame}
 
 \begin{frame}[t]{OBS}
 	\begin{itemize}
-	\item a
+	\item Autobuild was a large monolitic tool. It was OK, when only few products existed, and only limited number of packages was there. openSUSE Build Service was a big step forward. It allows to create thousands of independent repositories, build packages for many products at once. And the most important: it has an user interface, including web UI.
+	
+	OBS also did a step forward in a separation of build. Builds are not only separated into chroot. They are running in virtual machines.
+	
+	OBS is not only a tool that allows to trigger rebuild of dependent packages. It is an advanced collaboration tool. Submit requests, reviews, revisions, link packages, aggregates, services, maintenance events and releases. It is only a small subset of OBS features.
+	
+	Nowadays, all SUSE Linux products are build inside OBS.
+	
+	SUSE Linux was opened to the community.
 	\end{itemize}
-\end{frame}
-
-\begin{frame}[t]{OBS}
-        \begin{itemize}
-        \item a
-        \end{itemize}
 \end{frame}
 
 \begin{frame}[t]{openQA}
