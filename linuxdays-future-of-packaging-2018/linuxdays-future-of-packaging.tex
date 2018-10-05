@@ -178,45 +178,55 @@
 
 \subsection{*packs}
 
-\begin{frame}[t]{What motivation generaly is behind this}
+\begin{frame}[t]{What motivation generally is behind this}
 	\begin{itemize}
-	\item a
+	\item Create one package for all distributions
+	\item Avoid problems with distribution dependencies
+	\item Isolation of applications
+	\item Allows multiple versions of installed libraries
+	\itme Consistent environment for the application
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[t]{Flatpack overview}
+\begin{frame}[t]{Flatpak overview}
 	\begin{itemize}
-	\item a
+	\item Developed by the freedesktop.org project
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[t]{Flatpack good and bad}
+\begin{frame}[t]{Flatpak good and bad}
 	\begin{itemize}
-	\item a
+	\item Can use libraries from other Flatpaks
+	\item Sandboxing
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Snap overview}
 	\begin{itemize}
-	\item a
+	\item Developed by Canonical (Ubuntu)
+	\item .snap is filesystem snapshot (squashfs)
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Snap good and bad}
 	\begin{itemize}
-	\item a
+	\item Sandbox using AppArmor
+	\item Apps need to bundle all the libraries they use
+	\item Ubuntu-centric
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Appimage overview}
 	\begin{itemize}
-	\item a
+	\item Image mounted via FUSE
+	\item One file per application
+	\item Formerly klik/PortableLinuxApps
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Appimage good and bad}
 	\begin{itemize}
-	\item a
+	\item No sandboxing
 	\end{itemize}
 \end{frame}
 
@@ -224,7 +234,11 @@
 
 \begin{frame}[t]{Why bother with containers}
 	\begin{itemize}
-	\item a
+	\item Create one package for all distributions
+	\item Avoid problems with distribution dependencies
+	\item Isolation of applications
+	\item Allows multiple versions of installed libraries
+	\itme Consistent environment for the application
 	\end{itemize}
 \end{frame}
 
@@ -236,7 +250,7 @@
 
 \begin{frame}[t]{What can bite your arse}
 	\begin{itemize}
-	\item a
+	\item Many instances of libraries to patch
 	\end{itemize}
 \end{frame}
 
