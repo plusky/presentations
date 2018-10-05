@@ -64,7 +64,7 @@
 	\begin{itemize}
 	\item Postal services, software? It does not matter.
 	\item The core goal is to get something that wrapped from point A to B
-	\item If we wrap in on "offline" Amazon usecase the software does all the steps
+	\item If we focus on "offline" Amazon usecase the software does all the steps:
 	\begin{itemize}
 	\item Get request for delivery of goods
 	\item Gather the goods and put them to box
@@ -132,55 +132,66 @@
 	\begin{itemize}
 	\item Slackware was the first implementation of packaging overall
 	\item The monolithic installation image was split to particular sets of files that were separately installable
-	\item The Slacware packages are plain compressed tar archives
-	\item A simple installation script is the only added feature. The packaging tool just unpacks these files into the correct location. These packages were compiled directly on the package maintainer system.
-    \item Slacware has no concept of dependencies. It opens a way to a wide range of problems:
+	\item The Slacware packages are plain compressed tar archives a simple installation script is the only added feature
+	\item The packaging tool just unpacks these files into the correct location
+	\item The packages were compiled directly on the package maintainer system
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Slackware continued}
+	\begin{itemize}
+    \item Slackware has no concept of dependencies which asks for trouble:
     \begin{itemize}
     \item Program can fail due to a missing dependency
     \item Compilation can result in feature-restricted version due to a missing optional dependency
     \item Program can be compiled with extra feature that was supposed to be avoided
     \end{itemize}
-    \item Files were installed directly to a live system
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Move to RPM}
 	\begin{itemize}
 	\item RPM was a big step forward
-	\item It is again a compressed archive, but it contains important metadata and describes the package dependencies
-	\item RPM also brings a new format of compilation description: a standardized spec file. It defines set of steps required to get the installable packages
-	\item But it introduces a new problem: RPM is able to report dependencies, but it is not able to evaluate and install these dependencies
-	\item Packages are organized into repositories, and a front-end resolves the dependencies reported by the RPM to a packages in these repositories
+	\item A compressed archive, but with metadata and dependencies
+	\item Provides package description format - specfile
+	\item But introduces a new problem: RPM is able to report dependencies, but it is not able to evaluate and install them
+	\item Packages are organized into repositories, and a front-end resolves them
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Autobuild}
 	\begin{itemize}
-	\item Raising number of packages require raising number of machines that build these packages
-	\item It is not as easy as it looks: Packages may change, if its depencency changes
-	\item It is hard to determine, which packages need rebuild and which don't
-	\item It was our first automated build system, when a package was changed, Autobuild evaluated all dependent packages and triggered a rebuild
-	\item Packages were no more built inside a live system. Autobuild created a chroot with a limited and exactly defined environment - big step forward towards a reproducible builds
+	\item Raising number of packages require CPU power
+	\item Packages must be rebuild in various cases due to changes
+	\item It is hard to determine, which packages need rebuild
+	\item First automated build system Autobuild evaluated and scheduled all the builds
+	\item Packages were no more built inside a live system! chroot FTW
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{zypper/libsolv}
         \begin{itemize}
         \item Raising number of packages introduced a new major problem
-        \item Evaluation of package dependencies in the YaST installer became slower and slower, and its memory requirements slowly raised the RAM size of computers of this era
+        \item Evaluation of package dependencies in the YaST installer became very slow
+        \item Evaluation of the dependencies also required a lot of RAM
         \item Several SUSE employees were not happy with that, and they revived their mathematical occupation, and invented a new dependency resolver libsolv (now used as backend for both dnf and zypper)
-        \item Prior zypper SUSE also tried ZENworks Management Daemon (zmd) coded in C#
+        \item Prior zypper SUSE also tried ZENworks Management Daemon (zmd) coded in C\#
         \end{itemize}
 \end{frame}
 
 \begin{frame}[t]{OBS}
 	\begin{itemize}
 	\item Autobuild was a large monolitic tool that could not be scaled up easily
-	\item It was OK, when only few products existed, and only limited number of packages were available
-	\item openSUSE Build Service was designed to expand the autobuild concept by allowing to create thousands of independent repositories, build packages for many products at once
+	\item openSUSE Build Service was designed to expand the autobuild concept:
+	\begin{itemize}
+	\item Create many repositories for many products
+	\item Allow user access and provide ACL controls
+	\item Improve scheduler to utilize resources better
+	\item Provide solver to better figure out rebuilds
+	\item Better separation of builds (VMs)
+	\item Reproducible builds (no Tumbleweed otherwise)
+	\end{itemize}
 	\item Also we got bored by doing it all on our own and provide API and UI to allow external contributors
-	\item OBS also did another step forward in a separation of build. Builds are not only separated into chroot and run in virtual machines (containers).
-	\item OBS can and is also used as collabaration tool for distribution development
 	\item Nowadays, all SUSE Linux products are build inside OBS
 	\end{itemize}
 \end{frame}
@@ -189,6 +200,9 @@
 	\begin{itemize}
 	\item Newest friend on the SUSE packaging block ensuring quality of the stuff we produce
 	\item With Tumbleweed no mere man could test all that mess 3-5x per week
+	\item Machine pretending to be user that writes and clicks on stuff
+	\item Compares partial screenshots and serial output
+	\item Tests also weird stuff like s390x
 	\end{itemize}
 \end{frame}
 
@@ -213,7 +227,7 @@
 	\item Avoid problems with distribution dependencies
 	\item Isolation of applications
 	\item Allows multiple versions of installed aplications
-	\itme Consistent environment for the application
+	\item Consistent environment for the application
 	\end{itemize}
 \end{frame}
 
@@ -259,17 +273,7 @@
 \subsection{Containers}
 
 \begin{frame}[t]{Why bother with containers}
-	\begin{itemize}
-	\item Create one package for all distributions
-	\item Avoid problems with distribution dependencies
-	\item Isolation of applications
-	\item Allows multiple versions of installed libraries
-	\itme Consistent environment for the application
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[t]{What is great about containers}
-	\begin{itemize}
+    \begin{itemize}
 	\item Really really really blazing fast to deploy something
 	\item Awesome for various CI integration
 	\item Small startup image and lower resource usage
