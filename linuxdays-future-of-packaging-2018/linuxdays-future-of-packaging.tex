@@ -46,7 +46,7 @@
 	\begin{itemize}
 	\item SUSE employee working as a teamlead of Packaging team
     \item One of the people that created Tumbleweed rolling release distro
-    \item Formely Gentoo developer and Council member
+    \item Formerly Gentoo developer and Council member
 	\end{itemize}
 \end{frame}
 
@@ -64,7 +64,7 @@
 	\begin{itemize}
 	\item Postal services, software? It does not matter.
 	\item The core goal is to get something that wrapped from point A to B
-	\item If we focus on "offline" Amazon usecase the software does all the steps:
+	\item If we focus on offline Amazon usecase the software does all the steps:
 	\begin{itemize}
 	\item Get request for delivery of goods
 	\item Gather the goods and put them to box
@@ -84,7 +84,7 @@
       \item Gentoo linux (portage)
       \item rpm based distributions (rpm + zypper/yum/dnf)
     \end{itemize}
-    \item The same applies for phones with android/iOS (F-Droid, etc.)
+    \item The same applies for phones with Android/iOS (F-Droid, etc.)
     \item Windows provide the application store in Windows 10 and newer
   \end{itemize}
 \end{frame}
@@ -162,8 +162,8 @@
 \begin{frame}[t]{Autobuild}
 	\begin{itemize}
 	\item Raising number of packages require CPU power
-	\item Packages must be rebuild in various cases due to changes
-	\item It is hard to determine, which packages need rebuild
+	\item Packages must be rebuilt in various cases due to changes
+	\item It is hard to determine which packages need a rebuild
 	\item First automated build system Autobuild evaluated and scheduled all the builds
 	\item Packages were no more built inside a live system! chroot FTW
 	\end{itemize}
@@ -171,17 +171,17 @@
 
 \begin{frame}[t]{zypper/libsolv}
         \begin{itemize}
-        \item Raising number of packages introduced a new major problem
+        \item Rising number of packages introduced a new major problem
         \item Evaluation of package dependencies in the YaST installer became very slow
         \item Evaluation of the dependencies also required a lot of RAM
         \item Several SUSE employees were not happy with that, and they revived their mathematical occupation, and invented a new dependency resolver libsolv (now used as backend for both dnf and zypper)
-        \item Prior zypper SUSE also tried ZENworks Management Daemon (zmd) coded in C\#
+        \item Prior to zypper SUSE also tried ZENworks Management Daemon (zmd) coded in C\#
         \end{itemize}
 \end{frame}
 
 \begin{frame}[t]{OBS}
 	\begin{itemize}
-	\item Autobuild was a large monolitic tool that could not be scaled up easily
+	\item Autobuild was a large monolithic tool that could not be scaled up easily
 	\item openSUSE Build Service was designed to expand the autobuild concept:
 	\begin{itemize}
 	\item Create many repositories for many products
@@ -192,7 +192,7 @@
 	\item Reproducible builds (no Tumbleweed otherwise)
 	\end{itemize}
 	\item Also we got bored by doing it all on our own and provide API and UI to allow external contributors
-	\item Nowadays, all SUSE Linux products are build inside OBS
+	\item Nowadays, all SUSE Linux products are built inside OBS
 	\end{itemize}
 \end{frame}
 
@@ -223,10 +223,10 @@
 \begin{frame}[t]{What motivation generally is behind this}
 	\begin{itemize}
 	\item Create one package for all distributions
-	\item Create newest version of package for OLD distribution
+	\item Provide latest software version for OLD distribution
 	\item Avoid problems with distribution dependencies
 	\item Isolation of applications
-	\item Allows multiple versions of installed aplications
+	\item Allow multiple versions of installed aplications
 	\item Consistent environment for the application
 	\end{itemize}
 \end{frame}
@@ -262,7 +262,7 @@
 
 \begin{frame}[t]{Sounds okay, where is the catch}
 	\begin{itemize}
-    \item Ever heard the term of DLL hell?
+    \item Ever heard of the "DLL hell"?
     \item Offloading security auditing to extra provider (who updates the packs)
     \item In long time we might end up with many "runtimes" (Visual C++ Redistributable analogy)
     \item Appstores will need to be audited a lot (like distribution is)
@@ -294,8 +294,8 @@
 
 \begin{frame}[t]{RECAP}
 	\begin{itemize}
-	\item Distribution packages are in the end important for the user
-	\item It is not always best idea to just download something to your system from web
+	\item Distribution packages are important for the user
+	\item It is not always best idea to just download something to your system from the web
 	\item Containers can be very useful for quick deployment but it is never fire and forget
 	\end{itemize}
 \end{frame}
