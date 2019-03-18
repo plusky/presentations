@@ -41,44 +41,60 @@
 
 \section{Introduction}
 
-\begin{frame}[t]{Explanation of few shortcuts used in the slides}
-	\begin{itemize}
-	\item isc = alias for \texttt{osc -A IBS}
-	\item ibs = build.suse.de
-	\item obs = build.opensuse.org
-	\item SR\# = submit request in any of the above instances
-	\item bsc = bug on bugzilla.suse.com
-	\end{itemize}
-\end{frame}
-
 \begin{frame}[t]{What is openSUSE Build Service}
 	\begin{itemize}
 	\item Build tool
-    \begin{itemize}
-      \item Builds packages for different architectures/platforms
-      \item Creates iso/vm images, container images, appimage
-      \item Automatic rebuilds when dependency tree changes (e.g. Factory)
-      \item Reproducible builds
-      \item See e.g. \url{https://build.opensuse.org/package/show/benchmark/glmark2}
+	\item VCS
+	\item Collaboration tool
+	\item Bots integration
     \end{itemize}
-	\item VCS for our packages
-	\item Collaboration tools using SR\#s
-  \item Provides integration with QA tools used in SUSE/openSUSE (openQA)
-	\end{itemize}
 \end{frame}
 
-\begin{frame}[t]{How do I communicate with the tool}
-	\begin{itemize}
-	\item Using web interface on the ibs or obs locations
-	\item Using commandline interface called \texttt{osc} (\texttt{osc} is provided on most distributions as a package too)
-  \item Using its API directly (i.e. \url{api.build.opensuse.org})
-	\end{itemize}
+\begin{frame}[t]{Build tool}
+    \begin{itemize}
+      \item Layered structure to do all basic operations in package/product lifecycle
+      \item \url{https://build.opensuse.org/monitor}
+      \item Does all basic operators: scheduler, signer, dispatcher, etc.
+      \item Provides reproducible builds
+      \item Builds on various platforms based on the specs (deb, rpm, containers,\ldots)
+      \item See e.g. \url{https://build.opensuse.org/package/show/benchmark/glmark2}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{VCS}
+    \begin{itemize}
+      \item Builtin version control system quite similar to mercurial
+      \item Can do operations like any other SCM you know
+      \item Predates git sadly, thus we are stuck with our own for the moment
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Collaboration tool}
+    \begin{itemize}
+      \item You can branch packages (think of github fork) \url{https://build.opensuse.org/package/show/home:scarabeus\_iv:branches:Base:System/file}
+      \item You can create submit requests (think of github pullrequest) \url{https://build.opensuse.org/request/show/682894}
+      \item You can add reviewers and comment/etc. on the requests
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Communicating with the OBS}
+    \begin{itemize}
+    \item Using web interface
+    \item Using commandline interface called \texttt{osc} (\texttt{osc} is provided on most distributions as a package too)
+    \item Using its API directly (i.e. \url{api.build.opensuse.org}), used by bots:
+    \begin{itemize}
+    \item factory-auto source checker
+    \item legaldb license checker
+    \item leaper auto submit from SLE to openSUSE or from TW to openSUSE
+    \item \ldots
+    \end{itemize}
+    \end{itemize}
 \end{frame}
 
 \section{CLI configuration tips}
 
 \begin{frame}[fragile]{Configuration suggestions}
-	\begin{center}\$HOME/.oscrc\end{center}
+	\begin{center}\$HOME/.config/osc/oscrc\end{center}
 	\begin{small}
 \begin{verbatim}
 build-jobs = 16 # value for buildjobs
