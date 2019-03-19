@@ -12,7 +12,7 @@
 \usepackage[no-math]{fontspec}
 \setmainfont{Liberation Sans}
 \author{Tom\'{a}\v{s} Chv\'{a}tal et al.\newline {\small tchvatal@suse.com}\newline {\small Packaging/L3 - Packaging}}
-\title{OBS introductionary course for SUSE people}
+\title{OBS intro}
 \date{2019/03/20}
 
 \AtBeginSection[]
@@ -53,8 +53,15 @@
 \begin{frame}[t]{Build tool}
     \begin{itemize}
       \item Layered structure to do all basic operations in package/product lifecycle
-      \item \url{https://build.opensuse.org/monitor}
-      \item Does all basic operators: scheduler, signer, dispatcher, etc.
+        \url{https://build.opensuse.org/monitor}
+      \item Does all basic operators:
+	      \begin{itemize}
+		      \item scheduler - knows what package to build when
+			      (dependency solving)
+		     \item signed - signs all the resulted pkgs to be secure
+	             \item dispatcher - looks on the buildfarm and picks best
+			     HW for the specific build
+	      \end{itemize}
       \item Provides reproducible builds
       \item Builds on various platforms based on the specs (deb, rpm, containers,\ldots)
       \item See e.g. \url{https://build.opensuse.org/package/show/benchmark/glmark2}
@@ -63,7 +70,8 @@
 
 \begin{frame}[t]{VCS}
     \begin{itemize}
-      \item Builtin version control system quite similar to mercurial
+      \item Builtin version control system quite similar to mercurial/svn
+      \item Not distributed
       \item Can do operations like any other SCM you know
       \item Predates git sadly, thus we are stuck with our own for the moment
     \end{itemize}
@@ -75,6 +83,14 @@
       \item You can create submit requests (think of github pullrequest) \url{https://build.opensuse.org/request/show/682894}
       \item You can add reviewers and comment/etc. on the requests
     \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Used languages}
+  \begin{itemize}
+     \item Backend is written in Perl
+     \item Frontend UI is Ruby
+     \item CLI tools are created in Python
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Communicating with the OBS}
