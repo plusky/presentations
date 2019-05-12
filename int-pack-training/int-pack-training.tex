@@ -13,7 +13,7 @@
 \setmainfont{Liberation Sans}
 \author{Tom\'{a}\v{s} Chv\'{a}tal et al.\newline {\small tchvatal@suse.com}\newline {\small Packaging/L3 - Packaging}}
 \title{Basic packaging introduction for openSUSE}
-\date{2017/09/08}
+\date{2019/05/13}
 
 \AtBeginSection[]
 {
@@ -225,6 +225,8 @@ Provides: alternativepackage = %{version}
 \begin{verbatim}
 # package will install wine if it gets installed
 Recommends: wine
+# if user has wine and pulseaudio the package will be installed, preffered over the Recommends approach
+Supplements: (pulseaudio and wine)
 # if pulseaudio gets installed this package will as well
 Supplements: pulseaudio
 # if both vim and util-linux are installed the package
@@ -315,6 +317,7 @@ Alternative provider of format_spec_file functionality
 \begin{frame}[t]{Install phase}
 	\begin{itemize}
     \item Scriptlets are shell or lua scripts executed during various phases of the package install/removal or update
+    \item Scriptlets are fragile and everything until next target is evaluated and people must pay attention there
     \item \url{https://fedoraproject.org/wiki/Packaging:Scriptlets}
         \begin{itemize}
         \item \%pretrans - LUA only
@@ -332,9 +335,14 @@ Alternative provider of format_spec_file functionality
 \begin{verbatim}
 Requires(post): update-alternatives
 
+%pre -p /bin/ldconfig
+#this will break a lot the above command as this is parameter for the call
 %post
 update-alternatives --install %{_javadir}/el_api.jar el_api \
   %{_javadir}/%{name}-el-%{elspec}-api.jar 2030
+
+# this could also break the above
+%files
 \end{verbatim}
 	\end{small}
 \end{frame}

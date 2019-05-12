@@ -13,7 +13,7 @@
 \setmainfont{Liberation Sans}
 \author{Tom\'{a}\v{s} Chv\'{a}tal et al.\newline {\small tchvatal@suse.com}\newline {\small Packaging/L3 - Packaging}}
 \title{OBS intro}
-\date{2019/03/20}
+\date{2019/05/13}
 
 \AtBeginSection[]
 {
@@ -89,8 +89,16 @@
   \begin{itemize}
      \item Backend is written in Perl
      \item Frontend UI is Ruby
-     \item CLI tools are created in Python
+     \item CLI tools and bots are created in Python3
   \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Link and friends}
+\begin{itemize}
+\item aggregate - you copy resuting binaries from another project, less precise but also fewer rebuilds
+\item copy - you directly copy something to your project with no relation to the source
+\item link - you create the link to the remote and it can be fixed to revision, or follow the source
+\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Communicating with the OBS}
@@ -378,6 +386,13 @@ $ osc sr <RESPECTIVE_PROJECT>/<EXACT_PKG_NAME> ->
 	\item{\textbf{Devel project}\newline \url{https://build.opensuse.org/project/show/server:database}}
 	\item{\textbf{Staging dashboard}\newline \url{https://build.opensuse.org/project/staging\_projects/openSUSE:Factory}}
 	\item{\textbf{Maintenance Incidents}\newline \url{https://build.opensuse.org/project/maintenance\_incidents/openSUSE:Maintenance}}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Deep stuff}
+	\begin{itemize}
+	\item{\textbf{Advanced project configuration}\newline \url{https://build.opensuse.org/project/prjconf/devel:languages:python}}
+	\item{\textbf{Metadata access}\newline \url{https://build.opensuse.org/projects/devel:languages:python/meta}}
 	\end{itemize}
 \end{frame}
 
